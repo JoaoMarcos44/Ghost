@@ -1,0 +1,8 @@
+﻿{
+  "title": "Fixed GIF detection for image URL variants",
+  "summary": "Architecture: the image card checks the file type before showing image editing. Problem: checking the full URL misses GIF files with a query string, fragment, or uppercase extension. Solution: inspect the path before query and fragment with a case-insensitive GIF suffix check.",
+  "validation": "Regression cases cover .gif, .GIF, queries and fragments, plus non-GIF paths whose query mentions .gif. This detects URL extensions, not file contents.",
+  "theme": "pop-art",
+  "prompt": "Use case: infographic-diagram. Asset: a Ghost GitHub pull request illustration. Create a polished wide technical infographic, with large readable English type. Theme: Restrained geometric pop art, pale yellow, black, cyan and magenta, bold flat shapes. Use three numbered conceptual panels: Architecture, Problem, Solution. Show the real flow with clear arrows. Explain simply using only the facts below. Keep decorative motifs at the margins. Distinguish current behavior from the proposed fix. Footer: \"Proposed fix - not merged\". Do not invent benchmarks, severity, CI results, approval, logos, customer data or watermarks. Minimal words, generous whitespace.\nTitle: Fixed GIF detection for image URL variants\nFacts: Architecture: the image card checks the file type before showing image editing. Problem: checking the full URL misses GIF files with a query string, fragment, or uppercase extension. Solution: inspect the path before query and fragment with a case-insensitive GIF suffix check.\nValidation/context: Regression cases cover .gif, .GIF, queries and fragments, plus non-GIF paths whose query mentions .gif. This detects URL extensions, not file contents.",
+  "output": "infographic.png"
+}

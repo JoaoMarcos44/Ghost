@@ -1,0 +1,8 @@
+﻿{
+  "title": "Fixed telephone links in site navigation",
+  "summary": "Architecture: Admin formats navigation destinations before saving them. Problem: web trailing-slash rules also modify telephone URIs, turning tel:+15555550100 into tel:+15555550100/. Solution: apply path trailing-slash rules only to HTTP and HTTPS URLs; preserve telephone URIs.",
+  "validation": "Proposed formatter fix. Verify telephone numbers and extensions; HTTP child paths retain trailing slashes.",
+  "theme": "telegraph",
+  "prompt": "Use case: infographic-diagram. Asset: a Ghost GitHub pull request illustration. Create a polished wide technical infographic, with large readable English type. Theme: Vintage telegraph schematic on cream paper, dark ink and copper, elegant circuit borders. Use three numbered conceptual panels: Architecture, Problem, Solution. Show the real flow with clear arrows. Explain simply using only the facts below. Keep decorative motifs at the margins. Distinguish current behavior from the proposed fix. Footer: \"Proposed fix - not merged\". Do not invent benchmarks, severity, CI results, approval, logos, customer data or watermarks. Minimal words, generous whitespace.\nTitle: Fixed telephone links in site navigation\nFacts: Architecture: Admin formats navigation destinations before saving them. Problem: web trailing-slash rules also modify telephone URIs, turning tel:+15555550100 into tel:+15555550100/. Solution: apply path trailing-slash rules only to HTTP and HTTPS URLs; preserve telephone URIs.\nValidation/context: Proposed formatter fix. Verify telephone numbers and extensions; HTTP child paths retain trailing slashes.",
+  "output": "infographic.png"
+}
