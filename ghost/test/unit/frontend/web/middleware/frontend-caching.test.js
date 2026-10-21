@@ -31,9 +31,11 @@ describe('frontendCaching', function () {
     previewHeader,
     staffFrontendToolsEnabled,
     staffFrontendToolsCookieUpdated,
+    // Null uses the middleware's own loader, which reads the tiers.
+    loadFreeTier = async () => freeTier,
   } = {}) {
     const app = express();
-    const middleware = await frontendCaching.getMiddleware(async () => freeTier);
+    const middleware = await frontendCaching.getMiddleware(loadFreeTier ?? undefined);
 
     app.use((req, res, next) => {
       req.member = member;
@@ -74,17 +76,24 @@ describe('frontendCaching', function () {
     assert.equal(headers['cache-control'], testUtils.cacheRules.public);
   });
 
-  it('should load the free tier when no free tier loader is passed', async function () {
+  it('reads the free tier from the tiers only for a member whose content can be cached', async function () {
     const browse = sinon.stub(api.tiers, 'browse').resolves({
       tiers: [
         { id: 'paidTierId', type: 'paid' },
         { id: 'freeTierId', type: 'free' },
       ],
     });
-    const middleware = await frontendCaching.getMiddleware();
+    configUtils.set(cacheMembersContentConfigKey, true);
 
+    await requestWithFrontendCaching({ loadFreeTier: null });
+    assert.equal(browse.called, false);
+
+    const { headers } = await requestWithFrontendCaching({
+      member: { subscriptions: [] },
+      loadFreeTier: null,
+    });
     assert.equal(browse.calledOnce, true);
-    assert.equal(typeof middleware, 'function');
+    assert.equal(headers['x-member-cache-tier'], 'freeTierId');
   });
 
   it('should set cache control to private if the admin toolbar is enabled', async function () {

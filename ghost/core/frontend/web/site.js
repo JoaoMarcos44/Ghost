@@ -167,7 +167,7 @@ module.exports = function setupSiteApp(routerConfig) {
   siteApp.use(async function frontendCaching(req, res, next) {
     try {
       const middleware = await mw.frontendCaching.getMiddleware();
-      return middleware(req, res, next);
+      return await middleware(req, res, next);
     } catch {
       return next();
     }

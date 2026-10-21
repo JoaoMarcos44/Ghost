@@ -65,21 +65,19 @@ const buildImporterDeps = ({ stripeAPIService }) => {
     getDefaultTier: () => {
       return tiersService.api.readDefaultTier();
     },
-    getTierByName: async (name) => {
+    getTierByName: async (name, { transacting }) => {
       const tiers = await tiersService.api.browse({
         filter: {
           name,
         },
+        transacting,
       });
 
-      if (tiers.data.length > 0) {
-        // It is possible that there are multiple tiers with the same name so return the last one in the array -
-        // `tiersService.api.browse` returns all tiers, but without any ordering applied, so we assume that
-        // the last one in the array is the most recently created
-        return tiers.data.pop();
-      }
-
-      return null;
+      // Several tiers can share a name, so take the most recently created.
+      return tiers.data.reduce(
+        (newest, tier) => (!newest || tier.createdAt > newest.createdAt ? tier : newest),
+        null,
+      );
     },
     getGiftService: () => giftService.service,
     sendEmail: ghostMailer.send.bind(ghostMailer),

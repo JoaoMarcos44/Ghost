@@ -30,7 +30,8 @@ function calculateMemberTier(member, freeTier) {
 
 /**
  * Returns the frontend caching middleware.
- * @param {GetFreeTier} [getFreeTier] - Async function that takes no arguments and resolves to the free tier object.
+ * @param {GetFreeTier} [getFreeTier] - Async function that takes no arguments and resolves to the
+ * free tier object. Only called for a member whose content can be cached, as only they need it.
  * @returns {Promise<import('express').RequestHandler>} Middleware function.
  */
 const getMiddleware = async (
@@ -39,14 +40,13 @@ const getMiddleware = async (
     return tiers.find((tier) => tier.type === 'free');
   },
 ) => {
-  const freeTier = await getFreeTier();
   /**
    * Middleware to set cache headers based on site configuration and request properties.
    * @param {import('express').Request} req
    * @param {import('express').Response} res
    * @param {import('express').NextFunction} next
    */
-  function setFrontendCacheHeadersMiddleware(req, res, next) {
+  async function setFrontendCacheHeadersMiddleware(req, res, next) {
     if (req.header?.(preview._PREVIEW_HEADER_NAME)) {
       return shared.middleware.cacheControl('noCache')(req, res, next);
     }
@@ -82,7 +82,7 @@ const getMiddleware = async (
     // CASE: Cache member's content if this feature is enabled
     if (req.member && shouldCacheMembersContent) {
       // Set the 'cache-control' header to 'public'
-      const memberTier = calculateMemberTier(req.member, freeTier);
+      const memberTier = calculateMemberTier(req.member, await getFreeTier());
       if (!memberTier) {
         // Member has more than one active subscription, don't cache the content
         return shared.middleware.cacheControl('private')(req, res, next);
