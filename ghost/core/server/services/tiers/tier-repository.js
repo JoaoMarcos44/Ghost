@@ -40,14 +40,40 @@ module.exports = class TierRepository {
   /** @type {import('@tryghost/domain-events')} */
   #DomainEvents;
 
+  /** @type {import('./requirements').TierRequirements} */
+  #requirements;
+
   /**
    * @param {object} deps
    * @param {object} deps.ProductModel Bookshelf Model
    * @param {import('@tryghost/domain-events')} deps.DomainEvents
+   * @param {import('./requirements').TierRequirements} deps.requirements
    */
   constructor(deps) {
     this.#ProductModel = deps.ProductModel;
     this.#DomainEvents = deps.DomainEvents;
+    this.#requirements = deps.requirements;
+  }
+
+  /**
+   * The tiers these rows hold, with what each one's members must give when asked for.
+   *
+   * @param {Array<object>} models
+   * @param {object} options
+   * @param {boolean} [options.withRequirements]
+   * @param {import('knex').Knex.Transaction} [options.transacting]
+   * @returns {Promise<import('./tier')[]>}
+   */
+  async #toTiers(models, options) {
+    const data = models.map((model) => this.mapToTier(model));
+    const requirements = options.withRequirements
+      ? await this.#requirements.forTiers(data, { transacting: options.transacting })
+      : null;
+    return Promise.all(
+      data.map((tier) =>
+        Tier.create(requirements ? { ...tier, requirements: requirements.get(tier.id) } : tier),
+      ),
+    );
   }
 
   /**
@@ -79,6 +105,7 @@ module.exports = class TierRepository {
    *
    * @param {object} [options]
    * @param {object} [options.filter] - A mongo query object over the tier's columns
+   * @param {boolean} [options.withRequirements] - Reads what each tier's members must give
    * @param {import('knex').Knex.Transaction} [options.transacting] - Reads inside it
    * @returns {Promise<import('./tier')[]>}
    */
@@ -98,12 +125,13 @@ module.exports = class TierRepository {
         qb.orderByRaw(this.#ProductModel.orderDefaultRaw());
       })
       .fetchAll({ withRelated: ['benefits'], transacting: options.transacting });
-    return Promise.all(models.map((model) => Tier.create(this.mapToTier(model))));
+    return this.#toTiers(models.models, options);
   }
 
   /**
    * @param {import('bson-objectid').default} id
    * @param {object} [options]
+   * @param {boolean} [options.withRequirements] - Reads what the tier's members must give
    * @param {import('knex').Knex.Transaction} [options.transacting] - Reads inside it
    * @returns {Promise<import('./tier')>}
    */
@@ -112,7 +140,11 @@ module.exports = class TierRepository {
       { id: id.toHexString() },
       { withRelated: ['benefits'], transacting: options.transacting },
     );
-    return model ? Tier.create(this.mapToTier(model)) : null;
+    if (!model) {
+      return null;
+    }
+    const [tier] = await this.#toTiers([model], options);
+    return tier;
   }
 
   /**

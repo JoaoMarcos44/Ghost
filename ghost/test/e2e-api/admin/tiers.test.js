@@ -226,6 +226,7 @@ describe('Tiers API', function () {
         tiers: Array(1).fill({
           id: matchers.anyObjectId,
           created_at: matchers.anyISODate,
+          updated_at: matchers.anyISODateTime,
           name: 'new premium tier',
           slug: 'new-premium-tier',
           monthly_price: 100,
@@ -254,6 +255,7 @@ describe('Tiers API', function () {
         tiers: Array(1).fill({
           id: matchers.anyObjectId,
           created_at: matchers.anyISODate,
+          updated_at: matchers.anyISODateTime,
           name: 'benefit test tier',
           slug: 'benefit-test-tier',
           monthly_price: 100,

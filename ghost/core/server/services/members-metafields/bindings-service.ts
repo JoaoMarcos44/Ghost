@@ -6,7 +6,7 @@ import type { FieldType } from '@tryghost/metafield-types';
 import { IdentityTextSchema, type Key, type Namespace } from '@tryghost/metafield-types/identity';
 import { INTERNAL } from './access';
 import { fieldReference, onField, type FieldIdentity } from './queries';
-import { DbBoundField, FIELD_STATUS, type WriteOrigin } from './schema';
+import { DbBoundField, DbPortField, FIELD_STATUS, type WriteOrigin } from './schema';
 import type { MetafieldPlan, MetafieldValuesService } from './values-service';
 
 const FIELDS_TABLE = 'members_metafields';
@@ -19,6 +19,9 @@ export interface BoundField {
   key: Key;
   type: FieldType;
 }
+
+/** A custom field a port writes into: the port, and the field as its definition names it. */
+export type PortField = z.output<typeof DbPortField>;
 
 /**
  * What a value's provenance is, once the port it came through has been resolved.
@@ -67,6 +70,44 @@ export class MetafieldBindingsService {
       updated_at: now,
     });
     return bindingId;
+  }
+
+  /** The custom field each of these ports writes into, archived or not, leaving out ports bound nowhere. */
+  async fieldsFor(db: Knex, ports: readonly string[]): Promise<Map<string, PortField>> {
+    const fields = new Map<string, PortField>();
+    if (!ports.length) {
+      return fields;
+    }
+    const rows = await db(BINDINGS_TABLE)
+      .join(FIELDS_TABLE, onField(FIELDS_TABLE, BINDINGS_TABLE))
+      .whereIn(`${BINDINGS_TABLE}.port`, ports)
+      .select(
+        `${BINDINGS_TABLE}.port`,
+        `${FIELDS_TABLE}.namespace`,
+        `${FIELDS_TABLE}.key`,
+        `${FIELDS_TABLE}.name`,
+        `${FIELDS_TABLE}.type`,
+        `${FIELDS_TABLE}.status`,
+      );
+
+    for (const row of rows) {
+      // Unreadable is skipped like an unbound port, as in `resolve`.
+      const field = DbPortField.safeParse(row);
+      if (!field.success) {
+        logging.warn(
+          { event: { name: 'members.metafields.binding_unreadable' }, err: field.error },
+          'A binding could not be read',
+        );
+        continue;
+      }
+      fields.set(field.data.port, field.data);
+    }
+    return fields;
+  }
+
+  /** Whether any port writes into this field. */
+  async isBound(field: FieldIdentity): Promise<boolean> {
+    return (await this.knex(BINDINGS_TABLE).where(fieldReference(field)).first('id')) !== undefined;
   }
 
   /** Stops the writing. Whatever hangs off the binding cascades with it. */

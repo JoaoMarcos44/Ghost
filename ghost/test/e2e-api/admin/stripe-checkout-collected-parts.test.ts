@@ -32,7 +32,27 @@ interface PartUnderTest<Part extends CollectedPart> {
   askedWith?: unknown;
   /** The part's own options, set to something other than their defaults. */
   options: Partial<SwitchedOn<Part>>;
+  /**
+   * The row naming one more tier for the part, where its tiers are stored: the tier requirement
+   * it's required under, or the config for a part that lands nowhere.
+   */
+  storedTier: (tierId: string) => { table: string; row: Record<string, string> };
+  /** What members on the part's tiers must give. Null for a part that lands nowhere. */
+  requirement: {
+    /**
+     * As a tier lists it: the port, and each port its answers come back through with the
+     * custom field it's kept in.
+     */
+    listed: { port: string; customFields: string[] };
+    /** The custom field it can't be asked for without. */
+    essentialKey: string;
+  } | null;
 }
+
+const requiredOn = (port: string) => (tierId: string) => ({
+  table: 'tier_requirement_tiers',
+  row: { port, product_id: tierId },
+});
 
 const PARTS: { [Part in CollectedPart]: PartUnderTest<Part> } = {
   shipping: {
@@ -46,6 +66,17 @@ const PARTS: { [Part in CollectedPart]: PartUnderTest<Part> } = {
     }),
     stripeParam: 'shipping_address_collection',
     options: { allowed_countries: ['GB'] },
+    storedTier: requiredOn('checkout.shipping'),
+    requirement: {
+      listed: {
+        port: 'checkout.shipping',
+        customFields: [
+          'checkout.shipping.address -> custom.delivery_address',
+          'checkout.shipping.name -> custom.recipient_name',
+        ],
+      },
+      essentialKey: 'delivery_address',
+    },
   },
   phone: {
     noun: 'phone number',
@@ -58,6 +89,14 @@ const PARTS: { [Part in CollectedPart]: PartUnderTest<Part> } = {
     stripeParam: 'phone_number_collection',
     askedWith: { enabled: true },
     options: {},
+    storedTier: requiredOn('checkout.phone'),
+    requirement: {
+      listed: {
+        port: 'checkout.phone',
+        customFields: ['checkout.phone -> custom.contact_phone'],
+      },
+      essentialKey: 'contact_phone',
+    },
   },
   tax_number: {
     noun: 'tax ID',
@@ -65,6 +104,12 @@ const PARTS: { [Part in CollectedPart]: PartUnderTest<Part> } = {
     stripeParam: 'tax_id_collection',
     askedWith: { enabled: true },
     options: {},
+    storedTier: (tierId) => ({
+      table: 'stripe_checkout_config_tiers',
+      row: { section: 'tax_number', product_id: tierId },
+    }),
+    // Stripe keeps the tax ID, so no member needs it in a field.
+    requirement: null,
   },
 };
 
@@ -80,6 +125,7 @@ const OFF = { collect: false };
 describe('Stripe Checkout collected parts', function () {
   let adminAgent: any;
   let membersAgent: any;
+  let contentAPIAgent: any;
   let paidTierId: string;
   let freeTierId: string;
 
@@ -114,12 +160,37 @@ describe('Stripe Checkout collected parts', function () {
   /** The session Ghost sent to Stripe for the checkout or preview it made last. */
   const lastSession = () => stripeMocker.checkoutSessions.at(-1);
 
+  async function setFieldStatus(key: string, status: 'active' | 'archived') {
+    await adminAgent
+      .put(`members/metafields/custom/${key}/`)
+      .body({ members_metafields: [{ status }] })
+      .expectStatus(200);
+  }
+
+  /** What a tier's members must give, as the Admin API shows it, each field as port -> field. */
+  async function requirementsOn(tierId: string) {
+    const { body } = await adminAgent.get(`tiers/${tierId}/`).expectStatus(200);
+    return body.tiers[0].requirements.map(
+      (requirement: {
+        port: string;
+        custom_fields: Array<{ port: string; namespace: string; key: string }>;
+      }) => ({
+        port: requirement.port,
+        customFields: requirement.custom_fields.map(
+          (field) => `${field.port} -> ${field.namespace}.${field.key}`,
+        ),
+      }),
+    );
+  }
+
   beforeAll(async function () {
     const agents = await agentProvider.getAgentsForMembers();
     adminAgent = agents.adminAgent;
     membersAgent = agents.membersAgent;
-    await fixtureManager.init('members');
+    contentAPIAgent = agents.contentAPIAgent;
+    await fixtureManager.init('members', 'api_keys');
     await adminAgent.loginAsOwner();
+    await contentAPIAgent.authenticate();
 
     const { body } = await adminAgent.get('tiers/?limit=all').expectStatus(200);
     paidTierId = body.tiers.find((tier: { type: string }) => tier.type === 'paid').id;
@@ -145,6 +216,8 @@ describe('Stripe Checkout collected parts', function () {
     await models.Base.knex('stripe_checkout_config_tiers').del();
     await models.Base.knex('stripe_checkout_config').del();
     await models.Base.knex('members_metafield_bindings').del();
+    await models.Base.knex('tier_requirement_tiers').del();
+    await models.Base.knex('tier_requirements').del();
     await models.Base.knex('members_metafields').del();
     await models.Base.knex('actions')
       .whereIn('resource_type', ['stripe_checkout_config', 'member_custom_field'])
@@ -153,7 +226,7 @@ describe('Stripe Checkout collected parts', function () {
   });
 
   const describePart = <Part extends CollectedPart>(part: Part) => {
-    const { noun, on, stripeParam, askedWith, options } = PARTS[part];
+    const { noun, on, stripeParam, askedWith, options, storedTier, requirement } = PARTS[part];
 
     /** Checks a session Ghost sent to Stripe asks for the part. */
     const assertAsks = (session: Record<string, unknown>) => {
@@ -253,10 +326,8 @@ describe('Stripe Checkout collected parts', function () {
         await addPaidTier(SECOND_TIER_ID);
         await setCheckout({ [part]: on({ tier_ids: [SECOND_TIER_ID] }) });
         // The API refuses a free tier, so one can only be on the list if it got there another way.
-        await models.Base.knex('stripe_checkout_config_tiers').insert({
-          section: part,
-          product_id: freeTierId,
-        });
+        const { table, row } = storedTier(freeTierId);
+        await models.Base.knex(table).insert(row);
         assert.deepEqual((await readCheckout())[part].tier_ids, [SECOND_TIER_ID]);
 
         // A free tier left on the list never keeps it on.
@@ -274,6 +345,36 @@ describe('Stripe Checkout collected parts', function () {
         });
       });
     });
+
+    if (requirement) {
+      const { listed, essentialKey } = requirement;
+      describe(`${part}: tier requirements`, function () {
+        it('is required of members on its tiers, with the fields it is kept in, and stops once off', async function () {
+          await addPaidTier(SECOND_TIER_ID);
+
+          await setCheckout({ [part]: on({ tier_ids: [SECOND_TIER_ID] }) });
+          assert.deepEqual(await requirementsOn(SECOND_TIER_ID), [listed]);
+          assert.deepEqual(await requirementsOn(paidTierId), []);
+
+          await setCheckout({ [part]: on() });
+          assert.deepEqual(await requirementsOn(paidTierId), [listed]);
+          assert.deepEqual(await requirementsOn(freeTierId), []);
+
+          await setCheckout({ [part]: OFF });
+          assert.deepEqual(await requirementsOn(SECOND_TIER_ID), []);
+        });
+
+        it('is left off its tiers while the field it cannot be asked without is archived', async function () {
+          await setCheckout({ [part]: on() });
+
+          await setFieldStatus(essentialKey, 'archived');
+          assert.deepEqual(await requirementsOn(paidTierId), []);
+
+          await setFieldStatus(essentialKey, 'active');
+          assert.deepEqual(await requirementsOn(paidTierId), [listed]);
+        });
+      });
+    }
 
     describe(`${part}: Preview in Stripe`, function () {
       function requestPreview(previewed: Record<string, unknown> | undefined, status: number) {
@@ -377,6 +478,124 @@ describe('Stripe Checkout collected parts', function () {
     });
   };
   COLLECTED_PARTS.forEach(describePart);
+
+  it('shows each field under the part it lands in after a save moves it between parts', async function () {
+    await addPaidTier(SECOND_TIER_ID);
+    await adminAgent
+      .post('members/metafields/custom/')
+      .body({ members_metafields: [{ name: 'Mobile phone', type: 'short_text' }] })
+      .expectStatus(201);
+    await setCheckout({
+      shipping: PARTS.shipping.on({ tier_ids: [SECOND_TIER_ID] }),
+      phone: PARTS.phone.on(),
+    });
+
+    // The phone's field becomes the recipient's name, and the phone moves to another field.
+    await setCheckout({
+      shipping: PARTS.shipping.on(
+        { tier_ids: [SECOND_TIER_ID] },
+        { name: { custom_field_key: 'contact_phone' } },
+      ),
+      phone: PARTS.phone.on({}, { custom_field_key: 'mobile_phone' }),
+    });
+
+    assert.deepEqual(await requirementsOn(SECOND_TIER_ID), [
+      {
+        port: 'checkout.phone',
+        customFields: ['checkout.phone -> custom.mobile_phone'],
+      },
+      {
+        port: 'checkout.shipping',
+        customFields: [
+          'checkout.shipping.address -> custom.delivery_address',
+          'checkout.shipping.name -> custom.contact_phone',
+        ],
+      },
+    ]);
+    assert.deepEqual(await requirementsOn(paidTierId), [
+      { port: 'checkout.phone', customFields: ['checkout.phone -> custom.mobile_phone'] },
+    ]);
+  });
+
+  it("keeps shipping on its tiers while the recipient's name is archived, but not once it's deleted", async function () {
+    await setCheckout({ shipping: PARTS.shipping.on() });
+
+    // Without the name, the address is still kept.
+    await setFieldStatus('recipient_name', 'archived');
+    assert.deepEqual(await requirementsOn(paidTierId), [
+      {
+        port: 'checkout.shipping',
+        customFields: ['checkout.shipping.address -> custom.delivery_address'],
+      },
+    ]);
+
+    // Deleted, it leaves shipping without somewhere to keep the name, which reads as off.
+    await adminAgent.delete('members/metafields/custom/recipient_name/').expectStatus(204);
+    assert.deepEqual(await requirementsOn(paidTierId), []);
+    assert.equal((await readCheckout()).shipping.collect, false);
+  });
+
+  it('lists what members must give to anyone, through the Content API, only while collection is in Labs', async function () {
+    await setCheckout({ phone: PARTS.phone.on() });
+
+    const { body } = await contentAPIAgent.get('/tiers/').expectStatus(200);
+    assert.deepEqual(
+      body.tiers.find((tier: { id: string }) => tier.id === paidTierId).requirements,
+      [
+        {
+          port: 'checkout.phone',
+          custom_fields: [
+            {
+              port: 'checkout.phone',
+              namespace: 'custom',
+              key: 'contact_phone',
+              name: 'Contact phone',
+              type: 'short_text',
+            },
+          ],
+        },
+      ],
+    );
+
+    mockManager.mockLabsDisabled('stripeCheckoutCollection');
+    const { body: content } = await contentAPIAgent.get('/tiers/').expectStatus(200);
+    assert.ok(content.tiers.every((tier: object) => !('requirements' in tier)));
+    const { body: admin } = await adminAgent.get(`tiers/${paidTierId}/`).expectStatus(200);
+    assert.equal('requirements' in admin.tiers[0], false);
+  });
+
+  it('clears the site cache when what tiers list could change', async function () {
+    // Tiers list to anyone what their members must give, so a cached list would go stale.
+    const design = await adminAgent
+      .put('stripe/checkout/config/')
+      .body({ checkout_config: [{ design: { customize: false } }] })
+      .expectStatus(200);
+    assert.equal(design.headers['x-cache-invalidate'], undefined);
+
+    const saved = await adminAgent
+      .put('stripe/checkout/config/')
+      .body({ checkout_config: [{ phone: PARTS.phone.on() }] })
+      .expectStatus(200);
+    assert.equal(saved.headers['x-cache-invalidate'], '/*');
+
+    const unbound = await adminAgent
+      .put('members/metafields/custom/recipient_name/')
+      .body({ members_metafields: [{ status: 'archived' }] })
+      .expectStatus(200);
+    assert.equal(unbound.headers['x-cache-invalidate'], undefined);
+
+    const renamed = await adminAgent
+      .put('members/metafields/custom/contact_phone/')
+      .body({ members_metafields: [{ name: 'Mobile phone' }] })
+      .expectStatus(200);
+    assert.equal(renamed.headers['x-cache-invalidate'], '/*');
+
+    await setFieldStatus('contact_phone', 'archived');
+    const deleted = await adminAgent
+      .delete('members/metafields/custom/contact_phone/')
+      .expectStatus(204);
+    assert.equal(deleted.headers['x-cache-invalidate'], '/*');
+  });
 
   it('keeps each part to its own tiers, saved and at checkout', async function () {
     await addPaidTier(SECOND_TIER_ID);

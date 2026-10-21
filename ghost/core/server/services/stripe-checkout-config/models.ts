@@ -101,6 +101,19 @@ export type CollectedSection = (typeof SECTION_OF)[CollectedPart];
 export const COLLECTED_SECTIONS = COLLECTED_PARTS.map((part) => SECTION_OF[part]);
 
 /**
+ * The collected parts whose answers Ghost saves nowhere, so they keep their tiers in the config.
+ * Every other part saves into custom fields and keeps its tiers as the requirements on them, so
+ * whoever collects them asks on the same tiers.
+ */
+export const CONFIG_TIER_PARTS = ['tax_number'] as const satisfies readonly CollectedPart[];
+export const CONFIG_TIER_SECTIONS = CONFIG_TIER_PARTS.map((part) => SECTION_OF[part]);
+export type ConfigTierSection = (typeof CONFIG_TIER_SECTIONS)[number];
+
+export function keepsTiersInConfig(section: CollectedSection): section is ConfigTierSection {
+  return CONFIG_TIER_SECTIONS.some((candidate) => candidate === section);
+}
+
+/**
  * Each collected part's name where it is stored, in its own column and in the rows naming its
  * tiers, which is also its name in the Admin API.
  */

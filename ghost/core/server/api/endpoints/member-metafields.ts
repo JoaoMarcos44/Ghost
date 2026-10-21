@@ -1,5 +1,6 @@
 import type { Controller, Frame } from '@tryghost/api-framework';
-import { ADMIN, actingContext, definitions } from '../../services/members-metafields';
+import type { Identity } from '@tryghost/metafield-types/identity';
+import { ADMIN, actingContext, bindings, definitions } from '../../services/members-metafields';
 import { assertDefinable } from '../../services/members-metafields/namespaces';
 import { fieldRoute, namespaceRoute } from '../../services/members-metafields/serializers';
 
@@ -50,6 +51,16 @@ async function canDefine(frame: ReadFrame, action: (frame: ReadFrame) => Promise
 }
 
 const noCacheInvalidation = { cacheInvalidate: false };
+
+/**
+ * Clears the site's cache when a port writes into the field, as tiers list the fields their
+ * requirements are kept in, with their names, to anyone.
+ */
+async function invalidateIfBound(frame: WriteFrame, field: Identity): Promise<void> {
+  if (await bindings!.isBound(field)) {
+    frame.setHeader('X-Cache-Invalidate', '/*');
+  }
+}
 
 const controller = {
   docName: 'members_metafields',
@@ -118,14 +129,17 @@ const controller = {
     permissions(frame: WriteFrame) {
       return canDefine(frame, (f) => canThis(f).edit.member_custom_field(f.options.key));
     },
-    query(frame: WriteFrame) {
-      const { namespace, key } = fieldRoute(frame.options);
-      return definitions!.edit(
+    async query(frame: WriteFrame) {
+      const field = fieldRoute(frame.options);
+      const edited = await definitions!.edit(
         actingContext(frame.options.context),
-        namespace,
-        key,
+        field.namespace,
+        field.key,
         frame.data.members_metafields[0],
       );
+      // Checked after the edit, so a binding made meanwhile still clears the cache.
+      await invalidateIfBound(frame, field);
+      return edited;
     },
   },
 
@@ -138,8 +152,10 @@ const controller = {
       return canDefine(frame, (f) => canThis(f).destroy.member_custom_field(f.options.key));
     },
     async query(frame: WriteFrame) {
-      const { namespace, key } = fieldRoute(frame.options);
-      await definitions!.destroy(actingContext(frame.options.context), namespace, key);
+      const field = fieldRoute(frame.options);
+      // Checked before, as deleting the field deletes its bindings.
+      await invalidateIfBound(frame, field);
+      await definitions!.destroy(actingContext(frame.options.context), field.namespace, field.key);
       return null;
     },
   },

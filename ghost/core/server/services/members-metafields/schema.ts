@@ -100,6 +100,16 @@ export const DbMetafieldBinding = z.object({
 
 type MetafieldBindingRow = z.infer<typeof DbMetafieldBinding>;
 
+/** A port joined to the field it writes into, as a reader of what the port collects sees it. */
+export const DbPortField = z.object({
+  port: z.string(),
+  namespace: NamespaceSchema,
+  key: KeySchema,
+  name: z.string(),
+  type: FieldTypeSchema,
+  status: FieldStatusSchema,
+});
+
 /** A binding joined to the field it points at, which is how a collected value is routed. */
 export const DbBoundField = z.object({
   binding_id: z.string(),
