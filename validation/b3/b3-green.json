@@ -1,0 +1,14 @@
+{
+  "label": "b3-green",
+  "cwd": "koenig/koenig-lexical",
+  "command": [
+    "pnpm",
+    "exec",
+    "vitest",
+    "run",
+    "test/unit/utils/isGif.test.ts",
+    "--maxWorkers=1",
+    "--no-file-parallelism"
+  ],
+  "exit_code": 0
+}

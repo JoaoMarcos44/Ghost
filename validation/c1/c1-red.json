@@ -1,0 +1,15 @@
+{
+  "label": "c1-red",
+  "cwd": "ghost",
+  "command": [
+    "pnpm",
+    "exec",
+    "vitest",
+    "run",
+    "--config",
+    ".c1-vitest.config.ts",
+    "--maxWorkers=1",
+    "--no-file-parallelism"
+  ],
+  "exit_code": 1
+}

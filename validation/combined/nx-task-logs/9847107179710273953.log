@@ -1,0 +1,6 @@
+(node:26936) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+$ pnpm run '/^lint:(server|kernel|shared|frontend|test)$/'
+'kernel' n�o � reconhecido como um comando interno
+ou externo, um programa oper�vel ou um arquivo em lotes.
+[ELIFECYCLE] Command failed with exit code 255.

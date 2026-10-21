@@ -1,0 +1,85 @@
+
+ RUN  v4.1.11 C:/Users/Nitro/Ghost/.tmp-sandbox-workspace/apps/comments-ui
+
+ ❯ test/unit/utils/helpers.test.ts (61 tests | 6 failed) 76ms
+     × uses the local day in Sao Paulo when UTC has crossed midnight 33ms
+     × shows Yesterday in Sao Paulo when the UTC dates match 2ms
+     × uses the local day across a UTC month boundary in Tokyo 2ms
+     × uses the local day across a UTC year boundary in Tokyo 1ms
+     × shows Yesterday across the local year boundary in Los Angeles 1ms
+     × shows Yesterday in Tokyo when UTC has not crossed midnight 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/unit/utils/helpers.test.ts > formatRelativeTime > uses the local day in Sao Paulo when UTC has crossed midnight
+AssertionError: expected 'Yesterday' to deeply equal '3 hrs ago'
+
+Expected: "3 hrs ago"
+Received: "Yesterday"
+
+ ❯ expectFormatInTimezone test/unit/utils/helpers.test.ts:162:51
+    160|
+    161|     try {
+    162|       expect(helpers.formatRelativeTime(date, t)).toEqual(expected);
+       |                                                   ^
+    163|     } finally {
+    164|       globalThis.Date = FakeDate;
+ ❯ test/unit/utils/helpers.test.ts:231:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  test/unit/utils/helpers.test.ts > formatRelativeTime > shows Yesterday in Sao Paulo when the UTC dates match
+ FAIL  test/unit/utils/helpers.test.ts > formatRelativeTime > shows Yesterday across the local year boundary in Los Angeles
+ FAIL  test/unit/utils/helpers.test.ts > formatRelativeTime > shows Yesterday in Tokyo when UTC has not crossed midnight
+AssertionError: expected '4 hrs ago' to deeply equal 'Yesterday'
+
+Expected: "Yesterday"
+Received: "4 hrs ago"
+
+ ❯ expectFormatInTimezone test/unit/utils/helpers.test.ts:162:51
+    160|
+    161|     try {
+    162|       expect(helpers.formatRelativeTime(date, t)).toEqual(expected);
+       |                                                   ^
+    163|     } finally {
+    164|       globalThis.Date = FakeDate;
+ ❯ test/unit/utils/helpers.test.ts:231:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  test/unit/utils/helpers.test.ts > formatRelativeTime > uses the local day across a UTC month boundary in Tokyo
+ FAIL  test/unit/utils/helpers.test.ts > formatRelativeTime > uses the local day across a UTC year boundary in Tokyo
+AssertionError: expected 'Yesterday' to deeply equal '10 hrs ago'
+
+Expected: "10 hrs ago"
+Received: "Yesterday"
+
+ ❯ expectFormatInTimezone test/unit/utils/helpers.test.ts:162:51
+    160|
+    161|     try {
+    162|       expect(helpers.formatRelativeTime(date, t)).toEqual(expected);
+       |                                                   ^
+    163|     } finally {
+    164|       globalThis.Date = FakeDate;
+ ❯ test/unit/utils/helpers.test.ts:231:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  6 failed | 55 passed (61)
+   Start at  18:07:01
+   Duration  20.26s (transform 232ms, setup 8.45s, import 349ms, tests 76ms, environment 942ms)
+
+18:07:22 [vite] (client) warning: strip-fingerprinting: 10 replacement(s) did not match. Dependencies may have been updated. Unmatched:
+  - prosemirror-view: safari detection (nav.vendor)
+  - prosemirror-view: iOS detection (nav.maxTouchPoints)
+  - prosemirror-view: mac detection (nav.platform)
+  - prosemirror-view: windows detection (nav.platform)
+  - prosemirror-keymap: mac/iOS detection (navigator.platform)
+  - prosemirror-commands: mac/iOS detection (navigator.platform)
+  - w3c-keyname: mac detection (navigator.platform)
+  - @tiptap/core: isAndroid (navigator.platform)
+  - @tiptap/core: isiOS (navigator.platform)
+  - @tiptap/core: isMacOS (navigator.platform)
+  Plugin: strip-fingerprinting

@@ -1,0 +1,15 @@
+{
+  "label": "combined-navigation-regressions",
+  "cwd": "apps/admin",
+  "command": [
+    "pnpm",
+    "exec",
+    "vitest",
+    "run",
+    "src/settings/utils/format-url.home.test.ts",
+    "src/settings/utils/format-url.telephone.test.ts",
+    "--maxWorkers=1",
+    "--no-file-parallelism"
+  ],
+  "exit_code": 0
+}

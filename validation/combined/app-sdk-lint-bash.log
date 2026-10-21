@@ -1,0 +1,8 @@
+$ pnpm run '/^lint:/'
+/d: /d: Is a directory
+[ELIFECYCLE] Command failed with exit code 126.
+Error: ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL
+
+  × "pnpm recursive run" failed in C:\Users\Nitro\Ghost\.tmp-sandbox-
+  │ workspace\packages\app-sdk
+

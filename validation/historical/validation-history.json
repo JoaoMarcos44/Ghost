@@ -1,0 +1,48 @@
+{
+  "scenario": "history",
+  "started_at": "2026-10-21T08:22:32.109910+00:00",
+  "head": "68693a89812f857e6c96bac814381ec2e4503210",
+  "runtime": "v22.23.3",
+  "platform": "Windows-11-10.0.22621-SP0",
+  "package_manager": "pnpm@12.10.1",
+  "dependencies": {
+    "jsdom": "30.0.1",
+    "node-win-x64": "22.23.3"
+  },
+  "source_sha256": {
+    "packages/app-sdk/src/history.ts": "206ffcf5edd4c45c88931f69606550e787a9a1ea896f70157b855ba9f7a1873c",
+    "packages/app-contracts/src/bridge/rules.ts": "43f6c55b414ea8734828d85ae55bc0dabf0f33c7a66f094c9155d8bf837ce140"
+  },
+  "exit_code": 0,
+  "observations": {
+    "scenario": "state-existing-before-sdk-connection",
+    "expected": {
+      "restoreScroll": 450,
+      "draft": "editor-7"
+    },
+    "actual": null,
+    "positive_control": {
+      "restoreScroll": 120
+    },
+    "reported_moves": [
+      [
+        "/next",
+        "push"
+      ],
+      [
+        "/a",
+        "push"
+      ],
+      [
+        "/b",
+        "push"
+      ]
+    ],
+    "current_bug_reproduced": true,
+    "sandbox_mutation_control": {
+      "restoreScroll": 450,
+      "draft": "editor-7"
+    }
+  },
+  "sandbox_removed": true
+}

@@ -1,0 +1,19 @@
+
+ RUN  v4.1.11 C:/Users/Nitro/Ghost/.tmp-sandbox-workspace/packages/app-sdk
+
+TypeScript 7.0 does not yet have a stable API and is experimental. Some options will be unavailable.
+Not implemented: navigation to another Document
+Not implemented: navigation to another Document
+Not implemented: navigation to another Document
+Not implemented: navigation to another Document
+Not implemented: navigation to another Document
+Not implemented: navigation to another Document
+Not implemented: navigation to another Document
+Not implemented: navigation to another Document
+Not implemented: navigation to another Document
+
+ Test Files  1 passed (1)
+      Tests  11 passed (11)
+   Start at  17:29:59
+   Duration  64.89s (transform 350ms, setup 0ms, import 594ms, tests 238ms, environment 52.61s)
+

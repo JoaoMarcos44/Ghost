@@ -1,0 +1,37 @@
+
+ RUN  v4.1.11 C:/Users/Nitro/Ghost/.tmp-sandbox-workspace/ghost
+
+···x······························
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| test/unit/server/services/oembed/extract-metadata.test.ts > extractMetadata > reads the first JSON-LD image when image is an array of URLs
+AssertionError: Expected values to be strictly equal:
++ actual - expected
+
++ null
+- 'https://example.com/cover.jpg'
+
+
+- Expected:
+"https://example.com/cover.jpg"
+
++ Received:
+null
+
+ ❯ test/unit/server/services/oembed/extract-metadata.test.ts:84:14
+     82|       );
+     83|
+     84|       assert.equal(metadata.image, 'https://example.com/cover.jpg');
+       |              ^
+     85|     }
+     86|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 33 passed (34)
+   Start at  17:01:01
+   Duration  9.62s (transform 169ms, setup 5.25s, import 2.01s, tests 1.66s, environment 0ms)
+

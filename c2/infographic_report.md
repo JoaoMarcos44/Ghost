@@ -2,6 +2,14 @@
 
 ![Portal attribution infographic](infographic.png)
 
+## Current validation
+
+- Focused Portal attribution tests: **20 passed**. From `ghost/`: `pnpm exec vitest run test/unit/frontend/src/url-attribution.test.ts --maxWorkers=1 --no-file-parallelism`.
+- PR: [#32144](https://github.com/TryGhost/Ghost/pull/32144).
+- No real-browser E2E or database test was run. Full `pnpm check` and upstream CI: pending.
+
+> **Historical generation record:** The content below records the image-generation context and status at that time. Any test-status statement below is superseded by Current validation above; the generation prompts are preserved unchanged.
+
 **Architecture:** The page URL can contain an outer query and a separate Portal route fragment. The attribution parser needs to read the Portal fragment’s query for Portal routes.
 
 **Problem:** In the exact example `https://example.com/?view=full#/portal/signup?ref=newsletter`, the current parser reads `?view=full` instead of the Portal fragment’s `?ref=newsletter`.

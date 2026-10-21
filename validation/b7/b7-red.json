@@ -1,0 +1,14 @@
+{
+  "label": "b7-red",
+  "cwd": "ghost",
+  "command": [
+    "pnpm",
+    "exec",
+    "vitest",
+    "run",
+    "test/unit/server/models/base/listeners.test.js",
+    "--maxWorkers=1",
+    "--no-file-parallelism"
+  ],
+  "exit_code": 1
+}

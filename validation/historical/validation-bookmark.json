@@ -1,0 +1,109 @@
+{
+  "scenario": "bookmark",
+  "started_at": "2026-10-21T08:20:31.920731+00:00",
+  "head": "68693a89812f857e6c96bac814381ec2e4503210",
+  "runtime": "v22.23.3",
+  "platform": "Windows-11-10.0.22621-SP0",
+  "package_manager": "pnpm@12.10.1",
+  "dependencies": {
+    "cheerio": "1.2.0",
+    "chrono-node": "2.10.1",
+    "entities": "4.5.0",
+    "jsonrepair": "3.15.0",
+    "tldts": "7.4.4",
+    "metascraper": "5.55.2",
+    "metascraper-image": "5.55.2",
+    "node-win-x64": "22.23.3"
+  },
+  "source_sha256": {
+    "ghost/core/server/services/oembed/extract-metadata.ts": "fdf9d0589b24555916a9f98e07d8cdacf55bd22795b34de2c70f5b272f9f5975"
+  },
+  "exit_code": 0,
+  "observations": {
+    "results": [
+      {
+        "name": "jsonld-string-control",
+        "expected": "https://example.com/cover.jpg",
+        "actual": "https://example.com/cover.jpg",
+        "previous": "https://example.com/cover.jpg",
+        "current_matches_expected": true,
+        "demonstrated_regression": false
+      },
+      {
+        "name": "jsonld-object-control",
+        "expected": "https://example.com/cover.jpg",
+        "actual": "https://example.com/cover.jpg",
+        "previous": "https://example.com/cover.jpg",
+        "current_matches_expected": true,
+        "demonstrated_regression": false
+      },
+      {
+        "name": "jsonld-object-array-control",
+        "expected": "https://example.com/cover.jpg",
+        "actual": "https://example.com/cover.jpg",
+        "previous": "https://example.com/cover.jpg",
+        "current_matches_expected": true,
+        "demonstrated_regression": false
+      },
+      {
+        "name": "jsonld-string-array",
+        "expected": "https://example.com/cover.jpg",
+        "actual": null,
+        "previous": null,
+        "current_matches_expected": false,
+        "demonstrated_regression": false
+      },
+      {
+        "name": "jsonld-two-string-array",
+        "expected": "https://example.com/cover.jpg",
+        "actual": null,
+        "previous": null,
+        "current_matches_expected": false,
+        "demonstrated_regression": false
+      },
+      {
+        "name": "html-img-control",
+        "expected": "https://example.com/cover.jpg",
+        "actual": "https://example.com/cover.jpg",
+        "previous": "https://example.com/cover.jpg",
+        "current_matches_expected": true,
+        "demonstrated_regression": false
+      },
+      {
+        "name": "html-img-after-empty-src",
+        "expected": "https://example.com/cover.jpg",
+        "actual": "https://example.com/cover.jpg",
+        "previous": "https://example.com/cover.jpg",
+        "current_matches_expected": true,
+        "demonstrated_regression": false
+      },
+      {
+        "name": "html-img-after-inline-placeholder",
+        "expected": "https://example.com/cover.jpg",
+        "actual": null,
+        "previous": "data:image/gif;base64,R0lGODlhAQABAIAAAAUEBA==",
+        "current_matches_expected": false,
+        "demonstrated_regression": false
+      },
+      {
+        "name": "og-image-after-empty-content",
+        "expected": "https://example.com/cover.jpg",
+        "actual": null,
+        "previous": null,
+        "current_matches_expected": false,
+        "demonstrated_regression": false
+      }
+    ],
+    "sandbox_mutation_control": [
+      {
+        "name": "jsonld-string-array",
+        "image": "https://example.com/cover.jpg"
+      },
+      {
+        "name": "jsonld-two-string-array",
+        "image": "https://example.com/cover.jpg"
+      }
+    ]
+  },
+  "sandbox_removed": true
+}

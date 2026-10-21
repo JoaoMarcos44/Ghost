@@ -1,0 +1,21 @@
+
+ RUN  v4.1.11 C:/Users/Nitro/Ghost/.tmp-sandbox-workspace/apps/comments-ui
+
+
+ Test Files  1 passed (1)
+      Tests  61 passed (61)
+   Start at  18:15:50
+   Duration  2.40s (transform 325ms, setup 404ms, import 562ms, tests 54ms, environment 1.16s)
+
+18:15:52 [vite] (client) warning: strip-fingerprinting: 10 replacement(s) did not match. Dependencies may have been updated. Unmatched:
+  - prosemirror-view: safari detection (nav.vendor)
+  - prosemirror-view: iOS detection (nav.maxTouchPoints)
+  - prosemirror-view: mac detection (nav.platform)
+  - prosemirror-view: windows detection (nav.platform)
+  - prosemirror-keymap: mac/iOS detection (navigator.platform)
+  - prosemirror-commands: mac/iOS detection (navigator.platform)
+  - w3c-keyname: mac detection (navigator.platform)
+  - @tiptap/core: isAndroid (navigator.platform)
+  - @tiptap/core: isiOS (navigator.platform)
+  - @tiptap/core: isMacOS (navigator.platform)
+  Plugin: strip-fingerprinting

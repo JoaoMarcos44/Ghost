@@ -1,0 +1,46 @@
+
+ RUN  v4.1.11 C:/Users/Nitro/Ghost/.tmp-sandbox-workspace/ghost
+
+ ❯ test/integration/services/automations/automation-run-date-storage.test.ts (3 tests | 1 failed) 6900ms
+     × stores millisecond dates and handles the ready_at boundary 25ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/integration/services/automations/automation-run-date-storage.test.ts > SQLite automation date storage > stores millisecond dates and handles the ready_at boundary
+AssertionError: Expected values to be strictly deep-equal:
++ actual - expected
+
+  [
++   'boundary-step',
++   'future-step',
+    'legacy-step',
+-   'boundary-step'
+  ]
+
+
+- Expected
++ Received
+
+  [
++   "boundary-step",
++   "future-step",
+    "legacy-step",
+-   "boundary-step",
+  ]
+
+ ❯ test/integration/services/automations/automation-run-date-storage.test.ts:233:12
+    231|     vi.setSystemTime(now);
+    232|     const { steps } = await repository.fetchAndLockSteps(10);
+    233|     assert.deepEqual(steps.map((step) => step.id), ['legacy-step', 'bo…
+       |            ^
+    234|
+    235|     assert.equal(storedFutureStep?.ready_at_type, 'text');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 2 passed (3)
+   Start at  17:59:01
+   Duration  70.51s (transform 729ms, setup 45.96s, import 17.30s, tests 6.90s, environment 0ms)
+

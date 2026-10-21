@@ -2,6 +2,14 @@
 
 ![SQLite automation timestamp infographic](infographic.png)
 
+## Current validation
+
+- Focused private in-memory SQLite validation: **104 passed across 2 test files**. From `ghost/`: `pnpm exec vitest run --config .c1-vitest.config.ts --maxWorkers=1 --no-file-parallelism`.
+- PR: [#32151](https://github.com/TryGhost/Ghost/pull/32151).
+- No live MySQL migration or production database was tested. Full `pnpm check` and upstream CI: pending.
+
+> **Historical generation record:** The content below records the image-generation context and status at that time. Any test-status statement below is superseded by Current validation above; the generation prompt is preserved unchanged.
+
 **Architecture:** The automation trigger writes the next step and its `ready_at` time. The poller reads steps whose deadline has arrived.
 
 **Problem:** SQLite sorts numeric values before text values, so mixing numeric and text timestamps can make a future step look due.

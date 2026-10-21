@@ -1,0 +1,135 @@
+
+ RUN  v4.1.11 C:/Users/Nitro/Ghost/.tmp-sandbox-workspace/ghost
+
+····························x······································xxx········xx
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| test/unit/frontend/src/member-attribution.test.js > member attribution history > keeps the first UTM set when a later same-path visit supplies only a source
+AssertionError: Expected values to be strictly equal:
+
+'B' !== 'A'
+
+
+Expected: "A"
+Received: "B"
+
+ ❯ test/unit/frontend/src/member-attribution.test.js:74:12
+     72|
+     73|     assert.equal(history.length, 1);
+     74|     assert.equal(history[0].utmSource, 'A');
+       |            ^
+     75|     assert.equal(history[0].utmMedium, 'email');
+     76|     assert.equal(history[0].utmCampaign, 'CampaignA');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  |unit| test/unit/frontend/src/member-attribution.test.js > member attribution history > captures the first later UTM set atomically and keeps it through later visits
+AssertionError: Expected values to be strictly equal:
+
+'second' !== 'first'
+
+
+Expected: "first"
+Received: "second"
+
+ ❯ test/unit/frontend/src/member-attribution.test.js:88:12
+     86|
+     87|     assert.equal(history.length, 1);
+     88|     assert.equal(history[0].utmSource, 'first');
+       |            ^
+     89|     assert.equal(history[0].utmMedium, null);
+     90|     assert.equal(history[0].utmCampaign, null);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  |unit| test/unit/frontend/src/url-attribution.test.ts > URL Attribution Utils > parseReferrerData with portal hash > should read signup and signin parameters from the portal fragment with or without trailing slash
+AssertionError: Expected values to be strictly equal:
++ actual - expected
+
++ 'outer'
+- 'signup-fragment'
+
+
+Expected: "signup-fragment"
+Received: "outer"
+
+ ❯ test/unit/frontend/src/url-attribution.test.ts:146:16
+    144|
+    145|       cases.forEach(([url, expectedSource]) => {
+    146|         assert.equal(parseReferrerData(url).source, expectedSource);
+       |                ^
+    147|       });
+    148|     });
+ ❯ test/unit/frontend/src/url-attribution.test.ts:145:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL  |unit| test/unit/frontend/src/url-attribution.test.ts > URL Attribution Utils > parseReferrerData with portal hash > should preserve ref, source, and utm_source priority within the portal fragment
+AssertionError: Expected values to be strictly equal:
++ actual - expected
+
++ 'outer-ref'
+- 'portal-ref'
+
+
+Expected: "portal-ref"
+Received: "outer-ref"
+
+ ❯ test/unit/frontend/src/url-attribution.test.ts:155:14
+    153|       );
+    154|
+    155|       assert.equal(result.source, 'portal-ref');
+       |              ^
+    156|       assert.equal(result.utmSource, 'portal-utm');
+    157|       const sourceResult = parseReferrerData(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL  |unit| test/unit/frontend/src/url-attribution.test.ts > URL Attribution Utils > parseReferrerData with portal hash > should ignore the page query when a portal fragment has no query
+AssertionError: Expected values to be strictly equal:
+
+'outer' !== null
+
+
+- Expected:
+null
+
++ Received:
+"outer"
+
+ ❯ test/unit/frontend/src/url-attribution.test.ts:167:14
+    165|       const result = parseReferrerData('https://example.com/?ref=outer…
+    166|
+    167|       assert.equal(result.source, null);
+       |              ^
+    168|       assert.equal(result.utmSource, null);
+    169|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL  |unit| test/unit/server/services/media-inliner/test/external-media-inliner.test.js > ExternalMediaInliner > Special URL & file type handling > preserves existing percent-encoded URL components
+AssertionError: https://img.stockfresh.com/files/f/cover%20image.png
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ test/unit/server/services/media-inliner/test/external-media-inliner.test.js:1086:16
+    1084|
+    1085|         await inliner.getRemoteMedia(url);
+    1086|         assert.ok(requestMock.isDone(), url);
+       |                ^
+    1087|       }
+    1088|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+
+ Test Files  3 failed (3)
+      Tests  6 failed | 74 passed (80)
+   Start at  17:31:19
+   Duration  77.42s (transform 264ms, setup 44.90s, import 13.67s, tests 18.37s, environment 0ms)
+

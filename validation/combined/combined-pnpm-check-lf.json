@@ -1,0 +1,9 @@
+{
+  "label": "combined-pnpm-check-lf",
+  "cwd": ".",
+  "command": [
+    "pnpm",
+    "check"
+  ],
+  "exit_code": 1
+}

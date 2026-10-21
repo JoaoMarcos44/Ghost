@@ -1,0 +1,50 @@
+{
+  "scenario": "minifier",
+  "started_at": "2026-10-21T08:25:38.733362+00:00",
+  "head": "68693a89812f857e6c96bac814381ec2e4503210",
+  "runtime": "v22.23.3",
+  "platform": "Windows-11-10.0.22621-SP0",
+  "package_manager": "pnpm@12.10.1",
+  "dependencies": {
+    "@tryghost/errors": "3.4.4",
+    "@tryghost/debug": "2.3.18",
+    "@tryghost/tpl": "2.3.18",
+    "tiny-glob": "0.2.9",
+    "csso": "5.0.5",
+    "node-win-x64": "22.23.3"
+  },
+  "source_sha256": {
+    "ghost/core/frontend/services/assets-minification/minifier.ts": "6b18f869228e1d26bd0816fee8232b4e22012d24035d3969466766731c53d6f1",
+    "630426edc1^:ghost/core/frontend/services/assets-minification/minifier.js": "5ab31cbc492fa773d36a1e5b331452d20ff286c4f41d1bfab0f3fd7654b293ea"
+  },
+  "exit_code": 0,
+  "observations": {
+    "platform": "win32",
+    "results": [
+      {
+        "pattern": "*.css",
+        "source_pattern": "C:\\Users\\Nitro\\Ghost\\.tmp-sandbox-bugs-r9y3zhmw\\fixture-assets\\*.css",
+        "before": [
+          "fixture-assets\\a.css",
+          "fixture-assets\\b.css"
+        ],
+        "after": [
+          "C:\\Users\\Nitro\\Ghost\\.tmp-sandbox-bugs-r9y3zhmw\\fixture-assets\\a.css",
+          "C:\\Users\\Nitro\\Ghost\\.tmp-sandbox-bugs-r9y3zhmw\\fixture-assets\\b.css"
+        ]
+      },
+      {
+        "pattern": "!(b).css",
+        "source_pattern": "C:\\Users\\Nitro\\Ghost\\.tmp-sandbox-bugs-r9y3zhmw\\fixture-assets\\!(b).css",
+        "before": [
+          "fixture-assets\\a.css"
+        ],
+        "after": [
+          "C:\\Users\\Nitro\\Ghost\\.tmp-sandbox-bugs-r9y3zhmw\\fixture-assets\\a.css"
+        ]
+      }
+    ],
+    "previousContent": ".one{color:red}.two{color:#00f}"
+  },
+  "sandbox_removed": true
+}

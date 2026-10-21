@@ -1,0 +1,53 @@
+
+ RUN  v4.1.11 C:/Users/Nitro/Ghost/.tmp-sandbox-workspace/koenig/koenig-lexical
+
+ ❯ test/unit/utils/isGif.test.ts (2 tests | 2 failed) 42ms
+     × recognizes GIF URLs with queries or fragments, regardless of extension case 38ms
+     × does not classify a non-GIF path from its query string 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/unit/utils/isGif.test.ts > isGif > recognizes GIF URLs with queries or fragments, regardless of extension case
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ test/unit/utils/isGif.test.ts:12:32
+     10|             '/animation.GIF?v=1#preview',
+     11|         ]) {
+     12|             expect(isGif(url)).toBe(true);
+       |                                ^
+     13|         }
+     14|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  test/unit/utils/isGif.test.ts > isGif > does not classify a non-GIF path from its query string
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ test/unit/utils/isGif.test.ts:17:53
+     15|
+     16|     it('does not classify a non-GIF path from its query string', () =>…
+     17|         expect(isGif('/animation.png?format=.gif')).toBe(false);
+       |                                                     ^
+     18|         expect(isGif('/animation.gifx')).toBe(false);
+     19|         expect(isGif(undefined)).toBe(false);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  17:13:02
+   Duration  48.57s (transform 225ms, setup 7.38s, import 564ms, tests 42ms, environment 39.89s)
+

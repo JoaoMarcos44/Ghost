@@ -1,0 +1,9 @@
+(node:17888) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+$ pnpm run '/^lint:/'
+Error: [31mERR_PNPM_NO_SCRIPT[0m
+
+  [31m×[0m Missing script: '/lint:/'
+[36m  help: [0mCommand "'/lint:/'" not found.
+
+[ELIFECYCLE] Command failed with exit code 1.

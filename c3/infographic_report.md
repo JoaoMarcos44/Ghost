@@ -2,6 +2,14 @@
 
 ![Member history UTM infographic](infographic.png)
 
+## Current validation
+
+- Focused member attribution tests: **22 passed across 2 test files**. From `ghost/`: `pnpm exec vitest run test/unit/frontend/src/member-attribution.test.js test/unit/server/services/member-attribution/referrer-translator.test.ts --maxWorkers=1 --no-file-parallelism`.
+- PR: [#32146](https://github.com/TryGhost/Ghost/pull/32146).
+- No real-browser E2E or database test was run. Full `pnpm check` and upstream CI: pending.
+
+> **Historical generation record:** The content below records the image-generation context and status at that time. Any test-status statement below is superseded by Current validation above; the generation prompts are preserved unchanged.
+
 **Architecture:** Repeated visits to one pathname share a history entry, which the server later reads for member attribution.
 
 **Problem:** The current code updates each truthy UTM field independently, so a later source can combine with the medium and campaign from an earlier visit.

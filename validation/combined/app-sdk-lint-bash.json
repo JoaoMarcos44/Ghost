@@ -1,0 +1,11 @@
+{
+  "label": "app-sdk-lint-bash",
+  "cwd": ".",
+  "command": [
+    "pnpm",
+    "--filter",
+    "@tryghost/app-sdk",
+    "lint"
+  ],
+  "exit_code": 1
+}

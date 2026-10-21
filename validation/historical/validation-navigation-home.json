@@ -1,0 +1,749 @@
+{
+  "scenario": "navigation-home",
+  "started_at": "2026-10-21T14:31:35.351074+00:00",
+  "head": "68693a89812f857e6c96bac814381ec2e4503210",
+  "runtime": "v22.23.3",
+  "platform": "Windows-11-10.0.22621-SP0",
+  "package_manager": "pnpm@12.10.1",
+  "dependencies": {
+    "validator": "13.15.35",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "jsdom": "30.0.1",
+    "@tryghost/url-utils": "5.4.1",
+    "node-win-x64": "22.23.3"
+  },
+  "runner_sha256": "773d8b52d35382c7b9fac043ee26847d9e289d45d309eec71e5d28640d692bcb",
+  "poc_sha256": "175cc086668a82965f530a3c46c16b91e697bc2db706f946d667a1cc19378ae9",
+  "source_sha256": {
+    "apps/admin/src/settings/utils/format-url.ts": "11d72a85f7ede9e0192296b673e6e4290826065c82d27941526c85dd1f2a8db3",
+    "apps/admin/src/settings/hooks/use-url-input.ts": "fc77b0a42219a909b888969292b135d69e774cc9cf2d2821d83bd153231c1cde",
+    "577362aabf^:apps/admin-x-design-system/src/global/form/URLTextField.tsx": "498cba619c0f99f6763ea7f9e40e10e834bfad248ee494557e23f3a169fd9e43",
+    "577362aabf:apps/admin-x-design-system/src/utils/formatUrl.ts": "a00b19ee4be2aa0dd128ab7145a1217d6af35e03474a5f9923215a46b9f3fc44",
+    "v5.94.0:apps/admin-x-design-system/src/global/form/URLTextField.tsx": "498cba619c0f99f6763ea7f9e40e10e834bfad248ee494557e23f3a169fd9e43",
+    "v5.95.0:apps/admin-x-design-system/src/utils/formatUrl.ts": "a00b19ee4be2aa0dd128ab7145a1217d6af35e03474a5f9923215a46b9f3fc44"
+  },
+  "exit_code": 0,
+  "observations": {
+    "results": [
+      {
+        "name": "subdirectory-home-no-slash",
+        "base": "https://example.com/blog/",
+        "input": "https://example.com/blog",
+        "expected": {
+          "save": "/",
+          "display": "https://example.com/blog/"
+        },
+        "missing_slash": true,
+        "previous": {
+          "save": "/",
+          "display": "https://example.com/"
+        },
+        "at_introduction": {
+          "save": "/blog/",
+          "display": "https://example.com/blog/blog/"
+        },
+        "actual": {
+          "save": "/blog/",
+          "display": "https://example.com/blog/blog/"
+        },
+        "from_v5_94_0_source": {
+          "save": "/",
+          "display": "https://example.com/"
+        },
+        "from_v5_95_0_source": {
+          "save": "/blog/",
+          "display": "https://example.com/blog/blog/"
+        },
+        "rendered_previous": "https://example.com/blog/",
+        "rendered_current": "https://example.com/blog/",
+        "public_target_regression": false
+      },
+      {
+        "name": "subdirectory-relative-home-no-slash",
+        "base": "https://example.com/blog/",
+        "input": "/blog",
+        "expected": {
+          "save": "/",
+          "display": "https://example.com/blog/"
+        },
+        "missing_slash": true,
+        "previous": {
+          "save": "/",
+          "display": "https://example.com/"
+        },
+        "at_introduction": {
+          "save": "/blog/",
+          "display": "https://example.com/blog/blog/"
+        },
+        "actual": {
+          "save": "/blog/",
+          "display": "https://example.com/blog/blog/"
+        },
+        "from_v5_94_0_source": {
+          "save": "/",
+          "display": "https://example.com/"
+        },
+        "from_v5_95_0_source": {
+          "save": "/blog/",
+          "display": "https://example.com/blog/blog/"
+        },
+        "rendered_previous": "https://example.com/blog/",
+        "rendered_current": "https://example.com/blog/",
+        "public_target_regression": false
+      },
+      {
+        "name": "nested-home-no-slash",
+        "base": "https://example.com/news/blog/",
+        "input": "https://example.com/news/blog",
+        "expected": {
+          "save": "/",
+          "display": "https://example.com/news/blog/"
+        },
+        "missing_slash": true,
+        "previous": {
+          "save": "/",
+          "display": "https://example.com/"
+        },
+        "at_introduction": {
+          "save": "/news/blog/",
+          "display": "https://example.com/news/blog/news/blog/"
+        },
+        "actual": {
+          "save": "/news/blog/",
+          "display": "https://example.com/news/blog/news/blog/"
+        },
+        "from_v5_94_0_source": {
+          "save": "/",
+          "display": "https://example.com/"
+        },
+        "from_v5_95_0_source": {
+          "save": "/news/blog/",
+          "display": "https://example.com/news/blog/news/blog/"
+        },
+        "rendered_previous": "https://example.com/news/blog/",
+        "rendered_current": "https://example.com/news/blog/",
+        "public_target_regression": false
+      },
+      {
+        "name": "subdirectory-home-with-slash-control",
+        "base": "https://example.com/blog/",
+        "input": "https://example.com/blog/",
+        "expected": {
+          "save": "/",
+          "display": "https://example.com/blog/"
+        },
+        "previous": {
+          "save": "/",
+          "display": "https://example.com/"
+        },
+        "at_introduction": {
+          "save": "/",
+          "display": "https://example.com/blog/"
+        },
+        "actual": {
+          "save": "/",
+          "display": "https://example.com/blog/"
+        },
+        "from_v5_94_0_source": {
+          "save": "/",
+          "display": "https://example.com/"
+        },
+        "from_v5_95_0_source": {
+          "save": "/",
+          "display": "https://example.com/blog/"
+        },
+        "rendered_previous": "https://example.com/blog/",
+        "rendered_current": "https://example.com/blog/",
+        "public_target_regression": false
+      },
+      {
+        "name": "root-install-home-control",
+        "base": "https://example.com/",
+        "input": "https://example.com",
+        "expected": {
+          "save": "/",
+          "display": "https://example.com/"
+        },
+        "previous": {
+          "save": "/",
+          "display": "https://example.com/"
+        },
+        "at_introduction": {
+          "save": "/",
+          "display": "https://example.com/"
+        },
+        "actual": {
+          "save": "/",
+          "display": "https://example.com/"
+        },
+        "from_v5_94_0_source": {
+          "save": "/",
+          "display": "https://example.com/"
+        },
+        "from_v5_95_0_source": {
+          "save": "/",
+          "display": "https://example.com/"
+        },
+        "rendered_previous": "https://example.com/",
+        "rendered_current": "https://example.com/",
+        "public_target_regression": false
+      },
+      {
+        "name": "subdirectory-page-control",
+        "base": "https://example.com/blog/",
+        "input": "https://example.com/blog/about/",
+        "expected": {
+          "save": "/about/",
+          "display": "https://example.com/blog/about/"
+        },
+        "previous": {
+          "save": "/about/",
+          "display": "https://example.com/about/"
+        },
+        "at_introduction": {
+          "save": "/about/",
+          "display": "https://example.com/blog/about/"
+        },
+        "actual": {
+          "save": "/about/",
+          "display": "https://example.com/blog/about/"
+        },
+        "from_v5_94_0_source": {
+          "save": "/about/",
+          "display": "https://example.com/about/"
+        },
+        "from_v5_95_0_source": {
+          "save": "/about/",
+          "display": "https://example.com/blog/about/"
+        },
+        "rendered_previous": "https://example.com/blog/about/",
+        "rendered_current": "https://example.com/blog/about/",
+        "public_target_regression": false
+      },
+      {
+        "name": "subdirectory-home-no-slash-?ref=menu",
+        "base": "https://example.com/blog/",
+        "input": "https://example.com/blog?ref=menu",
+        "expected": {
+          "save": "/?ref=menu",
+          "display": "https://example.com/blog/?ref=menu"
+        },
+        "missing_slash": true,
+        "previous": {
+          "save": "/?ref=menu",
+          "display": "https://example.com/?ref=menu"
+        },
+        "at_introduction": {
+          "save": "/blog?ref=menu",
+          "display": "https://example.com/blog/blog?ref=menu"
+        },
+        "actual": {
+          "save": "/blog?ref=menu",
+          "display": "https://example.com/blog/blog?ref=menu"
+        },
+        "from_v5_94_0_source": {
+          "save": "/?ref=menu",
+          "display": "https://example.com/?ref=menu"
+        },
+        "from_v5_95_0_source": {
+          "save": "/blog?ref=menu",
+          "display": "https://example.com/blog/blog?ref=menu"
+        },
+        "rendered_previous": "https://example.com/blog/?ref=menu",
+        "rendered_current": "https://example.com/blog/blog?ref=menu",
+        "public_target_regression": true
+      },
+      {
+        "name": "subdirectory-home-no-slash-#section",
+        "base": "https://example.com/blog/",
+        "input": "https://example.com/blog#section",
+        "expected": {
+          "save": "/#section",
+          "display": "https://example.com/blog/#section"
+        },
+        "missing_slash": true,
+        "previous": {
+          "save": "/#section",
+          "display": "https://example.com/#section"
+        },
+        "at_introduction": {
+          "save": "/blog#section",
+          "display": "https://example.com/blog/blog#section"
+        },
+        "actual": {
+          "save": "/blog#section",
+          "display": "https://example.com/blog/blog#section"
+        },
+        "from_v5_94_0_source": {
+          "save": "/#section",
+          "display": "https://example.com/#section"
+        },
+        "from_v5_95_0_source": {
+          "save": "/blog#section",
+          "display": "https://example.com/blog/blog#section"
+        },
+        "rendered_previous": "https://example.com/blog/#section",
+        "rendered_current": "https://example.com/blog/blog#section",
+        "public_target_regression": true
+      },
+      {
+        "name": "subdirectory-home-no-slash-?ref=menu#section",
+        "base": "https://example.com/blog/",
+        "input": "https://example.com/blog?ref=menu#section",
+        "expected": {
+          "save": "/?ref=menu#section",
+          "display": "https://example.com/blog/?ref=menu#section"
+        },
+        "missing_slash": true,
+        "previous": {
+          "save": "/?ref=menu#section",
+          "display": "https://example.com/?ref=menu#section"
+        },
+        "at_introduction": {
+          "save": "/blog?ref=menu#section",
+          "display": "https://example.com/blog/blog?ref=menu#section"
+        },
+        "actual": {
+          "save": "/blog?ref=menu#section",
+          "display": "https://example.com/blog/blog?ref=menu#section"
+        },
+        "from_v5_94_0_source": {
+          "save": "/?ref=menu#section",
+          "display": "https://example.com/?ref=menu#section"
+        },
+        "from_v5_95_0_source": {
+          "save": "/blog?ref=menu#section",
+          "display": "https://example.com/blog/blog?ref=menu#section"
+        },
+        "rendered_previous": "https://example.com/blog/?ref=menu#section",
+        "rendered_current": "https://example.com/blog/blog?ref=menu#section",
+        "public_target_regression": true
+      },
+      {
+        "name": "tel-global",
+        "base": "https://example.com/",
+        "input": "tel:+15555550100",
+        "expected": {
+          "save": "tel:+15555550100",
+          "display": "tel:+15555550100"
+        },
+        "phone": true,
+        "previous": {
+          "save": "tel:+15555550100",
+          "display": "tel:+15555550100"
+        },
+        "at_introduction": {
+          "save": "tel:+15555550100/",
+          "display": "tel:+15555550100/"
+        },
+        "actual": {
+          "save": "tel:+15555550100/",
+          "display": "tel:+15555550100/"
+        },
+        "from_v5_94_0_source": {
+          "save": "tel:+15555550100",
+          "display": "tel:+15555550100"
+        },
+        "from_v5_95_0_source": {
+          "save": "tel:+15555550100/",
+          "display": "tel:+15555550100/"
+        },
+        "rendered_previous": "tel:+15555550100",
+        "rendered_current": "tel:+15555550100/",
+        "public_target_regression": true
+      },
+      {
+        "name": "tel-with-extension",
+        "base": "https://example.com/",
+        "input": "tel:+15555550100;ext=12",
+        "expected": {
+          "save": "tel:+15555550100;ext=12",
+          "display": "tel:+15555550100;ext=12"
+        },
+        "phone": true,
+        "previous": {
+          "save": "tel:+15555550100;ext=12",
+          "display": "tel:+15555550100;ext=12"
+        },
+        "at_introduction": {
+          "save": "tel:+15555550100;ext=12/",
+          "display": "tel:+15555550100;ext=12/"
+        },
+        "actual": {
+          "save": "tel:+15555550100;ext=12/",
+          "display": "tel:+15555550100;ext=12/"
+        },
+        "from_v5_94_0_source": {
+          "save": "tel:+15555550100;ext=12",
+          "display": "tel:+15555550100;ext=12"
+        },
+        "from_v5_95_0_source": {
+          "save": "tel:+15555550100;ext=12/",
+          "display": "tel:+15555550100;ext=12/"
+        },
+        "rendered_previous": "tel:+15555550100;ext=12",
+        "rendered_current": "tel:+15555550100;ext=12/",
+        "public_target_regression": true
+      },
+      {
+        "name": "tel-local-with-context",
+        "base": "https://example.com/",
+        "input": "tel:5550100;phone-context=+1-555",
+        "expected": {
+          "save": "tel:5550100;phone-context=+1-555",
+          "display": "tel:5550100;phone-context=+1-555"
+        },
+        "phone": true,
+        "previous": {
+          "save": "tel:5550100;phone-context=+1-555",
+          "display": "tel:5550100;phone-context=+1-555"
+        },
+        "at_introduction": {
+          "save": "tel:5550100;phone-context=+1-555/",
+          "display": "tel:5550100;phone-context=+1-555/"
+        },
+        "actual": {
+          "save": "tel:5550100;phone-context=+1-555/",
+          "display": "tel:5550100;phone-context=+1-555/"
+        },
+        "from_v5_94_0_source": {
+          "save": "tel:5550100;phone-context=+1-555",
+          "display": "tel:5550100;phone-context=+1-555"
+        },
+        "from_v5_95_0_source": {
+          "save": "tel:5550100;phone-context=+1-555/",
+          "display": "tel:5550100;phone-context=+1-555/"
+        },
+        "rendered_previous": "tel:5550100;phone-context=+1-555",
+        "rendered_current": "tel:5550100;phone-context=+1-555/",
+        "public_target_regression": true
+      },
+      {
+        "name": "tel-dotted-control",
+        "base": "https://example.com/",
+        "input": "tel:+1.555.555.0100",
+        "expected": {
+          "save": "tel:+1.555.555.0100",
+          "display": "tel:+1.555.555.0100"
+        },
+        "previous": {
+          "save": "tel:+1.555.555.0100",
+          "display": "tel:+1.555.555.0100"
+        },
+        "at_introduction": {
+          "save": "tel:+1.555.555.0100",
+          "display": "tel:+1.555.555.0100"
+        },
+        "actual": {
+          "save": "tel:+1.555.555.0100",
+          "display": "tel:+1.555.555.0100"
+        },
+        "from_v5_94_0_source": {
+          "save": "tel:+1.555.555.0100",
+          "display": "tel:+1.555.555.0100"
+        },
+        "from_v5_95_0_source": {
+          "save": "tel:+1.555.555.0100",
+          "display": "tel:+1.555.555.0100"
+        },
+        "rendered_previous": "tel:+1.555.555.0100",
+        "rendered_current": "tel:+1.555.555.0100",
+        "public_target_regression": false
+      },
+      {
+        "name": "mailto-control",
+        "base": "https://example.com/",
+        "input": "mailto:editor@example.com",
+        "expected": {
+          "save": "mailto:editor@example.com",
+          "display": "mailto:editor@example.com"
+        },
+        "previous": {
+          "save": "mailto:editor@example.com",
+          "display": "mailto:editor@example.com"
+        },
+        "at_introduction": {
+          "save": "mailto:editor@example.com",
+          "display": "mailto:editor@example.com"
+        },
+        "actual": {
+          "save": "mailto:editor@example.com",
+          "display": "mailto:editor@example.com"
+        },
+        "from_v5_94_0_source": {
+          "save": "mailto:editor@example.com",
+          "display": "mailto:editor@example.com"
+        },
+        "from_v5_95_0_source": {
+          "save": "mailto:editor@example.com",
+          "display": "mailto:editor@example.com"
+        },
+        "rendered_previous": "mailto:editor@example.com",
+        "rendered_current": "mailto:editor@example.com",
+        "public_target_regression": false
+      }
+    ],
+    "sandbox_mutation_control": [
+      {
+        "name": "subdirectory-home-no-slash",
+        "actual": {
+          "save": "/",
+          "display": "https://example.com/blog/"
+        }
+      },
+      {
+        "name": "subdirectory-relative-home-no-slash",
+        "actual": {
+          "save": "/",
+          "display": "https://example.com/blog/"
+        }
+      },
+      {
+        "name": "nested-home-no-slash",
+        "actual": {
+          "save": "/",
+          "display": "https://example.com/news/blog/"
+        }
+      },
+      {
+        "name": "subdirectory-home-with-slash-control",
+        "actual": {
+          "save": "/",
+          "display": "https://example.com/blog/"
+        }
+      },
+      {
+        "name": "root-install-home-control",
+        "actual": {
+          "save": "/",
+          "display": "https://example.com/"
+        }
+      },
+      {
+        "name": "subdirectory-page-control",
+        "actual": {
+          "save": "/about/",
+          "display": "https://example.com/blog/about/"
+        }
+      },
+      {
+        "name": "subdirectory-home-no-slash-?ref=menu",
+        "actual": {
+          "save": "/?ref=menu",
+          "display": "https://example.com/blog/?ref=menu"
+        }
+      },
+      {
+        "name": "subdirectory-home-no-slash-#section",
+        "actual": {
+          "save": "/#section",
+          "display": "https://example.com/blog/#section"
+        }
+      },
+      {
+        "name": "subdirectory-home-no-slash-?ref=menu#section",
+        "actual": {
+          "save": "/?ref=menu#section",
+          "display": "https://example.com/blog/?ref=menu#section"
+        }
+      },
+      {
+        "name": "tel-global",
+        "actual": {
+          "save": "tel:+15555550100",
+          "display": "tel:+15555550100"
+        }
+      },
+      {
+        "name": "tel-with-extension",
+        "actual": {
+          "save": "tel:+15555550100;ext=12",
+          "display": "tel:+15555550100;ext=12"
+        }
+      },
+      {
+        "name": "tel-local-with-context",
+        "actual": {
+          "save": "tel:5550100;phone-context=+1-555",
+          "display": "tel:5550100;phone-context=+1-555"
+        }
+      },
+      {
+        "name": "tel-dotted-control",
+        "actual": {
+          "save": "tel:+1.555.555.0100",
+          "display": "tel:+1.555.555.0100"
+        }
+      },
+      {
+        "name": "mailto-control",
+        "actual": {
+          "save": "mailto:editor@example.com",
+          "display": "mailto:editor@example.com"
+        }
+      }
+    ],
+    "independent_fix_controls": [
+      {
+        "name": "subdirectory-home-no-slash",
+        "home_only": {
+          "save": "/",
+          "display": "https://example.com/blog/"
+        },
+        "phone_only": {
+          "save": "/blog/",
+          "display": "https://example.com/blog/blog/"
+        }
+      },
+      {
+        "name": "subdirectory-relative-home-no-slash",
+        "home_only": {
+          "save": "/",
+          "display": "https://example.com/blog/"
+        },
+        "phone_only": {
+          "save": "/blog/",
+          "display": "https://example.com/blog/blog/"
+        }
+      },
+      {
+        "name": "nested-home-no-slash",
+        "home_only": {
+          "save": "/",
+          "display": "https://example.com/news/blog/"
+        },
+        "phone_only": {
+          "save": "/news/blog/",
+          "display": "https://example.com/news/blog/news/blog/"
+        }
+      },
+      {
+        "name": "subdirectory-home-no-slash-?ref=menu",
+        "home_only": {
+          "save": "/?ref=menu",
+          "display": "https://example.com/blog/?ref=menu"
+        },
+        "phone_only": {
+          "save": "/blog?ref=menu",
+          "display": "https://example.com/blog/blog?ref=menu"
+        }
+      },
+      {
+        "name": "subdirectory-home-no-slash-#section",
+        "home_only": {
+          "save": "/#section",
+          "display": "https://example.com/blog/#section"
+        },
+        "phone_only": {
+          "save": "/blog#section",
+          "display": "https://example.com/blog/blog#section"
+        }
+      },
+      {
+        "name": "subdirectory-home-no-slash-?ref=menu#section",
+        "home_only": {
+          "save": "/?ref=menu#section",
+          "display": "https://example.com/blog/?ref=menu#section"
+        },
+        "phone_only": {
+          "save": "/blog?ref=menu#section",
+          "display": "https://example.com/blog/blog?ref=menu#section"
+        }
+      },
+      {
+        "name": "tel-global",
+        "home_only": {
+          "save": "tel:+15555550100/",
+          "display": "tel:+15555550100/"
+        },
+        "phone_only": {
+          "save": "tel:+15555550100",
+          "display": "tel:+15555550100"
+        }
+      },
+      {
+        "name": "tel-with-extension",
+        "home_only": {
+          "save": "tel:+15555550100;ext=12/",
+          "display": "tel:+15555550100;ext=12/"
+        },
+        "phone_only": {
+          "save": "tel:+15555550100;ext=12",
+          "display": "tel:+15555550100;ext=12"
+        }
+      },
+      {
+        "name": "tel-local-with-context",
+        "home_only": {
+          "save": "tel:5550100;phone-context=+1-555/",
+          "display": "tel:5550100;phone-context=+1-555/"
+        },
+        "phone_only": {
+          "save": "tel:5550100;phone-context=+1-555",
+          "display": "tel:5550100;phone-context=+1-555"
+        }
+      }
+    ],
+    "real_input_hook": [
+      {
+        "fixture": "subdirectory-home-no-slash-?ref=menu",
+        "variant": "before",
+        "actual": {
+          "save": "/?ref=menu",
+          "display": "https://example.com/?ref=menu"
+        },
+        "rendered_target": "https://example.com/blog/?ref=menu"
+      },
+      {
+        "fixture": "subdirectory-home-no-slash-?ref=menu",
+        "variant": "current",
+        "actual": {
+          "save": "/blog?ref=menu",
+          "display": "https://example.com/blog/blog?ref=menu"
+        },
+        "rendered_target": "https://example.com/blog/blog?ref=menu"
+      },
+      {
+        "fixture": "subdirectory-home-no-slash-?ref=menu",
+        "variant": "patched",
+        "actual": {
+          "save": "/?ref=menu",
+          "display": "https://example.com/blog/?ref=menu"
+        },
+        "rendered_target": "https://example.com/blog/?ref=menu"
+      },
+      {
+        "fixture": "tel-global",
+        "variant": "before",
+        "actual": {
+          "save": "tel:+15555550100",
+          "display": "tel:+15555550100"
+        },
+        "rendered_target": "tel:+15555550100"
+      },
+      {
+        "fixture": "tel-global",
+        "variant": "current",
+        "actual": {
+          "save": "tel:+15555550100/",
+          "display": "tel:+15555550100/"
+        },
+        "rendered_target": "tel:+15555550100/"
+      },
+      {
+        "fixture": "tel-global",
+        "variant": "patched",
+        "actual": {
+          "save": "tel:+15555550100",
+          "display": "tel:+15555550100"
+        },
+        "rendered_target": "tel:+15555550100"
+      }
+    ],
+    "historical_module_adaptation": "Exact exported function lifted from prior TSX; import path extensions and hook aliases resolved locally only.",
+    "release_comparison_scope": "Formatter sources from published tags v5.94.0 and v5.95.0 run with the same current dependency versions; no historical Ghost installation was booted.",
+    "limitation": "The old homepage preview already dropped the subdirectory. The public target only regresses for the tested query/fragment cases; bare-home targets are deduplicated by url-utils. No dialer or database-backed Ghost instance was started."
+  },
+  "sandbox_removed": true
+}

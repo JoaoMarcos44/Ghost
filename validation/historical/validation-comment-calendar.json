@@ -1,0 +1,161 @@
+{
+  "scenario": "comment-calendar",
+  "started_at": "2026-10-21T15:29:56.343374+00:00",
+  "head": "68693a89812f857e6c96bac814381ec2e4503210",
+  "runtime": "v22.23.3",
+  "platform": "Windows-11-10.0.22621-SP0",
+  "package_manager": "pnpm@12.10.1",
+  "dependencies": {
+    "node-win-x64": "22.23.3"
+  },
+  "runner_sha256": "6fe8b26c8b726627b7a3f4cff0595b6147cf3cf38c4b3062c3766d7b2ead37d6",
+  "poc_sha256": "c8983bb084b502c6b3e1c79d45d2499cff5de6ba711da9127c3be9845e0deb49",
+  "source_sha256": {
+    "apps/comments-ui/src/utils/helpers.ts": "b8e27c0a6289835558641f0424bb27b9ea26c294bf21c19ba85c32c7c87791b8",
+    "ea1b786136^:apps/comments-ui/src/utils/helpers.ts": "3ecaba35ec90fb0d7f6159630f2b075075d298f455fd9046d27d0c238e462387",
+    "ea1b786136:apps/comments-ui/src/utils/helpers.ts": "7db6199c6a9f97ce94874220c983507449b035c5585bb3fbed35093c53a46c4a"
+  },
+  "exit_code": 0,
+  "observations": {
+    "fixture_count": 8,
+    "regression_count": 4,
+    "seam": "Real current helpers and verbatim historical formatRelativeTime functions. Native Node timezone handling with deterministic Date clock; no browser DOM or app build.",
+    "patch_control": "Sandbox-only UTC calendar components changed to local calendar components, keeping UTC ordinal arithmetic and relative rounding.",
+    "results": [
+      {
+        "name": "sao-paulo-same-local-day",
+        "zone": "America/Sao_Paulo",
+        "now": "2026-10-21T01:00:00Z",
+        "date": "2026-10-20T22:00:00Z",
+        "expected": "3 hrs ago",
+        "bug": true,
+        "local_now": "Tue Oct 20 2026 22:00:00 GMT-0300 (Horário Padrão de Brasília)",
+        "local_comment": "Tue Oct 20 2026 19:00:00 GMT-0300 (Horário Padrão de Brasília)",
+        "explicit_time": "20 Oct 2026 19:00",
+        "values": {
+          "before": "3 hrs ago",
+          "origin": "Yesterday",
+          "current": "Yesterday",
+          "patched": "3 hrs ago"
+        }
+      },
+      {
+        "name": "sao-paulo-local-yesterday",
+        "zone": "America/Sao_Paulo",
+        "now": "2026-10-21T04:00:00Z",
+        "date": "2026-10-21T00:00:00Z",
+        "expected": "Yesterday",
+        "bug": true,
+        "local_now": "Wed Oct 21 2026 01:00:00 GMT-0300 (Horário Padrão de Brasília)",
+        "local_comment": "Tue Oct 20 2026 21:00:00 GMT-0300 (Horário Padrão de Brasília)",
+        "explicit_time": "20 Oct 2026 21:00",
+        "values": {
+          "before": "Yesterday",
+          "origin": "4 hrs ago",
+          "current": "4 hrs ago",
+          "patched": "Yesterday"
+        }
+      },
+      {
+        "name": "tokyo-same-local-day",
+        "zone": "Asia/Tokyo",
+        "now": "2026-10-21T10:00:00Z",
+        "date": "2026-10-20T23:00:00Z",
+        "expected": "11 hrs ago",
+        "bug": true,
+        "local_now": "Wed Oct 21 2026 19:00:00 GMT+0900 (Horário Padrão do Japão)",
+        "local_comment": "Wed Oct 21 2026 08:00:00 GMT+0900 (Horário Padrão do Japão)",
+        "explicit_time": "21 Oct 2026 08:00",
+        "values": {
+          "before": "11 hrs ago",
+          "origin": "Yesterday",
+          "current": "Yesterday",
+          "patched": "11 hrs ago"
+        }
+      },
+      {
+        "name": "tokyo-local-yesterday",
+        "zone": "Asia/Tokyo",
+        "now": "2026-10-21T16:00:00Z",
+        "date": "2026-10-21T12:00:00Z",
+        "expected": "Yesterday",
+        "bug": true,
+        "local_now": "Thu Oct 22 2026 01:00:00 GMT+0900 (Horário Padrão do Japão)",
+        "local_comment": "Wed Oct 21 2026 21:00:00 GMT+0900 (Horário Padrão do Japão)",
+        "explicit_time": "21 Oct 2026 21:00",
+        "values": {
+          "before": "Yesterday",
+          "origin": "4 hrs ago",
+          "current": "4 hrs ago",
+          "patched": "Yesterday"
+        }
+      },
+      {
+        "name": "utc-yesterday-control",
+        "zone": "Etc/UTC",
+        "now": "2026-10-21T04:00:00Z",
+        "date": "2026-10-20T22:00:00Z",
+        "expected": "Yesterday",
+        "local_now": "Wed Oct 21 2026 04:00:00 GMT+0000 (Horário Universal Coordenado)",
+        "local_comment": "Tue Oct 20 2026 22:00:00 GMT+0000 (Horário Universal Coordenado)",
+        "explicit_time": "20 Oct 2026 22:00",
+        "values": {
+          "before": "Yesterday",
+          "origin": "Yesterday",
+          "current": "Yesterday",
+          "patched": "Yesterday"
+        }
+      },
+      {
+        "name": "utc-today-control",
+        "zone": "Etc/UTC",
+        "now": "2026-10-21T12:00:00Z",
+        "date": "2026-10-21T09:00:00Z",
+        "expected": "3 hrs ago",
+        "local_now": "Wed Oct 21 2026 12:00:00 GMT+0000 (Horário Universal Coordenado)",
+        "local_comment": "Wed Oct 21 2026 09:00:00 GMT+0000 (Horário Universal Coordenado)",
+        "explicit_time": "21 Oct 2026 09:00",
+        "values": {
+          "before": "3 hrs ago",
+          "origin": "3 hrs ago",
+          "current": "3 hrs ago",
+          "patched": "3 hrs ago"
+        }
+      },
+      {
+        "name": "one-hour-control",
+        "zone": "America/Sao_Paulo",
+        "now": "2026-10-21T01:00:00Z",
+        "date": "2026-10-21T00:00:00Z",
+        "expected": "One hour ago",
+        "local_now": "Tue Oct 20 2026 22:00:00 GMT-0300 (Horário Padrão de Brasília)",
+        "local_comment": "Tue Oct 20 2026 21:00:00 GMT-0300 (Horário Padrão de Brasília)",
+        "explicit_time": "20 Oct 2026 21:00",
+        "values": {
+          "before": "One hour ago",
+          "origin": "One hour ago",
+          "current": "One hour ago",
+          "patched": "One hour ago"
+        }
+      },
+      {
+        "name": "new-just-now-contract-control",
+        "zone": "Asia/Tokyo",
+        "now": "2026-10-21T01:00:00Z",
+        "date": "2026-10-21T00:59:40Z",
+        "expected": "Just now",
+        "legacyExpected": "20 seconds ago",
+        "local_now": "Wed Oct 21 2026 10:00:00 GMT+0900 (Horário Padrão do Japão)",
+        "local_comment": "Wed Oct 21 2026 09:59:40 GMT+0900 (Horário Padrão do Japão)",
+        "explicit_time": "21 Oct 2026 09:59",
+        "values": {
+          "before": "20 seconds ago",
+          "origin": "Just now",
+          "current": "Just now",
+          "patched": "Just now"
+        }
+      }
+    ]
+  },
+  "sandbox_removed": true
+}

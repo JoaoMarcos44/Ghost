@@ -2,6 +2,14 @@
 
 ![B7 infographic](infographic.png)
 
+## Current validation
+
+- Focused scheduled-post listener test: **1 passed**. From `ghost/`: `pnpm exec vitest run test/unit/server/models/base/listeners.test.js --maxWorkers=1 --no-file-parallelism`.
+- PR: [#32148](https://github.com/TryGhost/Ghost/pull/32148).
+- Full `pnpm check`: attempted, exited 130 after formatting/Oxlint passed; Nx lint/build tasks failed on this Windows environment. The full test stage was not reached. See the PR and the validation archive for details. Product CI and migration staging review remain unverified.
+
+> **Historical generation record:** The content below records the image-generation context and status at that time. Any test-status statement below is superseded by Current validation above; the generation prompts are preserved unchanged.
+
 This native imagegen edit is a conceptual diagram, not a UI screenshot. The proposed fix is not merged.
 
 Scheduled posts store a UTC publish instant, and the site timezone determines its local wall time. The current listener applies an offset difference from the timezone-change date to every scheduled post, which can produce the wrong UTC publish time for a post in another daylight-saving season.

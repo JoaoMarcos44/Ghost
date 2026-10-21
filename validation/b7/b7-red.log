@@ -1,0 +1,35 @@
+
+ RUN  v4.1.11 C:/Users/Nitro/Ghost/.tmp-sandbox-workspace/ghost
+
+x
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| test/unit/server/models/base/listeners.test.js > base model listeners > preserves scheduled wall time using the target date DST offset
+AssertionError: Expected values to be strictly equal:
++ actual - expected
+
++ '2027-01-15T14:00:00.000Z'
+- '2027-01-15T15:00:00.000Z'
+               ^
+
+
+Expected: "2027-01-15T15:00:00.000Z"
+Received: "2027-01-15T14:00:00.000Z"
+
+ ❯ test/unit/server/models/base/listeners.test.js:84:16
+     82|         const post = posts.find((candidate) => candidate.id === fixtur…
+     83|         assert.equal(post.attributes.status, 'scheduled');
+     84|         assert.equal(post.attributes.published_at.toISOString(), fixtu…
+       |                ^
+     85|       }
+     86|     } finally {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  18:03:02
+   Duration  13.02s (transform 49ms, setup 1.97s, import 9.86s, tests 870ms, environment 0ms)
+

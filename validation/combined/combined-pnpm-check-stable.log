@@ -1,0 +1,123 @@
+$ pnpm format:check && pnpm lint && pnpm test
+$ oxfmt --check --threads=2
+Checking formatting...
+
+All matched files use the correct format.
+Finished in 5189ms on 7110 files using 2 threads.
+$ pnpm lint:oxlint && pnpm nx run-many -t lint lint:boundaries && pnpm lint:packages && pnpm lint:versioning && pnpm lint:docs
+$ oxlint --deny-warnings --threads=2
+
+ NX   67 tasks: 30 succeeded, 33 failed, 4 skipped
+
+
+✖ nx run @tryghost/kg-default-nodes:build
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\11147130124389011742
+
+✖ nx run @tryghost/shade:build
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\18348199267256715180
+
+✖ nx run @tryghost/metafield-types:lint
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\7102921518001093318
+
+✖ nx run @tryghost/kg-default-nodes:lint
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\5073295587569121631
+
+✖ nx run @tryghost/i18n:lint
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\10957650404894928941
+
+✖ nx run @tryghost/adapter-base-upgrade:lint
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\3718098763393930887
+
+✖ nx run @tryghost/app-contracts:lint
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\7677710628222119192
+
+✖ nx run @tryghost/checkout:lint
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\15317679611870789823
+
+✖ nx run @tryghost/limit-service:lint
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\17182679319460871266
+
+✖ nx run @tryghost/metafield-csv:lint
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\15252088132492600116
+
+✖ nx run @tryghost/nql-string:lint
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\14312163976227001170
+
+✖ nx run @tryghost/koenig-lexical:lint
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\13233027406119646933
+
+✖ nx run @tryghost/shade:lint
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\9556582190456281954
+
+✖ nx run @tryghost/admin-x-framework:lint
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\1219194542451409380
+
+✖ nx run @tryghost/adapter-base-route-settings:lint
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\17434477011121659895
+
+✖ nx run @tryghost/adapter-base-scheduling:lint
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\7078754648065407281
+
+✖ nx run @tryghost/adapter-base-redirects:lint
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\14294558558353838923
+
+✖ nx run ghost-storage-base:lint
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\17290471877585655062
+
+✖ nx run @tryghost/adapter-base-cache:lint
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\1334259377312106281
+
+✖ nx run @tryghost/parse-email-address:lint
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\8481163705827046331
+
+✖ nx run @tryghost/adapter-base-jobs:lint
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\1167922121451809881
+
+✖ nx run @tryghost/adapter-base-sso:lint
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\11350067515947476636
+
+✖ nx run @tryghost/admin-api-schema:lint
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\5526680384490654779
+
+✖ nx run @tryghost/image-transform:lint
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\5721777545253573009
+
+✖ nx run @tryghost/api-framework:lint
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\3361570575841062910
+
+✖ nx run @tryghost/activitypub:lint
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\17202969391046607783
+
+✖ nx run @tryghost/app-sdk:lint
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\14585787176207299646
+
+✖ nx run @tryghost/announcement-bar:lint
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\4043460675026573725
+
+✖ nx run @tryghost/admin-toolbar:lint
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\12351887392268948521
+
+✖ nx run ghost:lint
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\9847107179710273953
+
+✖ nx run @tryghost/portal:lint
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\8452993531986086909
+
+✖ nx run @tryghost/comments-ui:lint
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\12231813841118904265
+
+✖ nx run @tryghost/sodo-search:lint
+  full log: C:\Users\Nitro\Ghost\.tmp-sandbox-workspace\.nx\cache\terminalOutputs\5864690298710077889
+
+Re-run with --output-style=static to inline logs.
+
+View structured, searchable error logs at https://cloud.nx.app/runs/dPP9EMT2OL
+
+  Run duration:      4m 36s
+  Cache:             0/30 hit (0%)
+  Critical path:     2m 14s (1 task)
+  Recoverable time:  2m 6s (46% of the run)
+
+  Recommendation: Increase parallelism to recover up to 2m 6s → https://nx.dev/docs/concepts/ci-concepts/parallelization-distribution?utm_source=nx-cli&utm_medium=cli&utm_campaign=performance-report&utm_content=parallelization.
+[ELIFECYCLE] Command failed with exit code 130.
+[ELIFECYCLE] Command failed with exit code 130.

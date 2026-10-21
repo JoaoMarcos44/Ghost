@@ -1,0 +1,14 @@
+{
+  "label": "b1-green-local-hook",
+  "cwd": "ghost",
+  "command": [
+    "pnpm",
+    "exec",
+    "vitest",
+    "run",
+    "test/unit/server/services/oembed/extract-metadata.test.ts",
+    "--maxWorkers=1",
+    "--no-file-parallelism"
+  ],
+  "exit_code": 0
+}

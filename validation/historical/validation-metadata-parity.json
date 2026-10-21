@@ -1,0 +1,1636 @@
+{
+  "scenario": "metadata-parity",
+  "started_at": "2026-10-21T14:34:47.624830+00:00",
+  "head": "68693a89812f857e6c96bac814381ec2e4503210",
+  "runtime": "v22.23.3",
+  "platform": "Windows-11-10.0.22621-SP0",
+  "package_manager": "pnpm@12.10.1",
+  "dependencies": {
+    "cheerio": "1.2.0",
+    "chrono-node": "2.10.1",
+    "entities": "4.5.0",
+    "jsonrepair": "3.15.0",
+    "tldts": "7.4.4",
+    "metascraper": "5.55.2",
+    "metascraper-url": "5.55.2",
+    "metascraper-title": "5.55.2",
+    "metascraper-description": "5.55.2",
+    "metascraper-author": "5.55.2",
+    "metascraper-publisher": "5.55.2",
+    "metascraper-image": "5.55.2",
+    "node-win-x64": "22.23.3"
+  },
+  "runner_sha256": "773d8b52d35382c7b9fac043ee26847d9e289d45d309eec71e5d28640d692bcb",
+  "poc_sha256": "12d072a789bc1c5a1f2d0d3c2fa0aa2d84a6f43a07c90f410d02e6d86120b14d",
+  "source_sha256": {
+    "ghost/core/server/services/oembed/extract-metadata.ts": "fdf9d0589b24555916a9f98e07d8cdacf55bd22795b34de2c70f5b272f9f5975"
+  },
+  "exit_code": 0,
+  "observations": {
+    "fixture_count": 75,
+    "fields": [
+      "url",
+      "title",
+      "description",
+      "author",
+      "publisher",
+      "image"
+    ],
+    "equal_fixtures": 70,
+    "differing_fixtures": 5,
+    "results": [
+      {
+        "name": "open-graph-control",
+        "html": "<html><head><title>Fallback title</title>\n    <meta property=\"og:title\" content=\"Article headline\">\n    <meta property=\"og:description\" content=\"Article summary\">\n    <meta name=\"author\" content=\"Jane Doe\">\n    <meta property=\"og:site_name\" content=\"Example News\">\n    <meta property=\"og:image\" content=\"https://example.com/cover.jpg\"></head><body></body></html>",
+        "before": {
+          "title": "Article headline",
+          "description": "Article summary",
+          "publisher": "Example News",
+          "author": "Jane Doe",
+          "image": "https://example.com/cover.jpg",
+          "url": "https://example.com/article/"
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": "Article headline",
+          "description": "Article summary",
+          "author": "Jane Doe",
+          "publisher": "Example News",
+          "image": "https://example.com/cover.jpg"
+        },
+        "differences": []
+      },
+      {
+        "name": "jsonld-object-control",
+        "html": "<html><head><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"headline\":\"Article headline\",\"description\":\"Article summary\",\"author\":{\"name\":\"Jane Doe\"},\"publisher\":{\"name\":\"Example News\"},\"image\":{\"url\":\"https://example.com/cover.jpg\"}}</script></head><body></body></html>",
+        "before": {
+          "author": "Jane Doe",
+          "publisher": "Example News",
+          "title": "Article headline",
+          "url": "https://example.com/article/",
+          "description": "Article summary",
+          "image": "https://example.com/cover.jpg"
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": "Article headline",
+          "description": "Article summary",
+          "author": "Jane Doe",
+          "publisher": "Example News",
+          "image": "https://example.com/cover.jpg"
+        },
+        "differences": []
+      },
+      {
+        "name": "jsonld-array-control",
+        "html": "<html><head><script type=\"application/ld+json\">[{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"headline\":\"Article headline\",\"description\":\"Article summary\",\"author\":{\"name\":\"Jane Doe\"},\"publisher\":{\"name\":\"Example News\"},\"image\":{\"url\":\"https://example.com/cover.jpg\"}}]</script></head><body></body></html>",
+        "before": {
+          "author": "Jane Doe",
+          "publisher": "Example News",
+          "title": "Article headline",
+          "url": "https://example.com/article/",
+          "description": "Article summary",
+          "image": "https://example.com/cover.jpg"
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": "Article headline",
+          "description": "Article summary",
+          "author": "Jane Doe",
+          "publisher": "Example News",
+          "image": "https://example.com/cover.jpg"
+        },
+        "differences": []
+      },
+      {
+        "name": "jsonld-graph-array-control",
+        "html": "<html><head><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"headline\":\"Article headline\",\"description\":\"Article summary\",\"author\":{\"name\":\"Jane Doe\"},\"publisher\":{\"name\":\"Example News\"},\"image\":{\"url\":\"https://example.com/cover.jpg\"}}]}</script></head><body></body></html>",
+        "before": {
+          "author": "Jane Doe",
+          "publisher": "Example News",
+          "title": "Article headline",
+          "url": "https://example.com/article/",
+          "description": "Article summary",
+          "image": "https://example.com/cover.jpg"
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": "Article headline",
+          "description": "Article summary",
+          "author": "Jane Doe",
+          "publisher": "Example News",
+          "image": "https://example.com/cover.jpg"
+        },
+        "differences": []
+      },
+      {
+        "name": "jsonld-graph-object",
+        "html": "<html><head><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@graph\":{\"headline\":\"Article headline\",\"description\":\"Article summary\",\"author\":{\"name\":\"Jane Doe\"},\"publisher\":{\"name\":\"Example News\"},\"image\":{\"url\":\"https://example.com/cover.jpg\"}}}</script></head><body></body></html>",
+        "before": {
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "author": null,
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": null,
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "jsonld-graph-object-extra-props",
+        "html": "<html><head><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"@graph\":{\"headline\":\"Article headline\",\"description\":\"Article summary\",\"author\":{\"name\":\"Jane Doe\"},\"publisher\":{\"name\":\"Example News\"},\"image\":{\"url\":\"https://example.com/cover.jpg\"}},\"headline\":\"Outer headline\"}</script></head><body></body></html>",
+        "before": {
+          "title": "Outer headline",
+          "url": "https://example.com/article/",
+          "description": null,
+          "author": null,
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": "Outer headline",
+          "description": null,
+          "author": null,
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "jsonld-graph-empty-array",
+        "html": "<html><head><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"@graph\":[],\"headline\":\"Article headline\",\"description\":\"Article summary\",\"author\":{\"name\":\"Jane Doe\"},\"publisher\":{\"name\":\"Example News\"},\"image\":{\"url\":\"https://example.com/cover.jpg\"}}</script></head><body></body></html>",
+        "before": {
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "author": null,
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": null,
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "jsonld-graph-in-array",
+        "html": "<html><head><script type=\"application/ld+json\">[{\"@context\":\"https://schema.org\",\"@graph\":[{\"headline\":\"Article headline\",\"description\":\"Article summary\",\"author\":{\"name\":\"Jane Doe\"},\"publisher\":{\"name\":\"Example News\"},\"image\":{\"url\":\"https://example.com/cover.jpg\"}}]}]</script></head><body></body></html>",
+        "before": {
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "author": null,
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": null,
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "jsonld-nested-article",
+        "html": "<html><head><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"mainEntity\":{\"headline\":\"Article headline\",\"description\":\"Article summary\",\"author\":{\"name\":\"Jane Doe\"},\"publisher\":{\"name\":\"Example News\"},\"image\":{\"url\":\"https://example.com/cover.jpg\"}}}</script></head><body></body></html>",
+        "before": {
+          "author": "Jane Doe",
+          "publisher": "Example News",
+          "title": "Article headline",
+          "url": "https://example.com/article/",
+          "description": "Article summary",
+          "image": "https://example.com/cover.jpg"
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": "Article headline",
+          "description": "Article summary",
+          "author": "Jane Doe",
+          "publisher": "Example News",
+          "image": "https://example.com/cover.jpg"
+        },
+        "differences": []
+      },
+      {
+        "name": "jsonld-multiple-blocks",
+        "html": "<html><head><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"WebSite\",\"name\":\"Site name\"}</script><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"headline\":\"Article headline\",\"description\":\"Article summary\",\"author\":{\"name\":\"Jane Doe\"},\"publisher\":{\"name\":\"Example News\"},\"image\":{\"url\":\"https://example.com/cover.jpg\"}}</script></head><body></body></html>",
+        "before": {
+          "author": "Jane Doe",
+          "publisher": "Example News",
+          "title": "Article headline",
+          "url": "https://example.com/article/",
+          "description": "Article summary",
+          "image": "https://example.com/cover.jpg"
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": "Article headline",
+          "description": "Article summary",
+          "author": "Jane Doe",
+          "publisher": "Example News",
+          "image": "https://example.com/cover.jpg"
+        },
+        "differences": []
+      },
+      {
+        "name": "jsonld-empty-before-full",
+        "html": "<html><head><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"headline\":\"\",\"author\":{}}</script><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"headline\":\"Article headline\",\"description\":\"Article summary\",\"author\":{\"name\":\"Jane Doe\"},\"publisher\":{\"name\":\"Example News\"},\"image\":{\"url\":\"https://example.com/cover.jpg\"}}</script></head><body></body></html>",
+        "before": {
+          "author": "Jane Doe",
+          "publisher": "Example News",
+          "title": "Article headline",
+          "url": "https://example.com/article/",
+          "description": "Article summary",
+          "image": "https://example.com/cover.jpg"
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": "Article headline",
+          "description": "Article summary",
+          "author": "Jane Doe",
+          "publisher": "Example News",
+          "image": "https://example.com/cover.jpg"
+        },
+        "differences": []
+      },
+      {
+        "name": "jsonld-nested-before-full",
+        "html": "<html><head><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"mainEntity\":{\"headline\":\"Nested headline\",\"author\":{\"name\":\"Nested author\"}}}</script><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"headline\":\"Article headline\",\"description\":\"Article summary\",\"author\":{\"name\":\"Jane Doe\"},\"publisher\":{\"name\":\"Example News\"},\"image\":{\"url\":\"https://example.com/cover.jpg\"}}</script></head><body></body></html>",
+        "before": {
+          "author": "Jane Doe",
+          "publisher": "Example News",
+          "title": "Article headline",
+          "url": "https://example.com/article/",
+          "description": "Article summary",
+          "image": "https://example.com/cover.jpg"
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": "Article headline",
+          "description": "Article summary",
+          "author": "Jane Doe",
+          "publisher": "Example News",
+          "image": "https://example.com/cover.jpg"
+        },
+        "differences": []
+      },
+      {
+        "name": "jsonld-author-0",
+        "html": "<html><head><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"author\":{\"name\":\"Jane Doe\"}}</script></head><body></body></html>",
+        "before": {
+          "author": "Jane Doe",
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": "Jane Doe",
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "jsonld-author-1",
+        "html": "<html><head><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"author\":[{\"name\":\"Jane Doe\"},{\"name\":\"John Smith\"}]}</script></head><body></body></html>",
+        "before": {
+          "author": "Jane Doe and John Smith",
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": "Jane Doe and John Smith",
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "jsonld-author-2",
+        "html": "<html><head><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"author\":{\"@type\":\"Person\",\"name\":[\"Jane Doe\",\"John Smith\"]}}</script></head><body></body></html>",
+        "before": {
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "author": null,
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": null,
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "jsonld-author-3",
+        "html": "<html><head><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"author\":{\"@list\":[{\"name\":\"Jane Doe\"},{\"name\":\"John Smith\"}]}}</script></head><body></body></html>",
+        "before": {
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "author": null,
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": null,
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "jsonld-author-4",
+        "html": "<html><head><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"author\":{\"@set\":[{\"name\":\"Jane Doe\"},{\"name\":\"John Smith\"}]}}</script></head><body></body></html>",
+        "before": {
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "author": null,
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": null,
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "jsonld-author-5",
+        "html": "<html><head><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"author\":{\"name\":{\"@value\":\"Jane Doe\",\"@language\":\"en\"}}}</script></head><body></body></html>",
+        "before": {
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "author": null,
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": null,
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "jsonld-author-6",
+        "html": "<html><head><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"author\":[{\"name\":\"\"},{\"name\":\"Jane Doe\"}]}</script></head><body></body></html>",
+        "before": {
+          "author": "and Jane Doe",
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": "and Jane Doe",
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "jsonld-author-7",
+        "html": "<html><head><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"author\":[{\"name\":null},{\"name\":\"Jane Doe\"}]}</script></head><body></body></html>",
+        "before": {
+          "author": "Jane Doe",
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": "Jane Doe",
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "meta-author-0",
+        "html": "<html><head><meta name=\"author\" content=\"Jane Doe\"></head><body></body></html>",
+        "before": {
+          "author": "Jane Doe",
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": "Jane Doe",
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "byline-author-0",
+        "html": "<html><head></head><body><div class=\"byline\">Jane Doe</div></body></html>",
+        "before": {
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "author": "Jane Doe",
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": "Jane Doe",
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "meta-author-1",
+        "html": "<html><head><meta name=\"author\" content=\"J.K.Rowling\"></head><body></body></html>",
+        "before": {
+          "author": "J.K.Rowling",
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": "J.K.Rowling",
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "byline-author-1",
+        "html": "<html><head></head><body><div class=\"byline\">J.K.Rowling</div></body></html>",
+        "before": {
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "author": "J.K.Rowling",
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": "J.K.Rowling",
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "meta-author-2",
+        "html": "<html><head><meta name=\"author\" content=\"May Chen\"></head><body></body></html>",
+        "before": {
+          "author": "May Chen",
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": "May Chen",
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "byline-author-2",
+        "html": "<html><head></head><body><div class=\"byline\">May Chen</div></body></html>",
+        "before": {
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "author": "May Chen",
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": "May Chen",
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "meta-author-3",
+        "html": "<html><head><meta name=\"author\" content=\"By Jane Doe\"></head><body></body></html>",
+        "before": {
+          "author": "Jane Doe",
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": "Jane Doe",
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "byline-author-3",
+        "html": "<html><head></head><body><div class=\"byline\">By Jane Doe</div></body></html>",
+        "before": {
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "author": "Jane Doe",
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": "Jane Doe",
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "meta-author-4",
+        "html": "<html><head><meta name=\"author\" content=\"@jane.bsky.social\"></head><body></body></html>",
+        "before": {
+          "author": "jane.bsky.social",
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": "jane.bsky.social",
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "byline-author-4",
+        "html": "<html><head></head><body><div class=\"byline\">@jane.bsky.social</div></body></html>",
+        "before": {
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "author": "jane.bsky.social",
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": "jane.bsky.social",
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "meta-author-5",
+        "html": "<html><head><meta name=\"author\" content=\" Jane\n  Doe \"></head><body></body></html>",
+        "before": {
+          "author": "Jane Doe",
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": "Jane Doe",
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "byline-author-5",
+        "html": "<html><head></head><body><div class=\"byline\"> Jane\n  Doe </div></body></html>",
+        "before": {
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "author": "Jane Doe",
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": "Jane Doe",
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "meta-author-6",
+        "html": "<html><head><meta name=\"author\" content=\"João da Silva\"></head><body></body></html>",
+        "before": {
+          "author": "João da Silva",
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": "João da Silva",
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "byline-author-6",
+        "html": "<html><head></head><body><div class=\"byline\">João da Silva</div></body></html>",
+        "before": {
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "author": "João da Silva",
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": "João da Silva",
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "meta-author-7",
+        "html": "<html><head><meta name=\"author\" content=\"Marie-Claire Martin\"></head><body></body></html>",
+        "before": {
+          "author": "Marie-Claire Martin",
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": "Marie-Claire Martin",
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "byline-author-7",
+        "html": "<html><head></head><body><div class=\"byline\">Marie-Claire Martin</div></body></html>",
+        "before": {
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "author": "Marie-Claire Martin",
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": "Marie-Claire Martin",
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "multiple-author-elements",
+        "html": "<html><head></head><body><a class=\"author\">https://example.com/jane</a><a class=\"author\">Jane Doe</a></body></html>",
+        "before": {
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "author": null,
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": null,
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "multiple-byline-elements",
+        "html": "<html><head></head><body><span class=\"byline\">Published today</span><span class=\"byline\">Jane Doe</span></body></html>",
+        "before": {
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "author": "Jane Doe",
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": "Jane Doe",
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "microdata-author-content",
+        "html": "<html><head></head><body><span itemprop=\"author\" itemscope itemtype=\"https://schema.org/Person\"><meta itemprop=\"name\" content=\"Jane Doe\"></span></body></html>",
+        "before": {
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "author": null,
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": null,
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "text-meta-0",
+        "html": "<html><head><meta property=\"og:title\" content=\"Plain text\">\n        <meta property=\"og:description\" content=\"Plain text\">\n        <meta property=\"og:site_name\" content=\"Plain text\"></head><body></body></html>",
+        "before": {
+          "title": "Plain text",
+          "description": "Plain text",
+          "publisher": "Plain text",
+          "url": "https://example.com/article/",
+          "author": null,
+          "image": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": "Plain text",
+          "description": "Plain text",
+          "author": null,
+          "publisher": "Plain text",
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "text-jsonld-0",
+        "html": "<html><head><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"headline\":\"Plain text\",\"description\":\"Plain text\",\"publisher\":{\"name\":\"Plain text\"}}</script></head><body></body></html>",
+        "before": {
+          "publisher": "Plain text",
+          "title": "Plain text",
+          "url": "https://example.com/article/",
+          "description": "Plain text",
+          "author": null,
+          "image": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": "Plain text",
+          "description": "Plain text",
+          "author": null,
+          "publisher": "Plain text",
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "text-meta-1",
+        "html": "<html><head><meta property=\"og:title\" content=\"  Some\n text  \">\n        <meta property=\"og:description\" content=\"  Some\n text  \">\n        <meta property=\"og:site_name\" content=\"  Some\n text  \"></head><body></body></html>",
+        "before": {
+          "title": "Some text",
+          "description": "Some text",
+          "publisher": "Some text",
+          "url": "https://example.com/article/",
+          "author": null,
+          "image": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": "Some text",
+          "description": "Some text",
+          "author": null,
+          "publisher": "Some text",
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "text-jsonld-1",
+        "html": "<html><head><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"headline\":\"  Some\\n text  \",\"description\":\"  Some\\n text  \",\"publisher\":{\"name\":\"  Some\\n text  \"}}</script></head><body></body></html>",
+        "before": {
+          "publisher": "Some text",
+          "title": "Some text",
+          "url": "https://example.com/article/",
+          "description": "Some text",
+          "author": null,
+          "image": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": "Some text",
+          "description": "Some text",
+          "author": null,
+          "publisher": "Some text",
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "text-meta-2",
+        "html": "<html><head><meta property=\"og:title\" content=\"Rock &amp; Roll\">\n        <meta property=\"og:description\" content=\"Rock &amp; Roll\">\n        <meta property=\"og:site_name\" content=\"Rock &amp; Roll\"></head><body></body></html>",
+        "before": {
+          "title": "Rock & Roll",
+          "description": "Rock & Roll",
+          "publisher": "Rock & Roll",
+          "url": "https://example.com/article/",
+          "author": null,
+          "image": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": "Rock & Roll",
+          "description": "Rock & Roll",
+          "author": null,
+          "publisher": "Rock & Roll",
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "text-jsonld-2",
+        "html": "<html><head><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"headline\":\"Rock &amp; Roll\",\"description\":\"Rock &amp; Roll\",\"publisher\":{\"name\":\"Rock &amp; Roll\"}}</script></head><body></body></html>",
+        "before": {
+          "publisher": "Rock & Roll",
+          "title": "Rock & Roll",
+          "url": "https://example.com/article/",
+          "description": "Rock & Roll",
+          "author": null,
+          "image": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": "Rock & Roll",
+          "description": "Rock & Roll",
+          "author": null,
+          "publisher": "Rock & Roll",
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "text-meta-3",
+        "html": "<html><head><meta property=\"og:title\" content=\"Rock &amp;amp; Roll\">\n        <meta property=\"og:description\" content=\"Rock &amp;amp; Roll\">\n        <meta property=\"og:site_name\" content=\"Rock &amp;amp; Roll\"></head><body></body></html>",
+        "before": {
+          "title": "Rock &amp; Roll",
+          "description": "Rock &amp; Roll",
+          "publisher": "Rock &amp; Roll",
+          "url": "https://example.com/article/",
+          "author": null,
+          "image": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": "Rock &amp; Roll",
+          "description": "Rock &amp; Roll",
+          "author": null,
+          "publisher": "Rock &amp; Roll",
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "text-jsonld-3",
+        "html": "<html><head><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"headline\":\"Rock &amp;amp; Roll\",\"description\":\"Rock &amp;amp; Roll\",\"publisher\":{\"name\":\"Rock &amp;amp; Roll\"}}</script></head><body></body></html>",
+        "before": {
+          "publisher": "Rock &amp; Roll",
+          "title": "Rock &amp; Roll",
+          "url": "https://example.com/article/",
+          "description": "Rock &amp; Roll",
+          "author": null,
+          "image": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": "Rock &amp; Roll",
+          "description": "Rock &amp; Roll",
+          "author": null,
+          "publisher": "Rock &amp; Roll",
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "text-meta-4",
+        "html": "<html><head><meta property=\"og:title\" content=\"A &quot;quoted&quot; title\">\n        <meta property=\"og:description\" content=\"A &quot;quoted&quot; title\">\n        <meta property=\"og:site_name\" content=\"A &quot;quoted&quot; title\"></head><body></body></html>",
+        "before": {
+          "title": "A “quoted” title",
+          "description": "A “quoted” title",
+          "publisher": "A \"quoted\" title",
+          "url": "https://example.com/article/",
+          "author": null,
+          "image": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": "A \"quoted\" title",
+          "description": "A \"quoted\" title",
+          "author": null,
+          "publisher": "A \"quoted\" title",
+          "image": null
+        },
+        "differences": [
+          "title",
+          "description"
+        ]
+      },
+      {
+        "name": "text-jsonld-4",
+        "html": "<html><head><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"headline\":\"A &quot;quoted&quot; title\",\"description\":\"A &quot;quoted&quot; title\",\"publisher\":{\"name\":\"A &quot;quoted&quot; title\"}}</script></head><body></body></html>",
+        "before": {
+          "publisher": "A \"quoted\" title",
+          "title": "A “quoted” title",
+          "url": "https://example.com/article/",
+          "description": "A “quoted” title",
+          "author": null,
+          "image": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": "A \"quoted\" title",
+          "description": "A \"quoted\" title",
+          "author": null,
+          "publisher": "A \"quoted\" title",
+          "image": null
+        },
+        "differences": [
+          "title",
+          "description"
+        ]
+      },
+      {
+        "name": "text-meta-5",
+        "html": "<html><head><meta property=\"og:title\" content=\"<b>Formatted</b> text\">\n        <meta property=\"og:description\" content=\"<b>Formatted</b> text\">\n        <meta property=\"og:site_name\" content=\"<b>Formatted</b> text\"></head><body></body></html>",
+        "before": {
+          "title": "<b>Formatted</b> text",
+          "description": "<b>Formatted</b> text",
+          "publisher": "<b>Formatted</b> text",
+          "url": "https://example.com/article/",
+          "author": null,
+          "image": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": "<b>Formatted</b> text",
+          "description": "<b>Formatted</b> text",
+          "author": null,
+          "publisher": "<b>Formatted</b> text",
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "text-jsonld-5",
+        "html": "<html><head><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"headline\":\"<b>Formatted</b> text\",\"description\":\"<b>Formatted</b> text\",\"publisher\":{\"name\":\"<b>Formatted</b> text\"}}</script></head><body></body></html>",
+        "before": {
+          "publisher": "<b>Formatted</b> text",
+          "title": "<b>Formatted</b> text",
+          "url": "https://example.com/article/",
+          "description": "<b>Formatted</b> text",
+          "author": null,
+          "image": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": "<b>Formatted</b> text",
+          "description": "<b>Formatted</b> text",
+          "author": null,
+          "publisher": "<b>Formatted</b> text",
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "text-meta-6",
+        "html": "<html><head><meta property=\"og:title\" content=\"First<br>second\">\n        <meta property=\"og:description\" content=\"First<br>second\">\n        <meta property=\"og:site_name\" content=\"First<br>second\"></head><body></body></html>",
+        "before": {
+          "title": "First<br>second",
+          "description": "First<br>second",
+          "publisher": "First<br>second",
+          "url": "https://example.com/article/",
+          "author": null,
+          "image": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": "First<br>second",
+          "description": "First<br>second",
+          "author": null,
+          "publisher": "First<br>second",
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "text-jsonld-6",
+        "html": "<html><head><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"headline\":\"First<br>second\",\"description\":\"First<br>second\",\"publisher\":{\"name\":\"First<br>second\"}}</script></head><body></body></html>",
+        "before": {
+          "publisher": "First<br>second",
+          "title": "First<br>second",
+          "url": "https://example.com/article/",
+          "description": "First<br>second",
+          "author": null,
+          "image": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": "First<br>second",
+          "description": "First<br>second",
+          "author": null,
+          "publisher": "First<br>second",
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "text-meta-7",
+        "html": "<html><head><meta property=\"og:title\" content=\"LONDON — Something happened...\">\n        <meta property=\"og:description\" content=\"LONDON — Something happened...\">\n        <meta property=\"og:site_name\" content=\"LONDON — Something happened...\"></head><body></body></html>",
+        "before": {
+          "title": "LONDON — Something happened...",
+          "description": "Something happened…",
+          "publisher": "LONDON — Something happened...",
+          "url": "https://example.com/article/",
+          "author": null,
+          "image": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": "LONDON — Something happened...",
+          "description": "Something happened…",
+          "author": null,
+          "publisher": "LONDON — Something happened...",
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "text-jsonld-7",
+        "html": "<html><head><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"headline\":\"LONDON — Something happened...\",\"description\":\"LONDON — Something happened...\",\"publisher\":{\"name\":\"LONDON — Something happened...\"}}</script></head><body></body></html>",
+        "before": {
+          "publisher": "LONDON — Something happened...",
+          "title": "LONDON — Something happened...",
+          "url": "https://example.com/article/",
+          "description": "Something happened…",
+          "author": null,
+          "image": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": "LONDON — Something happened...",
+          "description": "Something happened…",
+          "author": null,
+          "publisher": "LONDON — Something happened...",
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "text-meta-8",
+        "html": "<html><head><meta property=\"og:title\" content=\"Jane Doe\">\n        <meta property=\"og:description\" content=\"Jane Doe\">\n        <meta property=\"og:site_name\" content=\"Jane Doe\"></head><body></body></html>",
+        "before": {
+          "title": "Jane Doe",
+          "description": "Jane Doe",
+          "publisher": "Jane Doe",
+          "url": "https://example.com/article/",
+          "author": null,
+          "image": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": "Jane Doe",
+          "description": "Jane Doe",
+          "author": null,
+          "publisher": "Jane Doe",
+          "image": null
+        },
+        "differences": [
+          "title",
+          "description",
+          "publisher"
+        ]
+      },
+      {
+        "name": "text-jsonld-8",
+        "html": "<html><head><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"headline\":\"Jane Doe\",\"description\":\"Jane Doe\",\"publisher\":{\"name\":\"Jane Doe\"}}</script></head><body></body></html>",
+        "before": {
+          "publisher": "Jane Doe",
+          "title": "Jane Doe",
+          "url": "https://example.com/article/",
+          "description": "Jane Doe",
+          "author": null,
+          "image": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": "Jane Doe",
+          "description": "Jane Doe",
+          "author": null,
+          "publisher": "Jane Doe",
+          "image": null
+        },
+        "differences": [
+          "title",
+          "description",
+          "publisher"
+        ]
+      },
+      {
+        "name": "html-title-with-markup",
+        "html": "<html><head><title>Math <b>example</b></title></head><body></body></html>",
+        "before": {
+          "title": "Math <b>example</b>",
+          "url": "https://example.com/article/",
+          "description": null,
+          "author": null,
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": "Math <b>example</b>",
+          "description": null,
+          "author": null,
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "html-title-entity-markup",
+        "html": "<html><head><title>Math &lt;b&gt;example&lt;/b&gt;</title></head><body></body></html>",
+        "before": {
+          "title": "Math <b>example</b>",
+          "url": "https://example.com/article/",
+          "description": null,
+          "author": null,
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": "Math <b>example</b>",
+          "description": null,
+          "author": null,
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "html-base-relative-image",
+        "html": "<html><head><base href=\"https://cdn.example.com/media/\"><title>Title</title></head><body><article><img src=\"cover.jpg\"></article></body></html>",
+        "before": {
+          "title": "Title",
+          "url": "https://example.com/article/",
+          "description": null,
+          "image": "https://example.com/article/cover.jpg",
+          "author": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": "Title",
+          "description": null,
+          "author": null,
+          "publisher": null,
+          "image": "https://example.com/article/cover.jpg"
+        },
+        "differences": []
+      },
+      {
+        "name": "html-base-relative-canonical",
+        "html": "<html><head><base href=\"https://cdn.example.com/\"><link rel=\"canonical\" href=\"page\"><title>Title</title></head><body></body></html>",
+        "before": {
+          "url": "https://example.com/article/page",
+          "title": "Title",
+          "description": null,
+          "author": null,
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/page",
+          "title": "Title",
+          "description": null,
+          "author": null,
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "noscript-lazy-image",
+        "html": "<html><head><title>Title</title></head><body><article><noscript><img src=\"/cover.jpg\"></noscript></article></body></html>",
+        "before": {
+          "title": "Title",
+          "url": "https://example.com/article/",
+          "description": null,
+          "author": null,
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": "Title",
+          "description": null,
+          "author": null,
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "article-first-placeholder",
+        "html": "<html><head><title>Title</title></head><body><article><img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAAUEBA==\"><img src=\"/cover.jpg\"></article></body></html>",
+        "before": {
+          "title": "Title",
+          "url": "https://example.com/article/",
+          "description": null,
+          "image": "data:image/gif;base64,R0lGODlhAQABAIAAAAUEBA==",
+          "author": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": "Title",
+          "description": null,
+          "author": null,
+          "publisher": null,
+          "image": null
+        },
+        "differences": [
+          "image"
+        ]
+      },
+      {
+        "name": "duplicate-empty-meta-title",
+        "html": "<html><head><meta property=\"og:title\" content=\"\"><meta property=\"og:title\" content=\"Article headline\"></head><body></body></html>",
+        "before": {
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "author": null,
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": null,
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "duplicate-empty-meta-image",
+        "html": "<html><head><meta property=\"og:image\" content=\"\"><meta property=\"og:image\" content=\"https://example.com/cover.jpg\"></head><body></body></html>",
+        "before": {
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "author": null,
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": null,
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "rel-author-multiple-tokens",
+        "html": "<html><head></head><body><a rel=\"nofollow author\" href=\"/jane\">Jane Doe</a></body></html>",
+        "before": {
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "author": null,
+          "image": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": null,
+          "publisher": null,
+          "image": null
+        },
+        "differences": []
+      },
+      {
+        "name": "url-image-0",
+        "html": "<html><head><meta property=\"og:image\" content=\"/cover.jpg?width=200&height=100\"></head><body></body></html>",
+        "before": {
+          "image": "https://example.com/cover.jpg?width=200&height=100",
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "author": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": null,
+          "publisher": null,
+          "image": "https://example.com/cover.jpg?width=200&height=100"
+        },
+        "differences": []
+      },
+      {
+        "name": "url-image-1",
+        "html": "<html><head><meta property=\"og:image\" content=\"/cover.jpg?sig=a%2Bb%20c~\"></head><body></body></html>",
+        "before": {
+          "image": "https://example.com/cover.jpg?sig=a%2Bb%20c~",
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "author": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": null,
+          "publisher": null,
+          "image": "https://example.com/cover.jpg?sig=a%2Bb%20c~"
+        },
+        "differences": []
+      },
+      {
+        "name": "url-image-2",
+        "html": "<html><head><meta property=\"og:image\" content=\"/cover.jpg#preview\"></head><body></body></html>",
+        "before": {
+          "image": "https://example.com/cover.jpg#preview",
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "author": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": null,
+          "publisher": null,
+          "image": "https://example.com/cover.jpg#preview"
+        },
+        "differences": []
+      },
+      {
+        "name": "url-image-3",
+        "html": "<html><head><meta property=\"og:image\" content=\"/cover.jpg?utm_source=x&size=200\"></head><body></body></html>",
+        "before": {
+          "image": "https://example.com/cover.jpg?size=200",
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "author": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": null,
+          "publisher": null,
+          "image": "https://example.com/cover.jpg?size=200"
+        },
+        "differences": []
+      },
+      {
+        "name": "url-image-4",
+        "html": "<html><head><meta property=\"og:image\" content=\"/cover%2Fphoto.jpg\"></head><body></body></html>",
+        "before": {
+          "image": "https://example.com/cover%2Fphoto.jpg",
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "author": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": null,
+          "publisher": null,
+          "image": "https://example.com/cover%2Fphoto.jpg"
+        },
+        "differences": []
+      },
+      {
+        "name": "url-image-5",
+        "html": "<html><head><meta property=\"og:image\" content=\"/café.jpg\"></head><body></body></html>",
+        "before": {
+          "image": "https://example.com/caf%C3%A9.jpg",
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "author": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": null,
+          "publisher": null,
+          "image": "https://example.com/caf%C3%A9.jpg"
+        },
+        "differences": []
+      },
+      {
+        "name": "url-image-6",
+        "html": "<html><head><meta property=\"og:image\" content=\"//cdn.example.com/cover.jpg\"></head><body></body></html>",
+        "before": {
+          "image": "https://cdn.example.com/cover.jpg",
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "author": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": null,
+          "publisher": null,
+          "image": "https://cdn.example.com/cover.jpg"
+        },
+        "differences": []
+      },
+      {
+        "name": "url-image-7",
+        "html": "<html><head><meta property=\"og:image\" content=\"/cover.jpg?b=2&a=1\"></head><body></body></html>",
+        "before": {
+          "image": "https://example.com/cover.jpg?b=2&a=1",
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "author": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": null,
+          "publisher": null,
+          "image": "https://example.com/cover.jpg?b=2&a=1"
+        },
+        "differences": []
+      },
+      {
+        "name": "url-image-8",
+        "html": "<html><head><meta property=\"og:image\" content=\"/cover.jpg?width=200&amp;height=100\"></head><body></body></html>",
+        "before": {
+          "image": "https://example.com/cover.jpg?width=200&height=100",
+          "url": "https://example.com/article/",
+          "description": null,
+          "title": null,
+          "author": null,
+          "publisher": null
+        },
+        "after": {
+          "url": "https://example.com/article/",
+          "title": null,
+          "description": null,
+          "author": null,
+          "publisher": null,
+          "image": "https://example.com/cover.jpg?width=200&height=100"
+        },
+        "differences": []
+      }
+    ]
+  },
+  "sandbox_removed": true
+}

@@ -1,0 +1,16 @@
+{
+  "label": "b6-c2-c3-red",
+  "cwd": "ghost",
+  "command": [
+    "pnpm",
+    "exec",
+    "vitest",
+    "run",
+    "test/unit/server/services/media-inliner/test/external-media-inliner.test.js",
+    "test/unit/frontend/src/url-attribution.test.ts",
+    "test/unit/frontend/src/member-attribution.test.js",
+    "--maxWorkers=1",
+    "--no-file-parallelism"
+  ],
+  "exit_code": 1
+}

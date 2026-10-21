@@ -1,0 +1,1158 @@
+{
+  "scenario": "media-url-encoding",
+  "started_at": "2026-10-21T15:31:35.807281+00:00",
+  "head": "68693a89812f857e6c96bac814381ec2e4503210",
+  "runtime": "v22.23.3",
+  "platform": "Windows-11-10.0.22621-SP0",
+  "package_manager": "pnpm@12.10.1",
+  "dependencies": {
+    "got": "16.0.0",
+    "mime-types": "2.1.35",
+    "file-type": "21.3.4",
+    "@tryghost/errors": "3.4.4",
+    "@tryghost/string": "0.3.8",
+    "historical-request": "npm:@tryghost/request@1.0.0",
+    "historical-file-type": "npm:file-type@16.5.4",
+    "node-win-x64": "22.23.3"
+  },
+  "runner_sha256": "6fe8b26c8b726627b7a3f4cff0595b6147cf3cf38c4b3062c3766d7b2ead37d6",
+  "poc_sha256": "59447de866d38a416a5f4e7855f042437ebe2ce136ba0303890222b09d15f0f8",
+  "source_sha256": {
+    "ghost/core/server/services/media-inliner/external-media-inliner.js": "69454822f8c8122e040ff1744b76cea67acccde5f310309bb5f8f122ff3cf51f",
+    "ghost/test/unit/server/services/media-inliner/test/fixtures/ghost-logo.png": "d26db07ebf56db8c9ec227af637ce55cc885360b7f00148c2b73e24abaf980bd",
+    "489fae98eb^:ghost/external-media-inliner/lib/ExternalMediaInliner.js": "ad1d03ad5d2951aa84a6ce525fcd513c02fb6861e4e9bbd19cf8ab7c794befa2",
+    "489fae98eb:ghost/external-media-inliner/lib/ExternalMediaInliner.js": "fcd0f8a533fbf3eedddac37069c7ed9e6bc07633b2e2fc7e1d7998b6bd04a2f5"
+  },
+  "exit_code": 0,
+  "observations": {
+    "fixture_count": 8,
+    "regression_count": 5,
+    "transport_seam": "Current request-external replaced by real got 16.0.0 on an owned loopback HTTP server. Historical versions use actual @tryghost/request 1.0.0. Production DNS/config wrapper not booted.",
+    "storage_seam": "Real PNG response decoded by source file-type path; dependency-injected storage writes bytes under sandbox. Synthetic model captures edits. No database or production storage.",
+    "patch_control": "Sandbox-only replacement of encodeURI with URL.href; all other current source preserved.",
+    "results": [
+      {
+        "name": "plain",
+        "input": "/plain.png",
+        "target": "/plain.png",
+        "source_url": "http://127.0.0.1:55647/plain.png",
+        "versions": {
+          "before": {
+            "requests": [
+              {
+                "url": "/plain.png",
+                "status": 200
+              },
+              {
+                "url": "/plain.png",
+                "status": 200
+              }
+            ],
+            "saves": 2,
+            "feature_updated": true,
+            "content_updated": true,
+            "edits": [
+              {
+                "fields": {
+                  "feature_image": "__GHOST_URL__/content/images/plain.png",
+                  "mobiledoc": "{\"version\":\"0.3.1\",\"cards\":[[\"image\",{\"src\":\"__GHOST_URL__/content/images/plain.png\"}]]}"
+                },
+                "options": {
+                  "id": "synthetic-post",
+                  "context": {
+                    "internal": true
+                  }
+                }
+              }
+            ],
+            "imports": [],
+            "errors": []
+          },
+          "origin": {
+            "requests": [
+              {
+                "url": "/plain.png",
+                "status": 200
+              },
+              {
+                "url": "/plain.png",
+                "status": 200
+              }
+            ],
+            "saves": 2,
+            "feature_updated": true,
+            "content_updated": true,
+            "edits": [
+              {
+                "fields": {
+                  "feature_image": "__GHOST_URL__/content/images/plain.png",
+                  "mobiledoc": "{\"version\":\"0.3.1\",\"cards\":[[\"image\",{\"src\":\"__GHOST_URL__/content/images/plain.png\"}]]}"
+                },
+                "options": {
+                  "id": "synthetic-post",
+                  "context": {
+                    "internal": true
+                  }
+                }
+              }
+            ],
+            "imports": [],
+            "errors": []
+          },
+          "current": {
+            "requests": [
+              {
+                "url": "/plain.png",
+                "status": 200
+              },
+              {
+                "url": "/plain.png",
+                "status": 200
+              }
+            ],
+            "saves": 2,
+            "feature_updated": true,
+            "content_updated": true,
+            "edits": [
+              {
+                "fields": {
+                  "feature_image": "__GHOST_URL__/content/images/plain.png",
+                  "mobiledoc": "{\"version\":\"0.3.1\",\"cards\":[[\"image\",{\"src\":\"__GHOST_URL__/content/images/plain.png\"}]]}"
+                },
+                "options": {
+                  "id": "synthetic-post",
+                  "context": {
+                    "internal": true
+                  }
+                }
+              }
+            ],
+            "imports": [
+              {
+                "status": "stored"
+              },
+              {
+                "status": "stored"
+              }
+            ],
+            "errors": []
+          },
+          "patched": {
+            "requests": [
+              {
+                "url": "/plain.png",
+                "status": 200
+              },
+              {
+                "url": "/plain.png",
+                "status": 200
+              }
+            ],
+            "saves": 2,
+            "feature_updated": true,
+            "content_updated": true,
+            "edits": [
+              {
+                "fields": {
+                  "feature_image": "__GHOST_URL__/content/images/plain.png",
+                  "mobiledoc": "{\"version\":\"0.3.1\",\"cards\":[[\"image\",{\"src\":\"__GHOST_URL__/content/images/plain.png\"}]]}"
+                },
+                "options": {
+                  "id": "synthetic-post",
+                  "context": {
+                    "internal": true
+                  }
+                }
+              }
+            ],
+            "imports": [
+              {
+                "status": "stored"
+              },
+              {
+                "status": "stored"
+              }
+            ],
+            "errors": []
+          }
+        }
+      },
+      {
+        "name": "raw-space",
+        "input": "/cover image.png",
+        "target": "/cover%20image.png",
+        "rawInput": true,
+        "source_url": "http://127.0.0.1:55647/cover image.png",
+        "versions": {
+          "origin": {
+            "requests": [
+              {
+                "url": "/cover%20image.png",
+                "status": 200
+              }
+            ],
+            "saves": 1,
+            "feature_updated": true,
+            "content_updated": false,
+            "edits": [
+              {
+                "fields": {
+                  "feature_image": "__GHOST_URL__/content/images/cover-image.png"
+                },
+                "options": {
+                  "id": "synthetic-post",
+                  "context": {
+                    "internal": true
+                  }
+                }
+              }
+            ],
+            "imports": [],
+            "errors": []
+          },
+          "current": {
+            "requests": [
+              {
+                "url": "/cover%20image.png",
+                "status": 200
+              }
+            ],
+            "saves": 1,
+            "feature_updated": true,
+            "content_updated": false,
+            "edits": [
+              {
+                "fields": {
+                  "feature_image": "__GHOST_URL__/content/images/cover-image.png"
+                },
+                "options": {
+                  "id": "synthetic-post",
+                  "context": {
+                    "internal": true
+                  }
+                }
+              }
+            ],
+            "imports": [
+              {
+                "status": "stored"
+              }
+            ],
+            "errors": []
+          },
+          "patched": {
+            "requests": [
+              {
+                "url": "/cover%20image.png",
+                "status": 200
+              }
+            ],
+            "saves": 1,
+            "feature_updated": true,
+            "content_updated": false,
+            "edits": [
+              {
+                "fields": {
+                  "feature_image": "__GHOST_URL__/content/images/cover-image.png"
+                },
+                "options": {
+                  "id": "synthetic-post",
+                  "context": {
+                    "internal": true
+                  }
+                }
+              }
+            ],
+            "imports": [
+              {
+                "status": "stored"
+              }
+            ],
+            "errors": []
+          }
+        }
+      },
+      {
+        "name": "encoded-space",
+        "input": "/cover%20image.png",
+        "target": "/cover%20image.png",
+        "regression": true,
+        "source_url": "http://127.0.0.1:55647/cover%20image.png",
+        "versions": {
+          "before": {
+            "requests": [
+              {
+                "url": "/cover%20image.png",
+                "status": 200
+              },
+              {
+                "url": "/cover%20image.png",
+                "status": 200
+              }
+            ],
+            "saves": 2,
+            "feature_updated": true,
+            "content_updated": true,
+            "edits": [
+              {
+                "fields": {
+                  "feature_image": "__GHOST_URL__/content/images/cover%20image.png",
+                  "mobiledoc": "{\"version\":\"0.3.1\",\"cards\":[[\"image\",{\"src\":\"__GHOST_URL__/content/images/cover%20image.png\"}]]}"
+                },
+                "options": {
+                  "id": "synthetic-post",
+                  "context": {
+                    "internal": true
+                  }
+                }
+              }
+            ],
+            "imports": [],
+            "errors": []
+          },
+          "origin": {
+            "requests": [
+              {
+                "url": "/cover%2520image.png",
+                "status": 404
+              },
+              {
+                "url": "/cover%2520image.png",
+                "status": 404
+              }
+            ],
+            "saves": 0,
+            "feature_updated": false,
+            "content_updated": false,
+            "edits": [],
+            "imports": [],
+            "errors": [
+              {
+                "level": "error",
+                "text": "Error downloading remote media: http://127.0.0.1:55647/cover%2520image.png"
+              },
+              {
+                "level": "error",
+                "text": "The server encountered an error whilst importing data."
+              },
+              {
+                "level": "error",
+                "text": "Error downloading remote media: http://127.0.0.1:55647/cover%2520image.png"
+              },
+              {
+                "level": "error",
+                "text": "The server encountered an error whilst importing data."
+              }
+            ]
+          },
+          "current": {
+            "requests": [
+              {
+                "url": "/cover%2520image.png",
+                "status": 404
+              },
+              {
+                "url": "/cover%2520image.png",
+                "status": 404
+              }
+            ],
+            "saves": 0,
+            "feature_updated": false,
+            "content_updated": false,
+            "edits": [],
+            "imports": [
+              {
+                "status": "failed",
+                "stage": "download"
+              },
+              {
+                "status": "failed",
+                "stage": "download"
+              }
+            ],
+            "errors": [
+              {
+                "level": "error",
+                "text": "Error downloading remote media: http://127.0.0.1:55647/cover%2520image.png"
+              },
+              {
+                "level": "error",
+                "text": "The server encountered an error whilst importing data."
+              },
+              {
+                "level": "error",
+                "text": "Error downloading remote media: http://127.0.0.1:55647/cover%2520image.png"
+              },
+              {
+                "level": "error",
+                "text": "The server encountered an error whilst importing data."
+              }
+            ]
+          },
+          "patched": {
+            "requests": [
+              {
+                "url": "/cover%20image.png",
+                "status": 200
+              },
+              {
+                "url": "/cover%20image.png",
+                "status": 200
+              }
+            ],
+            "saves": 2,
+            "feature_updated": true,
+            "content_updated": true,
+            "edits": [
+              {
+                "fields": {
+                  "feature_image": "__GHOST_URL__/content/images/cover-20image.png",
+                  "mobiledoc": "{\"version\":\"0.3.1\",\"cards\":[[\"image\",{\"src\":\"__GHOST_URL__/content/images/cover-20image.png\"}]]}"
+                },
+                "options": {
+                  "id": "synthetic-post",
+                  "context": {
+                    "internal": true
+                  }
+                }
+              }
+            ],
+            "imports": [
+              {
+                "status": "stored"
+              },
+              {
+                "status": "stored"
+              }
+            ],
+            "errors": []
+          }
+        }
+      },
+      {
+        "name": "raw-unicode",
+        "input": "/café.png",
+        "target": "/caf%C3%A9.png",
+        "rawInput": true,
+        "source_url": "http://127.0.0.1:55647/café.png",
+        "versions": {
+          "origin": {
+            "requests": [
+              {
+                "url": "/caf%C3%A9.png",
+                "status": 200
+              }
+            ],
+            "saves": 1,
+            "feature_updated": true,
+            "content_updated": false,
+            "edits": [
+              {
+                "fields": {
+                  "feature_image": "__GHOST_URL__/content/images/cafe.png"
+                },
+                "options": {
+                  "id": "synthetic-post",
+                  "context": {
+                    "internal": true
+                  }
+                }
+              }
+            ],
+            "imports": [],
+            "errors": []
+          },
+          "current": {
+            "requests": [
+              {
+                "url": "/caf%C3%A9.png",
+                "status": 200
+              }
+            ],
+            "saves": 1,
+            "feature_updated": true,
+            "content_updated": false,
+            "edits": [
+              {
+                "fields": {
+                  "feature_image": "__GHOST_URL__/content/images/cafe.png"
+                },
+                "options": {
+                  "id": "synthetic-post",
+                  "context": {
+                    "internal": true
+                  }
+                }
+              }
+            ],
+            "imports": [
+              {
+                "status": "stored"
+              }
+            ],
+            "errors": []
+          },
+          "patched": {
+            "requests": [
+              {
+                "url": "/caf%C3%A9.png",
+                "status": 200
+              }
+            ],
+            "saves": 1,
+            "feature_updated": true,
+            "content_updated": false,
+            "edits": [
+              {
+                "fields": {
+                  "feature_image": "__GHOST_URL__/content/images/cafe.png"
+                },
+                "options": {
+                  "id": "synthetic-post",
+                  "context": {
+                    "internal": true
+                  }
+                }
+              }
+            ],
+            "imports": [
+              {
+                "status": "stored"
+              }
+            ],
+            "errors": []
+          }
+        }
+      },
+      {
+        "name": "encoded-unicode",
+        "input": "/caf%C3%A9.png",
+        "target": "/caf%C3%A9.png",
+        "regression": true,
+        "source_url": "http://127.0.0.1:55647/caf%C3%A9.png",
+        "versions": {
+          "before": {
+            "requests": [
+              {
+                "url": "/caf%C3%A9.png",
+                "status": 200
+              },
+              {
+                "url": "/caf%C3%A9.png",
+                "status": 200
+              }
+            ],
+            "saves": 2,
+            "feature_updated": true,
+            "content_updated": true,
+            "edits": [
+              {
+                "fields": {
+                  "feature_image": "__GHOST_URL__/content/images/caf%C3%A9.png",
+                  "mobiledoc": "{\"version\":\"0.3.1\",\"cards\":[[\"image\",{\"src\":\"__GHOST_URL__/content/images/caf%C3%A9.png\"}]]}"
+                },
+                "options": {
+                  "id": "synthetic-post",
+                  "context": {
+                    "internal": true
+                  }
+                }
+              }
+            ],
+            "imports": [],
+            "errors": []
+          },
+          "origin": {
+            "requests": [
+              {
+                "url": "/caf%25C3%25A9.png",
+                "status": 404
+              },
+              {
+                "url": "/caf%25C3%25A9.png",
+                "status": 404
+              }
+            ],
+            "saves": 0,
+            "feature_updated": false,
+            "content_updated": false,
+            "edits": [],
+            "imports": [],
+            "errors": [
+              {
+                "level": "error",
+                "text": "Error downloading remote media: http://127.0.0.1:55647/caf%25C3%25A9.png"
+              },
+              {
+                "level": "error",
+                "text": "The server encountered an error whilst importing data."
+              },
+              {
+                "level": "error",
+                "text": "Error downloading remote media: http://127.0.0.1:55647/caf%25C3%25A9.png"
+              },
+              {
+                "level": "error",
+                "text": "The server encountered an error whilst importing data."
+              }
+            ]
+          },
+          "current": {
+            "requests": [
+              {
+                "url": "/caf%25C3%25A9.png",
+                "status": 404
+              },
+              {
+                "url": "/caf%25C3%25A9.png",
+                "status": 404
+              }
+            ],
+            "saves": 0,
+            "feature_updated": false,
+            "content_updated": false,
+            "edits": [],
+            "imports": [
+              {
+                "status": "failed",
+                "stage": "download"
+              },
+              {
+                "status": "failed",
+                "stage": "download"
+              }
+            ],
+            "errors": [
+              {
+                "level": "error",
+                "text": "Error downloading remote media: http://127.0.0.1:55647/caf%25C3%25A9.png"
+              },
+              {
+                "level": "error",
+                "text": "The server encountered an error whilst importing data."
+              },
+              {
+                "level": "error",
+                "text": "Error downloading remote media: http://127.0.0.1:55647/caf%25C3%25A9.png"
+              },
+              {
+                "level": "error",
+                "text": "The server encountered an error whilst importing data."
+              }
+            ]
+          },
+          "patched": {
+            "requests": [
+              {
+                "url": "/caf%C3%A9.png",
+                "status": 200
+              },
+              {
+                "url": "/caf%C3%A9.png",
+                "status": 200
+              }
+            ],
+            "saves": 2,
+            "feature_updated": true,
+            "content_updated": true,
+            "edits": [
+              {
+                "fields": {
+                  "feature_image": "__GHOST_URL__/content/images/caf-c3-a9.png",
+                  "mobiledoc": "{\"version\":\"0.3.1\",\"cards\":[[\"image\",{\"src\":\"__GHOST_URL__/content/images/caf-c3-a9.png\"}]]}"
+                },
+                "options": {
+                  "id": "synthetic-post",
+                  "context": {
+                    "internal": true
+                  }
+                }
+              }
+            ],
+            "imports": [
+              {
+                "status": "stored"
+              },
+              {
+                "status": "stored"
+              }
+            ],
+            "errors": []
+          }
+        }
+      },
+      {
+        "name": "literal-percent",
+        "input": "/sale%25.png",
+        "target": "/sale%25.png",
+        "regression": true,
+        "source_url": "http://127.0.0.1:55647/sale%25.png",
+        "versions": {
+          "before": {
+            "requests": [
+              {
+                "url": "/sale%25.png",
+                "status": 200
+              },
+              {
+                "url": "/sale%25.png",
+                "status": 200
+              }
+            ],
+            "saves": 2,
+            "feature_updated": true,
+            "content_updated": true,
+            "edits": [
+              {
+                "fields": {
+                  "feature_image": "__GHOST_URL__/content/images/sale%25.png",
+                  "mobiledoc": "{\"version\":\"0.3.1\",\"cards\":[[\"image\",{\"src\":\"__GHOST_URL__/content/images/sale%25.png\"}]]}"
+                },
+                "options": {
+                  "id": "synthetic-post",
+                  "context": {
+                    "internal": true
+                  }
+                }
+              }
+            ],
+            "imports": [],
+            "errors": []
+          },
+          "origin": {
+            "requests": [
+              {
+                "url": "/sale%2525.png",
+                "status": 404
+              },
+              {
+                "url": "/sale%2525.png",
+                "status": 404
+              }
+            ],
+            "saves": 0,
+            "feature_updated": false,
+            "content_updated": false,
+            "edits": [],
+            "imports": [],
+            "errors": [
+              {
+                "level": "error",
+                "text": "Error downloading remote media: http://127.0.0.1:55647/sale%2525.png"
+              },
+              {
+                "level": "error",
+                "text": "The server encountered an error whilst importing data."
+              },
+              {
+                "level": "error",
+                "text": "Error downloading remote media: http://127.0.0.1:55647/sale%2525.png"
+              },
+              {
+                "level": "error",
+                "text": "The server encountered an error whilst importing data."
+              }
+            ]
+          },
+          "current": {
+            "requests": [
+              {
+                "url": "/sale%2525.png",
+                "status": 404
+              },
+              {
+                "url": "/sale%2525.png",
+                "status": 404
+              }
+            ],
+            "saves": 0,
+            "feature_updated": false,
+            "content_updated": false,
+            "edits": [],
+            "imports": [
+              {
+                "status": "failed",
+                "stage": "download"
+              },
+              {
+                "status": "failed",
+                "stage": "download"
+              }
+            ],
+            "errors": [
+              {
+                "level": "error",
+                "text": "Error downloading remote media: http://127.0.0.1:55647/sale%2525.png"
+              },
+              {
+                "level": "error",
+                "text": "The server encountered an error whilst importing data."
+              },
+              {
+                "level": "error",
+                "text": "Error downloading remote media: http://127.0.0.1:55647/sale%2525.png"
+              },
+              {
+                "level": "error",
+                "text": "The server encountered an error whilst importing data."
+              }
+            ]
+          },
+          "patched": {
+            "requests": [
+              {
+                "url": "/sale%25.png",
+                "status": 200
+              },
+              {
+                "url": "/sale%25.png",
+                "status": 200
+              }
+            ],
+            "saves": 2,
+            "feature_updated": true,
+            "content_updated": true,
+            "edits": [
+              {
+                "fields": {
+                  "feature_image": "__GHOST_URL__/content/images/sale-25.png",
+                  "mobiledoc": "{\"version\":\"0.3.1\",\"cards\":[[\"image\",{\"src\":\"__GHOST_URL__/content/images/sale-25.png\"}]]}"
+                },
+                "options": {
+                  "id": "synthetic-post",
+                  "context": {
+                    "internal": true
+                  }
+                }
+              }
+            ],
+            "imports": [
+              {
+                "status": "stored"
+              },
+              {
+                "status": "stored"
+              }
+            ],
+            "errors": []
+          }
+        }
+      },
+      {
+        "name": "query-escape",
+        "input": "/query.png?ref=a%2Fb",
+        "target": "/query.png?ref=a%2Fb",
+        "regression": true,
+        "source_url": "http://127.0.0.1:55647/query.png?ref=a%2Fb",
+        "versions": {
+          "before": {
+            "requests": [
+              {
+                "url": "/query.png?ref=a%2Fb",
+                "status": 200
+              },
+              {
+                "url": "/query.png?ref=a%2Fb",
+                "status": 200
+              }
+            ],
+            "saves": 2,
+            "feature_updated": true,
+            "content_updated": true,
+            "edits": [
+              {
+                "fields": {
+                  "feature_image": "__GHOST_URL__/content/images/query.png",
+                  "mobiledoc": "{\"version\":\"0.3.1\",\"cards\":[[\"image\",{\"src\":\"__GHOST_URL__/content/images/query.png\"}]]}"
+                },
+                "options": {
+                  "id": "synthetic-post",
+                  "context": {
+                    "internal": true
+                  }
+                }
+              }
+            ],
+            "imports": [],
+            "errors": []
+          },
+          "origin": {
+            "requests": [
+              {
+                "url": "/query.png?ref=a%252Fb",
+                "status": 404
+              },
+              {
+                "url": "/query.png?ref=a%252Fb",
+                "status": 404
+              }
+            ],
+            "saves": 0,
+            "feature_updated": false,
+            "content_updated": false,
+            "edits": [],
+            "imports": [],
+            "errors": [
+              {
+                "level": "error",
+                "text": "Error downloading remote media: http://127.0.0.1:55647/query.png?ref=a%252Fb"
+              },
+              {
+                "level": "error",
+                "text": "The server encountered an error whilst importing data."
+              },
+              {
+                "level": "error",
+                "text": "Error downloading remote media: http://127.0.0.1:55647/query.png?ref=a%252Fb"
+              },
+              {
+                "level": "error",
+                "text": "The server encountered an error whilst importing data."
+              }
+            ]
+          },
+          "current": {
+            "requests": [
+              {
+                "url": "/query.png?ref=a%252Fb",
+                "status": 404
+              },
+              {
+                "url": "/query.png?ref=a%252Fb",
+                "status": 404
+              }
+            ],
+            "saves": 0,
+            "feature_updated": false,
+            "content_updated": false,
+            "edits": [],
+            "imports": [
+              {
+                "status": "failed",
+                "stage": "download"
+              },
+              {
+                "status": "failed",
+                "stage": "download"
+              }
+            ],
+            "errors": [
+              {
+                "level": "error",
+                "text": "Error downloading remote media: http://127.0.0.1:55647/query.png?ref=a%252Fb"
+              },
+              {
+                "level": "error",
+                "text": "The server encountered an error whilst importing data."
+              },
+              {
+                "level": "error",
+                "text": "Error downloading remote media: http://127.0.0.1:55647/query.png?ref=a%252Fb"
+              },
+              {
+                "level": "error",
+                "text": "The server encountered an error whilst importing data."
+              }
+            ]
+          },
+          "patched": {
+            "requests": [
+              {
+                "url": "/query.png?ref=a%2Fb",
+                "status": 200
+              },
+              {
+                "url": "/query.png?ref=a%2Fb",
+                "status": 200
+              }
+            ],
+            "saves": 2,
+            "feature_updated": true,
+            "content_updated": true,
+            "edits": [
+              {
+                "fields": {
+                  "feature_image": "__GHOST_URL__/content/images/query-ref-a-2fb.png",
+                  "mobiledoc": "{\"version\":\"0.3.1\",\"cards\":[[\"image\",{\"src\":\"__GHOST_URL__/content/images/query-ref-a-2fb.png\"}]]}"
+                },
+                "options": {
+                  "id": "synthetic-post",
+                  "context": {
+                    "internal": true
+                  }
+                }
+              }
+            ],
+            "imports": [
+              {
+                "status": "stored"
+              },
+              {
+                "status": "stored"
+              }
+            ],
+            "errors": []
+          }
+        }
+      },
+      {
+        "name": "encoded-separator",
+        "input": "/chapter%2Fone.png",
+        "target": "/chapter%2Fone.png",
+        "regression": true,
+        "source_url": "http://127.0.0.1:55647/chapter%2Fone.png",
+        "versions": {
+          "before": {
+            "requests": [
+              {
+                "url": "/chapter%2Fone.png",
+                "status": 200
+              },
+              {
+                "url": "/chapter%2Fone.png",
+                "status": 200
+              }
+            ],
+            "saves": 2,
+            "feature_updated": true,
+            "content_updated": true,
+            "edits": [
+              {
+                "fields": {
+                  "feature_image": "__GHOST_URL__/content/images/chapter%2Fone.png",
+                  "mobiledoc": "{\"version\":\"0.3.1\",\"cards\":[[\"image\",{\"src\":\"__GHOST_URL__/content/images/chapter%2Fone.png\"}]]}"
+                },
+                "options": {
+                  "id": "synthetic-post",
+                  "context": {
+                    "internal": true
+                  }
+                }
+              }
+            ],
+            "imports": [],
+            "errors": []
+          },
+          "origin": {
+            "requests": [
+              {
+                "url": "/chapter%252Fone.png",
+                "status": 404
+              },
+              {
+                "url": "/chapter%252Fone.png",
+                "status": 404
+              }
+            ],
+            "saves": 0,
+            "feature_updated": false,
+            "content_updated": false,
+            "edits": [],
+            "imports": [],
+            "errors": [
+              {
+                "level": "error",
+                "text": "Error downloading remote media: http://127.0.0.1:55647/chapter%252Fone.png"
+              },
+              {
+                "level": "error",
+                "text": "The server encountered an error whilst importing data."
+              },
+              {
+                "level": "error",
+                "text": "Error downloading remote media: http://127.0.0.1:55647/chapter%252Fone.png"
+              },
+              {
+                "level": "error",
+                "text": "The server encountered an error whilst importing data."
+              }
+            ]
+          },
+          "current": {
+            "requests": [
+              {
+                "url": "/chapter%252Fone.png",
+                "status": 404
+              },
+              {
+                "url": "/chapter%252Fone.png",
+                "status": 404
+              }
+            ],
+            "saves": 0,
+            "feature_updated": false,
+            "content_updated": false,
+            "edits": [],
+            "imports": [
+              {
+                "status": "failed",
+                "stage": "download"
+              },
+              {
+                "status": "failed",
+                "stage": "download"
+              }
+            ],
+            "errors": [
+              {
+                "level": "error",
+                "text": "Error downloading remote media: http://127.0.0.1:55647/chapter%252Fone.png"
+              },
+              {
+                "level": "error",
+                "text": "The server encountered an error whilst importing data."
+              },
+              {
+                "level": "error",
+                "text": "Error downloading remote media: http://127.0.0.1:55647/chapter%252Fone.png"
+              },
+              {
+                "level": "error",
+                "text": "The server encountered an error whilst importing data."
+              }
+            ]
+          },
+          "patched": {
+            "requests": [
+              {
+                "url": "/chapter%2Fone.png",
+                "status": 200
+              },
+              {
+                "url": "/chapter%2Fone.png",
+                "status": 200
+              }
+            ],
+            "saves": 2,
+            "feature_updated": true,
+            "content_updated": true,
+            "edits": [
+              {
+                "fields": {
+                  "feature_image": "__GHOST_URL__/content/images/chapter-2fone.png",
+                  "mobiledoc": "{\"version\":\"0.3.1\",\"cards\":[[\"image\",{\"src\":\"__GHOST_URL__/content/images/chapter-2fone.png\"}]]}"
+                },
+                "options": {
+                  "id": "synthetic-post",
+                  "context": {
+                    "internal": true
+                  }
+                }
+              }
+            ],
+            "imports": [
+              {
+                "status": "stored"
+              },
+              {
+                "status": "stored"
+              }
+            ],
+            "errors": []
+          }
+        }
+      }
+    ]
+  },
+  "sandbox_removed": true
+}

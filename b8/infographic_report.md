@@ -2,6 +2,14 @@
 
 ![B8 infographic](infographic.png)
 
+## Current validation
+
+- Focused comment date helper tests: **61 passed**. From `apps/comments-ui/`: `pnpm exec vitest run test/unit/utils/helpers.test.ts --maxWorkers=1 --no-file-parallelism`.
+- PR: [#32150](https://github.com/TryGhost/Ghost/pull/32150).
+- Full `pnpm check`: attempted, exited 130 after formatting/Oxlint passed; Nx lint/build tasks failed on this Windows environment. The full test stage was not reached. See the PR and the validation archive for details. Product CI and migration staging review remain unverified.
+
+> **Historical generation record:** The content below records the image-generation context and status at that time. Any test-status statement below is superseded by Current validation above; the generation prompts are preserved unchanged.
+
 This native imagegen edit is a conceptual diagram, not a UI screenshot. The proposed fix is not merged.
 
 The relative comment label currently compares UTC calendar dates, while the tooltip uses the reader's local calendar. Those date bases can disagree near timezone boundaries. The proposed helper compares local calendar days using day ordinals; relative-hour rounding remains unchanged, including across 23-hour and 25-hour daylight-saving days.

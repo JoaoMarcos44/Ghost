@@ -1,0 +1,14 @@
+{
+  "label": "b2-red-ready",
+  "cwd": "packages/app-sdk",
+  "command": [
+    "pnpm",
+    "exec",
+    "vitest",
+    "run",
+    "test/history.test.ts",
+    "--maxWorkers=1",
+    "--no-file-parallelism"
+  ],
+  "exit_code": 1
+}

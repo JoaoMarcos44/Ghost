@@ -1,0 +1,54 @@
+{
+  "scenario": "editor-gif",
+  "started_at": "2026-10-21T08:25:14.979236+00:00",
+  "head": "68693a89812f857e6c96bac814381ec2e4503210",
+  "runtime": "v22.23.3",
+  "platform": "Windows-11-10.0.22621-SP0",
+  "package_manager": "pnpm@12.10.1",
+  "dependencies": {
+    "node-win-x64": "22.23.3"
+  },
+  "source_sha256": {
+    "koenig/koenig-lexical/src/utils/isGif.ts": "b080de57f7238ac96ab81c1736a90784104917035c553b1fd451c418a1b8cef1",
+    "koenig/koenig-lexical/src/components/ui/cards/ImageCard.tsx": "db93c3084d747e9547ff1f1e948076a0fd7ec21f7fbc0d82c80e4da2f8cc34e0"
+  },
+  "exit_code": 0,
+  "observations": {
+    "results": [
+      {
+        "pathname": "/animation.gif",
+        "http_status": 200,
+        "content_type": "image/gif",
+        "expected": true,
+        "detected": true,
+        "edit_control_enabled_when_pintura_enabled": false
+      },
+      {
+        "pathname": "/animation.gif?v=1",
+        "http_status": 200,
+        "content_type": "image/gif",
+        "expected": true,
+        "detected": false,
+        "edit_control_enabled_when_pintura_enabled": true
+      },
+      {
+        "pathname": "/animation.GIF",
+        "http_status": 200,
+        "content_type": "image/gif",
+        "expected": true,
+        "detected": false,
+        "edit_control_enabled_when_pintura_enabled": true
+      },
+      {
+        "pathname": "/animation.gif#preview",
+        "http_status": 200,
+        "content_type": "image/gif",
+        "expected": true,
+        "detected": false,
+        "edit_control_enabled_when_pintura_enabled": true
+      }
+    ],
+    "current_bug_reproduced": true
+  },
+  "sandbox_removed": true
+}

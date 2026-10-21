@@ -1,0 +1,15 @@
+{
+  "label": "b8-red",
+  "cwd": "apps/comments-ui",
+  "command": [
+    "pnpm",
+    "exec",
+    "vitest",
+    "run",
+    "test/unit/utils/helpers.test.ts",
+    "--pool=threads",
+    "--maxWorkers=1",
+    "--no-file-parallelism"
+  ],
+  "exit_code": 1
+}

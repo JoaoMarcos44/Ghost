@@ -1,0 +1,15 @@
+{
+  "label": "format-static-sample",
+  "cwd": ".",
+  "command": [
+    "pnpm",
+    "exec",
+    "oxfmt",
+    "--check",
+    "--threads=2",
+    "tools/scripts/test/workspace-fixture.ts",
+    "tools/scripts/format.ts",
+    "packages/checkout/src/index.ts"
+  ],
+  "exit_code": 0
+}

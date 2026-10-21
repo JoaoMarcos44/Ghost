@@ -1,0 +1,10 @@
+
+ RUN  v4.1.11 C:/Users/Nitro/Ghost/.tmp-sandbox-workspace/ghost
+
+··································
+
+ Test Files  1 passed (1)
+      Tests  34 passed (34)
+   Start at  17:16:09
+   Duration  16.88s (transform 419ms, setup 10.66s, import 3.54s, tests 2.22s, environment 0ms)
+

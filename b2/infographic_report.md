@@ -2,6 +2,14 @@
 
 ![Conceptual explanation](infographic.png)
 
+## Current validation
+
+- Focused app SDK history tests: **11 passed**. From `packages/app-sdk/`: `pnpm exec vitest run test/history.test.ts --maxWorkers=1 --no-file-parallelism`.
+- PR: [#32133](https://github.com/TryGhost/Ghost/pull/32133).
+- Full `pnpm check`: attempted, exited 130 after formatting/Oxlint passed; Nx lint/build tasks failed on this Windows environment. The full test stage was not reached. See the PR and the validation archive for details. Product CI and migration staging review remain unverified.
+
+> **Historical generation record:** The content below records the image-generation context and status at that time. Any test-status statement below is superseded by Current validation above; the generation prompt is preserved unchanged.
+
 ## Architecture, problem and solution
 
 Architecture: the app router stores state in browser history; the SDK tracks routes so Admin can revisit them. Problem: the route map starts empty and forgets state saved before the SDK connects. Solution: seed the map with the current route and its existing history state before tracking later moves.

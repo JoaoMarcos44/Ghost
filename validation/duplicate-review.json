@@ -1,0 +1,1038 @@
+{
+  "generated_at_utc": "2026-10-21T19:41:46.274345+00:00",
+  "purpose": "Fresh, read-only duplicate review for B1-B8 and C1-C3 from the 2026-10-21 investigation report.",
+  "github_cli": "gh search issues --include-prs; authenticated context JoaoMarcos44; no state qualifier, so open and closed records are included.",
+  "repository_scope": [
+    "TryGhost/Ghost",
+    "TryGhost/Koenig for B3"
+  ],
+  "searches_completed": 29,
+  "all_search_commands_succeeded": true,
+  "exact_duplicates_found": [],
+  "candidate_reviews": [
+    {
+      "candidate": "B1",
+      "exact_duplicate_found": false,
+      "assessment": "No exact duplicate. #20484 reports a missing Komoot bookmark thumbnail tied to a specific URL; #30761 checks fetched image bytes/extensions and does not change JSON-LD image extraction. #29114 is YouTube oEmbed handling; #29732 is SVG favicon storage.",
+      "queries": [
+        {
+          "query": "bookmark image",
+          "repositories": [
+            "TryGhost/Ghost"
+          ],
+          "returned": 5,
+          "issues": 0,
+          "pull_requests": 5,
+          "possibly_capped": false,
+          "error": null,
+          "relevant_hits": [
+            {
+              "number": 29114,
+              "title": "Fixed YouTube bookmark metadata",
+              "url": "https://github.com/TryGhost/Ghost/pull/29114",
+              "kind": "pull_request"
+            },
+            {
+              "number": 30761,
+              "title": "Fixed handling of bookmark card images",
+              "url": "https://github.com/TryGhost/Ghost/pull/30761",
+              "kind": "pull_request"
+            },
+            {
+              "number": 29732,
+              "title": "🐛 Fixed SVG favicons not rendering in bookmark cards",
+              "url": "https://github.com/TryGhost/Ghost/pull/29732",
+              "kind": "pull_request"
+            }
+          ]
+        },
+        {
+          "query": "metascraper image",
+          "repositories": [
+            "TryGhost/Ghost"
+          ],
+          "returned": 36,
+          "issues": 2,
+          "pull_requests": 34,
+          "possibly_capped": false,
+          "error": null,
+          "relevant_hits": [
+            {
+              "number": 20484,
+              "title": "Bookmarker thumbnail breaks on some links",
+              "url": "https://github.com/TryGhost/Ghost/issues/20484",
+              "kind": "issue"
+            }
+          ]
+        }
+      ],
+      "inspected_matches": [
+        {
+          "number": 29114,
+          "title": "Fixed YouTube bookmark metadata",
+          "url": "https://github.com/TryGhost/Ghost/pull/29114",
+          "kind": "pull_request",
+          "state": "merged",
+          "body_excerpt": "Fixes #24741 Why: YouTube bookmark requests can receive generic page metadata (and no thumbnail) from the fetched page, even though YouTube's allowlisted oEmbed endpoint has the video title, author, provider, and thumbnail. Missing image URLs were also still sent through bookmark image processing, which produced `Failed to parse URL from null` logs. What: - Builds explicit bookmark cards from allowlisted known-provider oEmbed metadata without exposing provider-supplied embed HTML. - Skips absent bookmark icon/thumbnail URLs before image processing while keeping the default icon fallback. - Adds unit coverage for YouTube bookmark metadata and missing image URLs. Why Ghost users or developers need this: YouTube bookmark cards now use video metadata instead of a generic YouTube card and avoid noisy null-image URL errors. Tests: - `pnpm test:"
+        },
+        {
+          "number": 30761,
+          "title": "Fixed handling of bookmark card images",
+          "url": "https://github.com/TryGhost/Ghost/pull/30761",
+          "kind": "pull_request",
+          "state": "merged",
+          "body_excerpt": "no ref"
+        },
+        {
+          "number": 29732,
+          "title": "🐛 Fixed SVG favicons not rendering in bookmark cards",
+          "url": "https://github.com/TryGhost/Ghost/pull/29732",
+          "kind": "pull_request",
+          "state": "merged",
+          "body_excerpt": "ref https://linear.app/ghost/issue/ONC-1930/substack-favicon-broken Bookmark card icons are stored without a content type, so GCS serves them as an octet-stream. Browsers sniff raster formats and render them anyway, but they do not sniff SVG, so SVG favicons in bookmark cards show as broken images. Reported via escalation. > **Note:** this PR has been rebuilt twice and earlier review comments refer to > older versions. It previously sanitized SVG with DOMPurify and stored it as > `image/svg+xml` (~600 lines), then rasterized but also plumbed a content type > through the storage adapter. Both are gone. ## Why this path and not image cards Image cards go through `save()`, which has always passed `file.type` from the upload middleware. Bookmark icons go through `saveRaw()` — they are fetched server-side rather than uploaded — and `saveRaw()`"
+        },
+        {
+          "number": 20484,
+          "title": "Bookmarker thumbnail breaks on some links",
+          "url": "https://github.com/TryGhost/Ghost/issues/20484",
+          "kind": "issue",
+          "state": "closed",
+          "body_excerpt": "### Issue Summary When adding a bookmark, the thumbnail is missing on some URLs. Recreating the bookmark does not help. <img width=\"757\" alt=\"image\" src=\"https://github.com/TryGhost/Ghost/assets/33825432/d51b8fda-5f09-4cc0-a4e0-9c07dd62066e\"> Does not work: https://www.komoot.com/es-es/tour/907703588?share_token=aGz0MeTiQ4l20kR1I3fZZ8jqo30FhUDfOaVBzw0HL1x2pqqqlK&ref= Works: https://www.komoot.com/es-es/tour/907708579?share_token=a0l1fiZBYZHhKJr8IRogCPRNxTATckU1RhbHIRxoN4QtdgPzZn&ref= ### Steps to Reproduce 1. Paste link in post ### Ghost Version 5.86.2 ### Node.js Version 18.20.3 ### How did you install Ghost? Docker ### Database type MySQL 8 ### Browser & OS version Chrome ### Relevant log / error output _No response_ ### Code of Conduct - [X] I agree to be friendly and polite to people in this repository"
+        }
+      ]
+    },
+    {
+      "candidate": "B2",
+      "exact_duplicate_found": false,
+      "assessment": "No exact duplicate. The only fresh hit, #31165, moves image-transform into the Ghost workspace and does not concern app-SDK history state.",
+      "queries": [
+        {
+          "query": "SDK history",
+          "repositories": [
+            "TryGhost/Ghost"
+          ],
+          "returned": 1,
+          "issues": 0,
+          "pull_requests": 1,
+          "possibly_capped": false,
+          "error": null,
+          "relevant_hits": [
+            {
+              "number": 31165,
+              "title": "[Don't merge] Moved image transform into the Ghost workspace",
+              "url": "https://github.com/TryGhost/Ghost/pull/31165",
+              "kind": "pull_request"
+            }
+          ]
+        },
+        {
+          "query": "watchHistory",
+          "repositories": [
+            "TryGhost/Ghost"
+          ],
+          "returned": 0,
+          "issues": 0,
+          "pull_requests": 0,
+          "possibly_capped": false,
+          "error": null,
+          "relevant_hits": []
+        }
+      ],
+      "inspected_matches": [
+        {
+          "number": 31165,
+          "title": "[Don't merge] Moved image transform into the Ghost workspace",
+          "url": "https://github.com/TryGhost/Ghost/pull/31165",
+          "kind": "pull_request",
+          "state": "merged",
+          "body_excerpt": "> [!WARNING] > **Do not merge this PR with GitHub's squash or rebase buttons, the merge queue, or a stacked-PR merge.** Squash and rebase merges destroy the imported SDK history. A Ghost repository administrator must merge it with the guarded script below. The `[Don't merge]` title prefix stays until then. > > ```bash > .agents/skills/migrate-internal-package/scripts/merge-history-pr \\ > TryGhost/Ghost \\ > <this PR> \\ > 7a64445501039557aab1e3cb3df194f3cd7d0128 \\ > <head SHA from the dry run> \\ > --confirm > ``` > > The exact command, with the PR number and reviewed head SHA filled in, is posted as a comment once the dry run passes. ## Summary - Moves `@tryghost/image-transform` from TryGhost/SDK (`packages/image-transform`) to `packages/image-transform`. The package's Git history comes across through an unsquashed subtree import (split ti"
+        }
+      ]
+    },
+    {
+      "candidate": "B3",
+      "exact_duplicate_found": false,
+      "assessment": "No exact duplicate. `isGif` results are migration/picture-card PRs (#29218, #2046, #26397, #1752, #29171); none reports query, fragment, or case-sensitive GIF URL classification.",
+      "queries": [
+        {
+          "query": "GIF editor",
+          "repositories": [
+            "TryGhost/Ghost",
+            "TryGhost/Koenig"
+          ],
+          "returned": 0,
+          "issues": 0,
+          "pull_requests": 0,
+          "possibly_capped": false,
+          "error": null,
+          "relevant_hits": []
+        },
+        {
+          "query": "isGif",
+          "repositories": [
+            "TryGhost/Ghost",
+            "TryGhost/Koenig"
+          ],
+          "returned": 5,
+          "issues": 0,
+          "pull_requests": 5,
+          "possibly_capped": false,
+          "error": null,
+          "relevant_hits": [
+            {
+              "number": 29218,
+              "title": "[DO NOT MERGE] Migrated koenig-lexical to TypeScript",
+              "url": "https://github.com/TryGhost/Ghost/pull/29218",
+              "kind": "pull_request"
+            },
+            {
+              "number": 1752,
+              "title": "Added card config option for image card widths",
+              "url": "https://github.com/TryGhost/Koenig/pull/1752",
+              "kind": "pull_request"
+            },
+            {
+              "number": 2046,
+              "title": "Migrate koenig-lexical to TypeScript: file renames + tooling enablement",
+              "url": "https://github.com/TryGhost/Koenig/pull/2046",
+              "kind": "pull_request"
+            },
+            {
+              "number": 26397,
+              "title": "🎨 Added picture element support to `img` card",
+              "url": "https://github.com/TryGhost/Ghost/pull/26397",
+              "kind": "pull_request"
+            },
+            {
+              "number": 29171,
+              "title": "Merged TryGhost/Koenig into the Ghost monorepo",
+              "url": "https://github.com/TryGhost/Ghost/pull/29171",
+              "kind": "pull_request"
+            }
+          ]
+        }
+      ],
+      "inspected_matches": [
+        {
+          "number": 29218,
+          "title": "[DO NOT MERGE] Migrated koenig-lexical to TypeScript",
+          "url": "https://github.com/TryGhost/Ghost/pull/29218",
+          "kind": "pull_request",
+          "state": "open",
+          "body_excerpt": "ref https://github.com/TryGhost/Koenig/pull/1807 > [!NOTE] > This is a holding PR containing a complete migration. The real merge will be done piece-meal in smaller, more reviewable PRs Recreates the koenig-lexical TypeScript migration PR here now that the Koenig repo has been merged into this monorepo. The original commit (TryGhost/Koenig e5fba1c0c7, built on the already-merged rename + tooling PR TryGhost/Koenig#2046) was replayed onto `koenig/*` paths with a mechanical `packages/* → koenig/*` rewrite and then reconciled with changes made since the import (Tenor GIF provider removal, pnpm/catalog dependency management, monorepo lint escalations). ## Summary - Add type annotations throughout src/, demo/, and test/: component props, hooks, utility functions, Lexical node types - Create proper interfaces for untyped dependencies (`Emoji` f"
+        },
+        {
+          "number": 1752,
+          "title": "Added card config option for image card widths",
+          "url": "https://github.com/TryGhost/Koenig/pull/1752",
+          "kind": "pull_request",
+          "state": "merged",
+          "body_excerpt": "ref https://linear.app/ghost/issue/NY-1118/ - cardConfig.image.allowedWidths accepts ['regular','wide','full'] The purpose of this is being able to limit the available widths for email-only use cases. The amount of email-specific cases is expanding such that it's making more and more sense to house this within an email editor component within Koenig... rather than having the composable editor figure out all of the various settings."
+        },
+        {
+          "number": 2046,
+          "title": "Migrate koenig-lexical to TypeScript: file renames + tooling enablement",
+          "url": "https://github.com/TryGhost/Koenig/pull/2046",
+          "kind": "pull_request",
+          "state": "merged",
+          "body_excerpt": "no issue First chunk of the koenig-lexical TypeScript migration, split out to keep review manageable. This PR only makes the extension/tooling switch — the goal is that the exact same code still works as `.ts`/`.tsx`, with type annotations and strictness coming in follow-up PRs. **Commit 1 — mechanical rename.** All 328 source files and 71 test files renamed `.js`→`.ts` / `.jsx`→`.tsx` (100% similarity, no content changes), plus config renames (`vite.config.js`/`vite.config.demo.js`/`playwright.config.js` → `.ts`, `eslint.config.js` → `.mjs`, `svgo.config.js` → `.cjs`). **Commit 2 — tooling updates needed for the renamed files to build/test/lint:** - permissive `tsconfig.json` (`strict: false` — strict mode arrives with the type migration) - `src/vite-env.d.ts` with Vite/SVG ambient declarations - vite lib entry and vitest `setupFiles` po"
+        },
+        {
+          "number": 26397,
+          "title": "🎨 Added picture element support to `img` card",
+          "url": "https://github.com/TryGhost/Ghost/pull/26397",
+          "kind": "pull_request",
+          "state": "merged",
+          "body_excerpt": "no ref - The picture element is widely supported now and lets the browser choose the best supported format for the browser is question"
+        },
+        {
+          "number": 29171,
+          "title": "Merged TryGhost/Koenig into the Ghost monorepo",
+          "url": "https://github.com/TryGhost/Ghost/pull/29171",
+          "kind": "pull_request",
+          "state": "merged",
+          "body_excerpt": "Implements the plan in #29156: moves all 13 Koenig packages from [TryGhost/Koenig](https://github.com/TryGhost/Koenig) into this monorepo under `koenig/*`, with full git history. ## ⚠️ Landing instructions — do not squash This branch must land as a **true merge commit** (or admin push). Squashing would flatten the ~5,200 imported commits into one and destroy `git log` / `git blame` / `git bisect` for all Koenig code. The branch is structured as: - `fb6b427a6` — the history import: a single `--allow-unrelated-histories` merge of the rewritten Koenig history (`packages/*` → `koenig/*` via `git filter-repo`, issue refs qualified as `TryGhost/Koenig#N`) - 8 linear integration commits on top (workspace wiring, CI/publishing, packaging, docker dev, docs) Koenig is frozen at [`84bff4510`](https://github.com/TryGhost/Koenig/commit/84bff4510ec80cf"
+        }
+      ]
+    },
+    {
+      "candidate": "B4",
+      "exact_duplicate_found": false,
+      "assessment": "No exact duplicate. #5605/#5606 concern public post links when a slug begins with the configured subfolder. #5843 is an older Admin navigation normalization change covering a base URL with a path, but not an absolute homepage URL missing its slash before query/fragment.",
+      "queries": [
+        {
+          "query": "navigation subdirectory",
+          "repositories": [
+            "TryGhost/Ghost"
+          ],
+          "returned": 0,
+          "issues": 0,
+          "pull_requests": 0,
+          "possibly_capped": false,
+          "error": null,
+          "relevant_hits": []
+        },
+        {
+          "query": "subdirectory blog",
+          "repositories": [
+            "TryGhost/Ghost"
+          ],
+          "returned": 6,
+          "issues": 3,
+          "pull_requests": 3,
+          "possibly_capped": false,
+          "error": null,
+          "relevant_hits": [
+            {
+              "number": 10309,
+              "title": "Incorrect redirect on subdirectory collides with same post slug",
+              "url": "https://github.com/TryGhost/Ghost/issues/10309",
+              "kind": "issue"
+            },
+            {
+              "number": 5606,
+              "title": "Make regex for subfolder deduplication more restrictive",
+              "url": "https://github.com/TryGhost/Ghost/pull/5606",
+              "kind": "pull_request"
+            },
+            {
+              "number": 5843,
+              "title": "Fix nav regressions in admin client",
+              "url": "https://github.com/TryGhost/Ghost/pull/5843",
+              "kind": "pull_request"
+            }
+          ]
+        }
+      ],
+      "inspected_matches": [
+        {
+          "number": 10309,
+          "title": "Incorrect redirect on subdirectory collides with same post slug",
+          "url": "https://github.com/TryGhost/Ghost/issues/10309",
+          "kind": "issue",
+          "state": "closed",
+          "body_excerpt": "Reported in the forum: https://forum.ghost.org/t/problem-with-path-redirects/4652 ## Reproduce 1. Set up your blog on a subdirectory /blog 2. Create a post with a slug called \"blog-something\" 3. Try to navigate that post 4. You are getting redirected from /blog/blog-something/ to /blog-something ## Why? I guess there is a logic bug in the entry controller, [see line.](https://github.com/TryGhost/Ghost/blob/2.9.1/core/server/services/routing/controllers/entry.js#L73) Ghost: latest"
+        },
+        {
+          "number": 5606,
+          "title": "Make regex for subfolder deduplication more restrictive",
+          "url": "https://github.com/TryGhost/Ghost/pull/5606",
+          "kind": "pull_request",
+          "state": "closed",
+          "body_excerpt": "fixes #5605"
+        },
+        {
+          "number": 5843,
+          "title": "Fix nav regressions in admin client",
+          "url": "https://github.com/TryGhost/Ghost/pull/5843",
+          "kind": "pull_request",
+          "state": "merged",
+          "body_excerpt": "issue #5841 - fix relative link checks in navlink url input component - fix navlink url input component sending absolute URLs instead of relative URLs to action handler - remove URL manipulation in navigation settings controller (url input handles URL manipulation, validator flags anything that's still incorrect) - capture `cmd-s` in url input to ensure changes are actioned before save - automatically add `mailto:` to e-mail addresses - add `gh-validation-state-container` component so `.error`/`.success` validation classes can be applied to any container element - add `validation-state` mixin that can be mixed in to any other component to give it access to validation status (used in `gh-navitem` component to keep alignment when inline error message elements are added) - validate and display inline errors on save - improve ember test cover"
+        },
+        {
+          "number": 5605,
+          "title": "Bug: Subfolder and Post Title String",
+          "url": "https://github.com/TryGhost/Ghost/issues/5605",
+          "kind": "issue",
+          "state": "closed",
+          "source": "Fetched with `gh issue view` as a reference from #5606, not a result of the current text queries.",
+          "body_excerpt": "Publishing a post with the same beginning title as the subfolder makes its public link incorrect (example: /blog/blog-title is linked as /blog-title)."
+        }
+      ]
+    },
+    {
+      "candidate": "B5",
+      "exact_duplicate_found": false,
+      "assessment": "No exact duplicate. #4989/#5841 cover older navigation URI validation and UI behavior. #5877/#5864 add direct pass-through for `tel:` and other schemes; they do not report the current formatter appending `/`.",
+      "queries": [
+        {
+          "query": "tel navigation",
+          "repositories": [
+            "TryGhost/Ghost"
+          ],
+          "returned": 0,
+          "issues": 0,
+          "pull_requests": 0,
+          "possibly_capped": false,
+          "error": null,
+          "relevant_hits": []
+        },
+        {
+          "query": "tel:",
+          "repositories": [
+            "TryGhost/Ghost"
+          ],
+          "returned": 14,
+          "issues": 2,
+          "pull_requests": 12,
+          "possibly_capped": false,
+          "error": null,
+          "relevant_hits": [
+            {
+              "number": 4989,
+              "title": "Navigation URL validation is too strict",
+              "url": "https://github.com/TryGhost/Ghost/issues/4989",
+              "kind": "issue"
+            },
+            {
+              "number": 5841,
+              "title": "Regressions in the navigation UI",
+              "url": "https://github.com/TryGhost/Ghost/issues/5841",
+              "kind": "issue"
+            },
+            {
+              "number": 5877,
+              "title": "Support for more URL schemes in url helpers",
+              "url": "https://github.com/TryGhost/Ghost/pull/5877",
+              "kind": "pull_request"
+            },
+            {
+              "number": 5864,
+              "title": "[WIP] Fix front-end URL output for more URL schemes",
+              "url": "https://github.com/TryGhost/Ghost/pull/5864",
+              "kind": "pull_request"
+            }
+          ]
+        }
+      ],
+      "inspected_matches": [
+        {
+          "number": 4989,
+          "title": "Navigation URL validation is too strict",
+          "url": "https://github.com/TryGhost/Ghost/issues/4989",
+          "kind": "issue",
+          "state": "closed",
+          "body_excerpt": "The test for whether or not a URL `isRelative` in the new `gh-navitem-url-input` component is supposed to check if the url is a relative one, and prepend the base URL if so, to make the URL absolute. However, it ends up checking if the URL is a valid url as it is, and if not it appends the base URL, meaning any invalid URL ends up with the base URL appended. This has a positive side effect in that it prevents the field from being potentially misused to save unsafe urls like `javascript:alert(1)`. It also has a negative side effect in that it prevents users from using valid URIs which are not URLs like `mailto:me@myaddress.com`. I think that the `isRelative` check needs to be updated to do a better job of checking for what is or isn't a relative URL. We also then need to add correct validation/santisation to prevent the URL field from bein"
+        },
+        {
+          "number": 5841,
+          "title": "Regressions in the navigation UI",
+          "url": "https://github.com/TryGhost/Ghost/issues/5841",
+          "kind": "issue",
+          "state": "closed",
+          "body_excerpt": "Having read a few bug reports, and played around with the Navigation UI a bit since 0.7, it would appear there are a few regressions in how it works. A few issues I've noticed: ### 1. Cmd & S doesn't work unless you focus-out - create a new item, with a label and a url - go back and change the url, whilst still in the field - hit cmd+s - your changes disappear ### 2. URLs are being stored absolute rather than relative - add a link for a pretty standard url like 'about' - the UI should show you the full absolute URL - the database should contain the relative part only, and does not I think this is the underlying cause of https://github.com/TryGhost/Ghost/issues/5801 ### 3. Validation has gone wonky - Validation for navigation has been too strict from day one: #4989 - There were some fixes to allow mailto: #5581 #5013 - I tried adding my em"
+        },
+        {
+          "number": 5877,
+          "title": "Support for more URL schemes in url helpers",
+          "url": "https://github.com/TryGhost/Ghost/pull/5877",
+          "kind": "pull_request",
+          "state": "merged",
+          "body_excerpt": "Refs #5801, needed for #5843 - Allows direct pass-through of protocol-relative (`//host`), alternate-scheme (`tel:`), and anchor-only urls (`#contact`) - Tests both the `urlFor` function and the `{{url}}` helper apply the rules correctly"
+        },
+        {
+          "number": 5864,
+          "title": "[WIP] Fix front-end URL output for more URL schemes",
+          "url": "https://github.com/TryGhost/Ghost/pull/5864",
+          "kind": "pull_request",
+          "state": "closed",
+          "body_excerpt": "- allows direct pass-through of protocol-relative (`//host`), alternate-scheme (`tel:`), and anchor-only urls (`#contact`)"
+        }
+      ]
+    },
+    {
+      "candidate": "B6",
+      "exact_duplicate_found": false,
+      "assessment": "No exact duplicate in the uncapped symptom-focused queries. The broad `media-inliner` search hit the 100-result cap and is not treated as negative evidence; its leading hits are job-migration/refactor PRs, not a double-encoding report.",
+      "queries": [
+        {
+          "query": "media encoding importer",
+          "repositories": [
+            "TryGhost/Ghost"
+          ],
+          "returned": 0,
+          "issues": 0,
+          "pull_requests": 0,
+          "possibly_capped": false,
+          "error": null,
+          "relevant_hits": []
+        },
+        {
+          "query": "encodeURI media",
+          "repositories": [
+            "TryGhost/Ghost"
+          ],
+          "returned": 0,
+          "issues": 0,
+          "pull_requests": 0,
+          "possibly_capped": false,
+          "error": null,
+          "relevant_hits": []
+        },
+        {
+          "query": "media-inliner",
+          "repositories": [
+            "TryGhost/Ghost"
+          ],
+          "returned": 100,
+          "issues": 0,
+          "pull_requests": 100,
+          "possibly_capped": true,
+          "error": null,
+          "relevant_hits": [
+            {
+              "number": 30301,
+              "title": "Migrated external-media-inliner to the class-based jobs service",
+              "url": "https://github.com/TryGhost/Ghost/pull/30301",
+              "kind": "pull_request"
+            },
+            {
+              "number": 30221,
+              "title": "Migrate external-media-inliner job to the class-based jobs service",
+              "url": "https://github.com/TryGhost/Ghost/pull/30221",
+              "kind": "pull_request"
+            },
+            {
+              "number": 30258,
+              "title": "Migrate the external-media-inliner job to the class-based jobs service",
+              "url": "https://github.com/TryGhost/Ghost/pull/30258",
+              "kind": "pull_request"
+            },
+            {
+              "number": 30060,
+              "title": "HKG-1971: Migrate media-inliner to the class-based jobs service",
+              "url": "https://github.com/TryGhost/Ghost/pull/30060",
+              "kind": "pull_request"
+            },
+            {
+              "number": 30332,
+              "title": "Added reusable external media imports",
+              "url": "https://github.com/TryGhost/Ghost/pull/30332",
+              "kind": "pull_request"
+            }
+          ]
+        },
+        {
+          "query": "percent encoding importer",
+          "repositories": [
+            "TryGhost/Ghost"
+          ],
+          "returned": 0,
+          "issues": 0,
+          "pull_requests": 0,
+          "possibly_capped": false,
+          "error": null,
+          "relevant_hits": []
+        }
+      ],
+      "inspected_matches": [
+        {
+          "number": 30301,
+          "title": "Migrated external-media-inliner to the class-based jobs service",
+          "url": "https://github.com/TryGhost/Ghost/pull/30301",
+          "kind": "pull_request",
+          "state": "closed",
+          "body_excerpt": "Migrates `external-media-inliner` off the legacy JobManager onto the class-based jobs service. Same job as #30276 — this is the alternative implementation, planned under a human-reviewed design and built by a different model, opened so the two can be compared. Three commits, meant to be read in order: 1. **Moved jobs service creation ahead of initServices** — `mediaInliner.init()` runs inside `initServices` (boot.js), while the jobs service was created after it, so the service that needs the instance was constructed before the instance existed. Boot now creates it first and passes it through `initServices`, keeping handler registration and queue start exactly where they were. Isolated here because it changes shared boot ordering. 2. **Extracted MediaInlinerService** — dispatch moves out of the `init()` closure into a small class taking `{"
+        },
+        {
+          "number": 30221,
+          "title": "Migrate external-media-inliner job to the class-based jobs service",
+          "url": "https://github.com/TryGhost/Ghost/pull/30221",
+          "kind": "pull_request",
+          "state": "closed",
+          "body_excerpt": "Migrates `external-media-inliner` off the legacy job queue and onto the class-based jobs service. This job had no legacy registration file or schedule — it was a closure built at its only dispatch site (`POST /db/media/inline`) — so the migration is two preparatory refactors plus a transport swap, three commits: 1. **Exposed the media inliner instance on the media-inliner service** — hangs `ExternalMediaInliner` off `this.inliner` instead of trapping it in the closure. Behavior-preserving. 2. **Injected the jobs service into registerJobHandlers** — replaces an internal `getInstance()` reach with DI from boot, matching the module's existing DI convention and making handler registration testable without touching the jobs-service singleton. 3. **Migrated external-media-inliner job to the class-based jobs service** — swaps `addJob` for a real"
+        },
+        {
+          "number": 30258,
+          "title": "Migrate the external-media-inliner job to the class-based jobs service",
+          "url": "https://github.com/TryGhost/Ghost/pull/30258",
+          "kind": "pull_request",
+          "state": "closed",
+          "body_excerpt": "`external-media-inliner` was the last piece of the media inliner still wired to the legacy `JobManager.addJob` closure. This moves it onto the class-based jobs service so the job body is a named, testable function and lifecycle logging comes from one place. Three commits, meant to be read in order: 1. **Clear the jobs service singleton on shutdown** — `shutdown()` now drops the instance, so `getInstance()` throws instead of handing back a stopped service. Needed so the new handler-registration test can restore uninitialised state between cases. 2. **Refactor** (no behavior change) — the `startMediaInliner` closure becomes `MediaInlinerService` with injected deps, plus a `getInstance()` guard. `init()` keeps the `api.startMediaInliner` shape, so the `db.js` endpoint is untouched. 3. **Migrate** — pure-data `ExternalMediaInlinerJob` (`type`"
+        },
+        {
+          "number": 30060,
+          "title": "HKG-1971: Migrate media-inliner to the class-based jobs service",
+          "url": "https://github.com/TryGhost/Ghost/pull/30060",
+          "kind": "pull_request",
+          "state": "closed",
+          "body_excerpt": "ref https://linear.app/ghost/issue/HKG-1971 Migrates media-inlining off the legacy job manager and onto the class-based jobs service. The infrastructure it builds on landed in #30058. Media-inlining is dispatched as a `MediaInlinerJob`; the domains to inline travel as a plain serialisable payload and survive the JSON round-trip into the rehydrated job the handler receives, wired centrally in `register-job-handlers`."
+        },
+        {
+          "number": 30332,
+          "title": "Added reusable external media imports",
+          "url": "https://github.com/TryGhost/Ghost/pull/30332",
+          "kind": "pull_request",
+          "state": "merged",
+          "body_excerpt": "no ref CSV imports need to store one discovered media URL at a time without inheriting the existing batch service's content-matching rules. Expose a typed per-URL result directly from the existing CommonJS service while preserving the batch importer's failure boundaries and established module contract, allowing future callers to reuse media downloading and storage without changing existing batch behavior."
+        }
+      ]
+    },
+    {
+      "candidate": "B7",
+      "exact_duplicate_found": false,
+      "assessment": "No exact duplicate. #30482 is editor publish-flow UI; #25068/#23363 are analytics work, not rescheduling a future post across DST offsets.",
+      "queries": [
+        {
+          "query": "timezone scheduled",
+          "repositories": [
+            "TryGhost/Ghost"
+          ],
+          "returned": 1,
+          "issues": 0,
+          "pull_requests": 1,
+          "possibly_capped": false,
+          "error": null,
+          "relevant_hits": [
+            {
+              "number": 30482,
+              "title": "Added the editor publish flow modal to the React admin",
+              "url": "https://github.com/TryGhost/Ghost/pull/30482",
+              "kind": "pull_request"
+            }
+          ]
+        },
+        {
+          "query": "utcOffset timezone",
+          "repositories": [
+            "TryGhost/Ghost"
+          ],
+          "returned": 0,
+          "issues": 0,
+          "pull_requests": 0,
+          "possibly_capped": false,
+          "error": null,
+          "relevant_hits": []
+        },
+        {
+          "query": "timezone post",
+          "repositories": [
+            "TryGhost/Ghost"
+          ],
+          "returned": 2,
+          "issues": 0,
+          "pull_requests": 2,
+          "possibly_capped": false,
+          "error": null,
+          "relevant_hits": [
+            {
+              "number": 25068,
+              "title": "Added stats utm endpoints with fixture data",
+              "url": "https://github.com/TryGhost/Ghost/pull/25068",
+              "kind": "pull_request"
+            },
+            {
+              "number": 23363,
+              "title": "Added Overview in Post Analytics beta",
+              "url": "https://github.com/TryGhost/Ghost/pull/23363",
+              "kind": "pull_request"
+            }
+          ]
+        }
+      ],
+      "inspected_matches": [
+        {
+          "number": 30482,
+          "title": "Added the editor publish flow modal to the React admin",
+          "url": "https://github.com/TryGhost/Ghost/pull/30482",
+          "kind": "pull_request",
+          "state": "merged",
+          "body_excerpt": "The React editor can save a post but has no way to change its status. This adds the publish flow — options, confirm, complete, and the email-failure step — plus the update flow that reverts a published or scheduled post, as self-contained components over the publish options machine and the email confirmation poller. **Nothing mounts them yet.** The editor header is being ported in parallel, and wiring belongs with the publish buttons that open these modals, so this stops at the components and their tests. ## The seam A single `dispatch` prop taking the save engine's command. The flow builds the command from `toDispatch()`/`toRevertDispatch()`, hands it over, and branches on the completion kind it gets back: | Completion | Result | | --- | --- | | `saved` | Email confirmation runs when the publish emails immediately | | `needs-retry` | Bac"
+        },
+        {
+          "number": 25068,
+          "title": "Added stats utm endpoints with fixture data",
+          "url": "https://github.com/TryGhost/Ghost/pull/25068",
+          "kind": "pull_request",
+          "state": "merged",
+          "body_excerpt": "ref https://linear.app/ghost/issue/PROD-2717/ - add new utm endpoint, /stats/utm-growth, accepting a param for the utm return field - added fixture data for new endpoint until fully wired up This set of changes adds a new endpoint, /stats/utm-growth, that returns fixture data until we're able to fully wire up the members service to the backend. This effectively unlocks the frontend design from being dependent on the backend support. The stats endpoint is intended to be used like `/stats/utm-growth?post_id={id}&utm_type=utm_source`. Post is optional; the only required field is utm_type."
+        },
+        {
+          "number": 23363,
+          "title": "Added Overview in Post Analytics beta",
+          "url": "https://github.com/TryGhost/Ghost/pull/23363",
+          "kind": "pull_request",
+          "state": "merged",
+          "body_excerpt": "ref https://linear.app/ghost/issue/PROD-1745/growth-tab-add-averages-for-free-paid-mrr-so-we-can-add-a-chart - One of the missing pieces of Post Analytics updates was the overview. So far it's been a dance between Ember and React, with this PR we added a static version of Overview to the page."
+        }
+      ]
+    },
+    {
+      "candidate": "B8",
+      "exact_duplicate_found": false,
+      "assessment": "No exact duplicate. #21515 is the timestamp-format PR associated with the current behavior; its body describes date presentation changes, not local-versus-UTC day disagreement. #25714 adds comment permalinks.",
+      "queries": [
+        {
+          "query": "comment yesterday",
+          "repositories": [
+            "TryGhost/Ghost"
+          ],
+          "returned": 0,
+          "issues": 0,
+          "pull_requests": 0,
+          "possibly_capped": false,
+          "error": null,
+          "relevant_hits": []
+        },
+        {
+          "query": "useRelativeTime",
+          "repositories": [
+            "TryGhost/Ghost"
+          ],
+          "returned": 1,
+          "issues": 0,
+          "pull_requests": 1,
+          "possibly_capped": false,
+          "error": null,
+          "relevant_hits": [
+            {
+              "number": 25714,
+              "title": "✨ Added comment permalinks to share direct links to specific comments",
+              "url": "https://github.com/TryGhost/Ghost/pull/25714",
+              "kind": "pull_request"
+            }
+          ]
+        },
+        {
+          "query": "relative time comment",
+          "repositories": [
+            "TryGhost/Ghost"
+          ],
+          "returned": 1,
+          "issues": 0,
+          "pull_requests": 1,
+          "possibly_capped": false,
+          "error": null,
+          "relevant_hits": [
+            {
+              "number": 21515,
+              "title": "Updated timestamp format for comments",
+              "url": "https://github.com/TryGhost/Ghost/pull/21515",
+              "kind": "pull_request"
+            }
+          ]
+        }
+      ],
+      "inspected_matches": [
+        {
+          "number": 25714,
+          "title": "✨ Added comment permalinks to share direct links to specific comments",
+          "url": "https://github.com/TryGhost/Ghost/pull/25714",
+          "kind": "pull_request",
+          "state": "merged",
+          "body_excerpt": "Adds the ability to permalink to a specific comment anchored on the comment's timestamp. When someone visits a comment permalink, the page bypasses lazy loading to ensure the comments section loads immediately, then scrolls the referenced comment into view and briefly highlights it with a yellow flash so it's easy to spot. If the comment isn't on the first page, then we check if the comment exists at all, and if it does we keep fetching pages until we find it. The URL format follows the pattern `{post-url}#ghost-comments-{comment-id}`. ref https://linear.app/ghost/issue/FEA-486"
+        },
+        {
+          "number": 21515,
+          "title": "Updated timestamp format for comments",
+          "url": "https://github.com/TryGhost/Ghost/pull/21515",
+          "kind": "pull_request",
+          "state": "merged",
+          "body_excerpt": "ref https://linear.app/ghost/issue/PLG-235 - Any comments older than yesterday are now shown with the date instead of relative time - Comments from the current year are now shown with just the month and day"
+        }
+      ]
+    },
+    {
+      "candidate": "C1",
+      "exact_duplicate_found": false,
+      "assessment": "No exact duplicate. #32030 is the upstream change passing Date values to new automation INSERTs; its body says no user impact is expected. The other hits are automation schema/polling/test work and do not report mixed SQLite representations being selected early.",
+      "queries": [
+        {
+          "query": "automation SQLite",
+          "repositories": [
+            "TryGhost/Ghost"
+          ],
+          "returned": 0,
+          "issues": 0,
+          "pull_requests": 0,
+          "possibly_capped": false,
+          "error": null,
+          "relevant_hits": []
+        },
+        {
+          "query": "ready_at",
+          "repositories": [
+            "TryGhost/Ghost"
+          ],
+          "returned": 6,
+          "issues": 0,
+          "pull_requests": 6,
+          "possibly_capped": false,
+          "error": null,
+          "relevant_hits": [
+            {
+              "number": 32030,
+              "title": "Passed dates directly to INSERTs in new automations repo",
+              "url": "https://github.com/TryGhost/Ghost/pull/32030",
+              "kind": "pull_request"
+            },
+            {
+              "number": 28530,
+              "title": "Move core acceptance coverage to SQLite",
+              "url": "https://github.com/TryGhost/Ghost/pull/28530",
+              "kind": "pull_request"
+            },
+            {
+              "number": 27190,
+              "title": "Created dormant automation runs table",
+              "url": "https://github.com/TryGhost/Ghost/pull/27190",
+              "kind": "pull_request"
+            },
+            {
+              "number": 28348,
+              "title": "Added \"fetch and lock steps\", a necessary operation for automations",
+              "url": "https://github.com/TryGhost/Ghost/pull/28348",
+              "kind": "pull_request"
+            },
+            {
+              "number": 27397,
+              "title": "Consolidated two welcome email tests",
+              "url": "https://github.com/TryGhost/Ghost/pull/27397",
+              "kind": "pull_request"
+            },
+            {
+              "number": 27364,
+              "title": "Replaced welcome email send with \"automation run\" rails",
+              "url": "https://github.com/TryGhost/Ghost/pull/27364",
+              "kind": "pull_request"
+            }
+          ]
+        }
+      ],
+      "inspected_matches": [
+        {
+          "number": 32030,
+          "title": "Passed dates directly to INSERTs in new automations repo",
+          "url": "https://github.com/TryGhost/Ghost/pull/32030",
+          "kind": "pull_request",
+          "state": "merged",
+          "body_excerpt": "ref https://github.com/TryGhost/Ghost/pull/31993?from=linear#discussion_r4284181809 We don't need to convert the dates here; that's just for SQLite. This has a small impact on behavior: dates will be rounded slightly more accurately. No user impact expected."
+        },
+        {
+          "number": 28530,
+          "title": "Move core acceptance coverage to SQLite",
+          "url": "https://github.com/TryGhost/Ghost/pull/28530",
+          "kind": "pull_request",
+          "state": "merged",
+          "body_excerpt": "## Summary - run Ghost core acceptance c8 coverage on the SQLite matrix leg instead of MySQL - run the MySQL acceptance e2e/integration leg with the existing no-coverage scripts so it still validates MySQL behavior without instrumentation overhead - upload the acceptance coverage artifact from SQLite and keep the existing coverage paths/thresholds intact - quote/group the touched acceptance job GITHUB_ENV writes while updating this block ## Why Recent CI has the MySQL acceptance job as the bottleneck: - Acceptance tests (Node 22.18.0, mysql8): 17:32 - MySQL E2E step: 13:09 - MySQL integration step: 2:44 - slowest top-level e2e shard in the same run: 8:43 Moving coverage off MySQL targets that overhead directly without sharding the core acceptance suite. ## Local validation - ruby -e \"require 'yaml'; YAML.load_file('.github/workflows/ci.ym"
+        },
+        {
+          "number": 27190,
+          "title": "Created dormant automation runs table",
+          "url": "https://github.com/TryGhost/Ghost/pull/27190",
+          "kind": "pull_request",
+          "state": "merged",
+          "body_excerpt": "closes https://linear.app/ghost/issue/NY-1189 ref https://github.com/TryGhost/Ghost/pull/27183 ref https://github.com/TryGhost/Ghost/pull/27184 This creates a table and model for Welcome Email Automation Runs. Currently unused. This change was originally written by Claude Sonnet 4.6 on Low effort mode against the following prompt, but then was later edited a bit. ``` I'm starting to build a \"welcome email automations\" feature. See the attached design document below for background. I've already built the `welcome_email_automations` and `welcome_email_automated_emails` tables/models. But now I need to build the `welcome_email_automation_runs` table/model. It should have the following fields: * `welcomeEmailAutomationId: string` (foreign key reference to `welcome_email_automations`) * `memberId: string` (foreign key reference to members) * `"
+        },
+        {
+          "number": 28348,
+          "title": "Added \"fetch and lock steps\", a necessary operation for automations",
+          "url": "https://github.com/TryGhost/Ghost/pull/28348",
+          "kind": "pull_request",
+          "state": "closed",
+          "body_excerpt": "towards https://linear.app/ghost/issue/NY-1286 ref https://github.com/TryGhost/Ghost/pull/28120 To run an automation, we will: 1. Fetch (and lock) up to 100 steps. 2. If no steps are found, enqueue another poll for later, and stop. 3. Run all the steps. 4. Possibly enqueue another poll for later. This patch implements the first of those procedures. (If you want to see more fully how it will be used, see [this PR][0].) [0]: https://github.com/TryGhost/Ghost/pull/28120"
+        },
+        {
+          "number": 27397,
+          "title": "Consolidated two welcome email tests",
+          "url": "https://github.com/TryGhost/Ghost/pull/27397",
+          "kind": "pull_request",
+          "state": "merged",
+          "body_excerpt": "no ref We had two tests: 1. Verify that an automation run is created when a member signs up 2. Verify that the \"ready at\" time is correct when a member signs up This should just be one test. This is a test-only change."
+        },
+        {
+          "number": 27364,
+          "title": "Replaced welcome email send with \"automation run\" rails",
+          "url": "https://github.com/TryGhost/Ghost/pull/27364",
+          "kind": "pull_request",
+          "state": "merged",
+          "body_excerpt": "closes https://linear.app/ghost/issue/NY-1190 *I recommend [reviewing this commit-by-commit](https://github.com/TryGhost/Ghost/pull/27364/commits).* This change should have no user impact. It replaces the current welcome email system with one powered by the new automations rails. We've discussed the design for this change at some length. I hope this is a straightforward implementation of that design. Here's the prompt I gave to a coding agent: <details> <summary><strong>📝 LLM prompt</strong></summary> I'm working on migrating member welcome emails to our new automations data model. See the attached design document below for background. I've already created the relevant tables/models for this, but most things are still running with the old logic. I want to run member welcome emails on the new data model. This change should make two signifi"
+        }
+      ]
+    },
+    {
+      "candidate": "C2",
+      "exact_duplicate_found": false,
+      "assessment": "No exact duplicate. #24827 adds UTM query parsing to frontend attribution helpers; its body does not describe a query-before-Portal-fragment referrer loss.",
+      "queries": [
+        {
+          "query": "Portal referrer",
+          "repositories": [
+            "TryGhost/Ghost"
+          ],
+          "returned": 0,
+          "issues": 0,
+          "pull_requests": 0,
+          "possibly_capped": false,
+          "error": null,
+          "relevant_hits": []
+        },
+        {
+          "query": "parseReferrerData",
+          "repositories": [
+            "TryGhost/Ghost"
+          ],
+          "returned": 1,
+          "issues": 0,
+          "pull_requests": 1,
+          "possibly_capped": false,
+          "error": null,
+          "relevant_hits": [
+            {
+              "number": 24827,
+              "title": "Added UTM query param parsing to frontend scripts",
+              "url": "https://github.com/TryGhost/Ghost/pull/24827",
+              "kind": "pull_request"
+            }
+          ]
+        }
+      ],
+      "inspected_matches": [
+        {
+          "number": 24827,
+          "title": "Added UTM query param parsing to frontend scripts",
+          "url": "https://github.com/TryGhost/Ghost/pull/24827",
+          "kind": "pull_request",
+          "state": "merged",
+          "body_excerpt": "ref https://linear.app/ghost/issue/PROD-2560/ - added utm_ params parsing to the url-attribution helper library; this lib returns the referrer/attribution data we use for memberships in ghost - refactored url-attribution script file to be easier to read/make sense of; updated tests accordingly (tried to decouple a bit w/ implementation) - updated member-attribution script to pass along utm data; this isn't wired up on the backend yet The `url-attribution` helpers are used by the `member-attribution` and `ghost-stats` scripts, which are our frontend scripts for handling attribution (member signups + web traffic). We need to update these to pass along the various `utm_{param}` query params in order to support expanding our attribution and analytics data sets. This change allows us to pass along the data, and we'll need follow-up PRs to hand"
+        }
+      ]
+    },
+    {
+      "candidate": "C3",
+      "exact_duplicate_found": false,
+      "assessment": "No exact duplicate found in narrower searches. #24827/#25079/#25081/#25088/#25422 add or wire UTM parsing, storage, and filters; they do not report campaign fields from separate visits being combined in one history entry. The broad `UTM campaign` query capped at 100 and is not used as negative evidence.",
+      "queries": [
+        {
+          "query": "UTM campaign",
+          "repositories": [
+            "TryGhost/Ghost"
+          ],
+          "returned": 100,
+          "issues": 0,
+          "pull_requests": 100,
+          "possibly_capped": true,
+          "error": null,
+          "relevant_hits": []
+        },
+        {
+          "query": "ghost-history utm",
+          "repositories": [
+            "TryGhost/Ghost"
+          ],
+          "returned": 0,
+          "issues": 0,
+          "pull_requests": 0,
+          "possibly_capped": false,
+          "error": null,
+          "relevant_hits": []
+        },
+        {
+          "query": "utmSource",
+          "repositories": [
+            "TryGhost/Ghost"
+          ],
+          "returned": 5,
+          "issues": 0,
+          "pull_requests": 5,
+          "possibly_capped": false,
+          "error": null,
+          "relevant_hits": [
+            {
+              "number": 25079,
+              "title": "Added UTM fields to Ghost member attribution service",
+              "url": "https://github.com/TryGhost/Ghost/pull/25079",
+              "kind": "pull_request"
+            },
+            {
+              "number": 25081,
+              "title": "Added UTM fields to Member and Donation events",
+              "url": "https://github.com/TryGhost/Ghost/pull/25081",
+              "kind": "pull_request"
+            },
+            {
+              "number": 25088,
+              "title": "Added UTM parameter storage to member events",
+              "url": "https://github.com/TryGhost/Ghost/pull/25088",
+              "kind": "pull_request"
+            },
+            {
+              "number": 24827,
+              "title": "Added UTM query param parsing to frontend scripts",
+              "url": "https://github.com/TryGhost/Ghost/pull/24827",
+              "kind": "pull_request"
+            },
+            {
+              "number": 25422,
+              "title": "Added filter dropdown for UTM fields",
+              "url": "https://github.com/TryGhost/Ghost/pull/25422",
+              "kind": "pull_request"
+            }
+          ]
+        },
+        {
+          "query": "utmSource pathname",
+          "repositories": [
+            "TryGhost/Ghost"
+          ],
+          "returned": 0,
+          "issues": 0,
+          "pull_requests": 0,
+          "possibly_capped": false,
+          "error": null,
+          "relevant_hits": []
+        },
+        {
+          "query": "UTM pathname",
+          "repositories": [
+            "TryGhost/Ghost"
+          ],
+          "returned": 0,
+          "issues": 0,
+          "pull_requests": 0,
+          "possibly_capped": false,
+          "error": null,
+          "relevant_hits": []
+        }
+      ],
+      "inspected_matches": [
+        {
+          "number": 25079,
+          "title": "Added UTM fields to Ghost member attribution service",
+          "url": "https://github.com/TryGhost/Ghost/pull/25079",
+          "kind": "pull_request",
+          "state": "merged",
+          "body_excerpt": "ref https://linear.app/ghost/issue/PROD-2693/update-member-attribution-service-to-pass-through-utm-data - updated `AttributionBuilder`, `ReferrerTranslator` classes to pass through UTM fields Since adding the UTM fields to the frontend scripts (member-attribution and ghost-stats), we need to update the backend services to actual utilize the fields. This service is used by the `MemberBREADService`, which lies between Stripe and the Events."
+        },
+        {
+          "number": 25081,
+          "title": "Added UTM fields to Member and Donation events",
+          "url": "https://github.com/TryGhost/Ghost/pull/25081",
+          "kind": "pull_request",
+          "state": "closed",
+          "body_excerpt": "ref https://linear.app/ghost/issue/PROD-2880/ ref https://github.com/TryGhost/Ghost/commit/2ea046c3e88aafea6d8544aafde9e5f473cc5012 - updated event storage to pass along UTM fields to the Ghost database The Ghost db contains `utm_*` columns (see migration above) in various events tables. This PR wires up the data flow so that the real data coming from the frontend scripts actually reaches the database."
+        },
+        {
+          "number": 25088,
+          "title": "Added UTM parameter storage to member events",
+          "url": "https://github.com/TryGhost/Ghost/pull/25088",
+          "kind": "pull_request",
+          "state": "merged",
+          "body_excerpt": "ref https://linear.app/ghost/issue/PROD-2880/ ref https://github.com/TryGhost/Ghost/commit/2ea046c3e88aafea6d8544aafde9e5f473cc5012 - updated event storage to pass along UTM fields to the Ghost database The Ghost db contains utm_* columns (see migration above) in various events tables. This PR wires up the data flow so that the real data coming from the frontend scripts actually reaches the database."
+        },
+        {
+          "number": 24827,
+          "title": "Added UTM query param parsing to frontend scripts",
+          "url": "https://github.com/TryGhost/Ghost/pull/24827",
+          "kind": "pull_request",
+          "state": "merged",
+          "body_excerpt": "ref https://linear.app/ghost/issue/PROD-2560/ - added utm_ params parsing to the url-attribution helper library; this lib returns the referrer/attribution data we use for memberships in ghost - refactored url-attribution script file to be easier to read/make sense of; updated tests accordingly (tried to decouple a bit w/ implementation) - updated member-attribution script to pass along utm data; this isn't wired up on the backend yet The `url-attribution` helpers are used by the `member-attribution` and `ghost-stats` scripts, which are our frontend scripts for handling attribution (member signups + web traffic). We need to update these to pass along the various `utm_{param}` query params in order to support expanding our attribution and analytics data sets. This change allows us to pass along the data, and we'll need follow-up PRs to hand"
+        },
+        {
+          "number": 25422,
+          "title": "Added filter dropdown for UTM fields",
+          "url": "https://github.com/TryGhost/Ghost/pull/25422",
+          "kind": "pull_request",
+          "state": "merged",
+          "body_excerpt": "ref https://linear.app/ghost/issue/NY-736/ ref https://linear.app/ghost/issue/NY-738/ - removed UTM dropdown from Web tab (stats and posts apps) - added stats filter component (behind UTM labs flag) - wired up new filters, updated endpoints to support all values - added filter sync logic between Web and Locations tabs for Audience filters It became clear that UTMs require a different approach when wanting to analyze the data. Rather than seeing which values were used for a specific page, it could often be more instructive to see where the user went *when* they arrived with a certain set of values, as UTM fields are all about identifying how users got to a particular site (e.g. ad or email campaign). We removed the old dropdown from the Web tab and created new filters that allow you to search and filter via Post, Source, Audience, and the "
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "GitHub search is indexed/token-based; different wording and records outside the searched repositories can be missed.",
+    "The broad B6 `media-inliner` and C3 `UTM campaign` searches returned 100 results and are marked capped; conclusions use their narrower, uncapped symptom queries and inspect only clearly adjacent hits.",
+    "C1-C3 remain unconfirmed candidates in the source report; this review assesses public duplicates only and does not validate their behavior.",
+    "No issues, PRs, comments, or repository files outside this delivery report were written."
+  ]
+}

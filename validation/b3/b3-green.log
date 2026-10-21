@@ -1,0 +1,9 @@
+
+ RUN  v4.1.11 C:/Users/Nitro/Ghost/.tmp-sandbox-workspace/koenig/koenig-lexical
+
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  17:49:03
+   Duration  74.38s (transform 223ms, setup 6.77s, import 126ms, tests 5ms, environment 52.22s)
+

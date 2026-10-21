@@ -1,0 +1,126 @@
+M	apps/comments-ui/test/unit/utils/helpers.test.ts
+M	ghost/core/server/lib/db-types/date.ts
+M	ghost/core/server/services/automations/database-automations-repository-2.ts
+M	ghost/core/server/services/automations/database-automations-repository.ts
+M	ghost/test/unit/frontend/src/url-attribution.test.ts
+M	ghost/test/unit/server/services/media-inliner/test/external-media-inliner.test.js
+M	ghost/vitest.config.ts
+branch 'fix/navigation-telephone-uris' set up to track 'origin/main'.
+
+Switched to a new branch 'fix/navigation-telephone-uris'
+
+ M apps/comments-ui/test/unit/utils/helpers.test.ts
+ M ghost/core/server/lib/db-types/date.ts
+ M ghost/core/server/services/automations/database-automations-repository-2.ts
+ M ghost/core/server/services/automations/database-automations-repository.ts
+ M ghost/test/unit/frontend/src/url-attribution.test.ts
+ M ghost/test/unit/server/services/media-inliner/test/external-media-inliner.test.js
+ M ghost/vitest.config.ts
+
+
+ apps/comments-ui/test/unit/utils/helpers.test.ts   | 106 +++++++++++++++++++++
+ ghost/core/server/lib/db-types/date.ts             |   4 +
+ .../database-automations-repository-2.ts           |  16 +++-
+ .../automations/database-automations-repository.ts |  11 ++-
+ .../test/unit/frontend/src/url-attribution.test.ts |  46 +++++++++
+ .../test/external-media-inliner.test.js            |  35 +++++++
+ ghost/vitest.config.ts                             |   1 +
+ 7 files changed, 211 insertions(+), 8 deletions(-)
+
+
+11af3e13fd Updated password resets to use typed security helpers (#32127)
+f952f94c2c Updated Node to 22.23.4 and 24.22.1 (#32119)
+c7597709bc Updated tooling ownership check with simpler language (#32123)
+c7d26ed572 Updated `CUSTOM_NAMESPACE`'s description now that fields store their namespace
+7ce4343be3 Updated data generator entrypoints to share option handling (#32097)
+
+
+
+
+
+
+[fix/navigation-telephone-uris 34f8021569] Added regression coverage for B5
+ 1 file changed, 28 insertions(+)
+ create mode 100644 apps/admin/src/settings/utils/format-url.telephone.test.ts
+
+/src/settings/utils/format-url.telephone.test.ts'
+
+✔ node tools/scripts/format.ts --no-error-on-unmatched-pattern -- 'apps/admin/src/settings/utils/format-url.telephone.test.ts'
+✔ pnpm exec depcruise --config .dependency-cruiser.cjs -- 'apps/admin/src/settings/utils/format-url.telephone.test.ts'
+✔ pnpm --dir 'apps/admin' exec eslint --cache -- 'src/settings/utils/format-url.telephone.test.ts'
+
+✔ Done running tasks for staged files!
+⋯ Staging changes from tasks…
+✔ Done staging changes from tasks!
+⋯ Cleaning up temporary files…
+✔ Done cleaning up temporary files!
+Scanning staged files for secrets [0;90m(pre-commit hook)[0m 
+Checking submodules [0;90m(pre-commit hook)[0m 
+No submodules in commit, continuing...
+Checking for changesets [0;90m(pre-commit hook)[0m 
+file:///C:/Users/Nitro/Ghost/.tmp-sandbox-workspace/.pnpm-home/store/v11/links/@/execa/10.0.1/4e932d210f8e8b2ef6ca479a12f25d29c77ad2be909972078822b42577b82e3b/node_modules/execa/lib/return/final-error.js:6
+	return new ErrorClass(message, options);
+	       ^
+
+ExecaError: Command failed with exit code 1: pnpm ls --recursive --depth -1 --json --ignore-pnpmfile --filter "[11af3e13fdd310492ec6988585f2ed64be7a54ed]" --changed-files-ignore-pattern "**/{?,??,???,????,?????,???????*,[!Rr]?????,?[!Ee]????,??[!Aa]???,???[!Dd]??,????[!Mm]?,?????[!Ee]}.md"
+
+Error: ERR_PNPM_FROZEN_LOCKFILE_WITH_OUTDATED_LOCKFILE
+
+  × resolve package manager dependencies
+  ╰─▶ Cannot update packageManagerDependencies with "frozen-lockfile" because
+      the lockfile is not up to date
+    at getFinalError (file:///C:/Users/Nitro/Ghost/.tmp-sandbox-workspace/.pnpm-home/store/v11/links/@/execa/10.0.1/4e932d210f8e8b2ef6ca479a12f25d29c77ad2be909972078822b42577b82e3b/node_modules/execa/lib/return/final-error.js:6:9)
+    at makeError (file:///C:/Users/Nitro/Ghost/.tmp-sandbox-workspace/.pnpm-home/store/v11/links/@/execa/10.0.1/4e932d210f8e8b2ef6ca479a12f25d29c77ad2be909972078822b42577b82e3b/node_modules/execa/lib/return/result.js:108:16)
+    at getAsyncResult (file:///C:/Users/Nitro/Ghost/.tmp-sandbox-workspace/.pnpm-home/store/v11/links/@/execa/10.0.1/4e932d210f8e8b2ef6ca479a12f25d29c77ad2be909972078822b42577b82e3b/node_modules/execa/lib/methods/main-async.js:209:4)
+    at handlePromise (file:///C:/Users/Nitro/Ghost/.tmp-sandbox-workspace/.pnpm-home/store/v11/links/@/execa/10.0.1/4e932d210f8e8b2ef6ca479a12f25d29c77ad2be909972078822b42577b82e3b/node_modules/execa/lib/methods/main-async.js:192:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async listChangedProjects (file:///C:/Users/Nitro/Ghost/.tmp-sandbox-workspace/tools/scripts/lib/pnpm.ts:186:22)
+    at async Promise.all (index 1)
+    at async findInWorkingTree (file:///C:/Users/Nitro/Ghost/.tmp-sandbox-workspace/tools/scripts/lib/pnpm.ts:207:40)
+    at async withHeadCheckout (file:///C:/Users/Nitro/Ghost/.tmp-sandbox-workspace/tools/scripts/lib/pnpm.ts:162:12)
+    at async file:///C:/Users/Nitro/Ghost/.tmp-sandbox-workspace/tools/scripts/ci/change-check.ts:41:17 {
+  shortMessage: 'Command failed with exit code 1: pnpm ls --recursive --depth -1 --json --ignore-pnpmfile --filter "[11af3e13fdd310492ec6988585f2ed64be7a54ed]" --changed-files-ignore-pattern "**/{?,??,???,????,?????,???????*,[!Rr]?????,?[!Ee]????,??[!Aa]???,???[!Dd]??,????[!Mm]?,?????[!Ee]}.md"',
+  command: 'pnpm ls --recursive --depth -1 --json --ignore-pnpmfile --filter [11af3e13fdd310492ec6988585f2ed64be7a54ed] --changed-files-ignore-pattern **/{?,??,???,????,?????,???????*,[!Rr]?????,?[!Ee]????,??[!Aa]???,???[!Dd]??,????[!Mm]?,?????[!Ee]}.md',
+  escapedCommand: 'pnpm ls --recursive --depth -1 --json --ignore-pnpmfile --filter "[11af3e13fdd310492ec6988585f2ed64be7a54ed]" --changed-files-ignore-pattern "**/{?,??,???,????,?????,???????*,[!Rr]?????,?[!Ee]????,??[!Aa]???,???[!Dd]??,????[!Mm]?,?????[!Ee]}.md"',
+  cwd: 'C:\\Users\\Nitro\\Ghost\\.tmp-sandbox-workspace\\.temp\\change-check-rfkvgw',
+  durationMs: 121.4964,
+  failed: true,
+  timedOut: false,
+  isCanceled: false,
+  isGracefullyCanceled: false,
+  isTerminated: false,
+  isMaxBuffer: false,
+  isForcefullyTerminated: false,
+  exitCode: 1,
+  stdout: '',
+  stderr: 'Error: ERR_PNPM_FROZEN_LOCKFILE_WITH_OUTDATED_LOCKFILE\n' +
+    '\n' +
+    '  × resolve package manager dependencies\n' +
+    '  ╰─▶ Cannot update packageManagerDependencies with "frozen-lockfile" because\n' +
+    '      the lockfile is not up to date\n',
+  stdio: [
+    undefined,
+    '',
+    'Error: ERR_PNPM_FROZEN_LOCKFILE_WITH_OUTDATED_LOCKFILE\n' +
+      '\n' +
+      '  × resolve package manager dependencies\n' +
+      '  ╰─▶ Cannot update packageManagerDependencies with "frozen-lockfile" because\n' +
+      '      the lockfile is not up to date\n'
+  ],
+  ipcOutput: [],
+  pipedFrom: []
+}
+
+Node.js v22.23.4
+[0;90m⚠️  Reminder only (not blocking) — run 'pnpm change' to add a changeset. CI enforces this.[0m
+[1;33mNotice: If this is a significant user-facing PR title or squash commit, add one of: ✨ 🎨 🐛 🌐 💡[0m
+
+ M apps/comments-ui/test/unit/utils/helpers.test.ts
+ M ghost/core/server/lib/db-types/date.ts
+ M ghost/core/server/services/automations/database-automations-repository-2.ts
+ M ghost/core/server/services/automations/database-automations-repository.ts
+ M ghost/test/unit/frontend/src/url-attribution.test.ts
+ M ghost/test/unit/server/services/media-inliner/test/external-media-inliner.test.js
+ M ghost/vitest.config.ts
+
+

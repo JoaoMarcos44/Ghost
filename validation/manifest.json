@@ -1,0 +1,393 @@
+{
+  "b1": {
+    "issue": "https://github.com/TryGhost/Ghost/issues/32129",
+    "pr": "https://github.com/TryGhost/Ghost/pull/32132",
+    "runs": [
+      {
+        "label": "b1-red-ready",
+        "cwd": "ghost",
+        "command": [
+          "pnpm",
+          "exec",
+          "vitest",
+          "run",
+          "test/unit/server/services/oembed/extract-metadata.test.ts",
+          "--maxWorkers=1",
+          "--no-file-parallelism",
+          "--hookTimeout=60000"
+        ],
+        "exit_code": 1
+      },
+      {
+        "label": "b1-green-local-hook",
+        "cwd": "ghost",
+        "command": [
+          "pnpm",
+          "exec",
+          "vitest",
+          "run",
+          "test/unit/server/services/oembed/extract-metadata.test.ts",
+          "--maxWorkers=1",
+          "--no-file-parallelism"
+        ],
+        "exit_code": 0
+      }
+    ]
+  },
+  "b2": {
+    "issue": "https://github.com/TryGhost/Ghost/issues/32130",
+    "pr": "https://github.com/TryGhost/Ghost/pull/32133",
+    "runs": [
+      {
+        "label": "b2-red-ready",
+        "cwd": "packages/app-sdk",
+        "command": [
+          "pnpm",
+          "exec",
+          "vitest",
+          "run",
+          "test/history.test.ts",
+          "--maxWorkers=1",
+          "--no-file-parallelism"
+        ],
+        "exit_code": 1
+      },
+      {
+        "label": "b2-green",
+        "cwd": "packages/app-sdk",
+        "command": [
+          "pnpm",
+          "exec",
+          "vitest",
+          "run",
+          "test/history.test.ts",
+          "--maxWorkers=1",
+          "--no-file-parallelism"
+        ],
+        "exit_code": 0
+      }
+    ]
+  },
+  "b3": {
+    "issue": "https://github.com/TryGhost/Ghost/issues/32134",
+    "pr": "https://github.com/TryGhost/Ghost/pull/32135",
+    "runs": [
+      {
+        "label": "b3-red",
+        "cwd": "koenig/koenig-lexical",
+        "command": [
+          "pnpm",
+          "exec",
+          "vitest",
+          "run",
+          "test/unit/utils/isGif.test.ts",
+          "--maxWorkers=1",
+          "--no-file-parallelism"
+        ],
+        "exit_code": 1
+      },
+      {
+        "label": "b3-green",
+        "cwd": "koenig/koenig-lexical",
+        "command": [
+          "pnpm",
+          "exec",
+          "vitest",
+          "run",
+          "test/unit/utils/isGif.test.ts",
+          "--maxWorkers=1",
+          "--no-file-parallelism"
+        ],
+        "exit_code": 0
+      }
+    ]
+  },
+  "b4": {
+    "issue": "https://github.com/TryGhost/Ghost/issues/32136",
+    "pr": "https://github.com/TryGhost/Ghost/pull/32137",
+    "runs": [
+      {
+        "label": "b4-b5-red-ready",
+        "cwd": "apps/admin",
+        "command": [
+          "pnpm",
+          "exec",
+          "vitest",
+          "run",
+          "src/settings/utils/format-url.home.test.ts",
+          "src/settings/utils/format-url.telephone.test.ts",
+          "--pool=threads",
+          "--no-isolate",
+          "--maxWorkers=1",
+          "--no-file-parallelism"
+        ],
+        "exit_code": 1
+      },
+      {
+        "label": "b4-green",
+        "cwd": "apps/admin",
+        "command": [
+          "pnpm",
+          "exec",
+          "vitest",
+          "run",
+          "src/settings/utils/format-url.home.test.ts",
+          "--maxWorkers=1",
+          "--no-file-parallelism"
+        ],
+        "exit_code": 0
+      }
+    ]
+  },
+  "b5": {
+    "issue": "https://github.com/TryGhost/Ghost/issues/32138",
+    "pr": "https://github.com/TryGhost/Ghost/pull/32139",
+    "runs": [
+      {
+        "label": "b4-b5-red-ready",
+        "cwd": "apps/admin",
+        "command": [
+          "pnpm",
+          "exec",
+          "vitest",
+          "run",
+          "src/settings/utils/format-url.home.test.ts",
+          "src/settings/utils/format-url.telephone.test.ts",
+          "--pool=threads",
+          "--no-isolate",
+          "--maxWorkers=1",
+          "--no-file-parallelism"
+        ],
+        "exit_code": 1
+      },
+      {
+        "label": "b5-green",
+        "cwd": "apps/admin",
+        "command": [
+          "pnpm",
+          "exec",
+          "vitest",
+          "run",
+          "src/settings/utils/format-url.telephone.test.ts",
+          "--maxWorkers=1",
+          "--no-file-parallelism"
+        ],
+        "exit_code": 0
+      }
+    ]
+  },
+  "b6": {
+    "issue": "https://github.com/TryGhost/Ghost/issues/32141",
+    "pr": "https://github.com/TryGhost/Ghost/pull/32142",
+    "runs": [
+      {
+        "label": "b6-c2-c3-red",
+        "cwd": "ghost",
+        "command": [
+          "pnpm",
+          "exec",
+          "vitest",
+          "run",
+          "test/unit/server/services/media-inliner/test/external-media-inliner.test.js",
+          "test/unit/frontend/src/url-attribution.test.ts",
+          "test/unit/frontend/src/member-attribution.test.js",
+          "--maxWorkers=1",
+          "--no-file-parallelism"
+        ],
+        "exit_code": 1
+      },
+      {
+        "label": "b6-green",
+        "cwd": "ghost",
+        "command": [
+          "pnpm",
+          "exec",
+          "vitest",
+          "run",
+          "test/unit/server/services/media-inliner/test/external-media-inliner.test.js",
+          "--maxWorkers=1",
+          "--no-file-parallelism"
+        ],
+        "exit_code": 0
+      }
+    ]
+  },
+  "b7": {
+    "issue": "https://github.com/TryGhost/Ghost/issues/32147",
+    "pr": "https://github.com/TryGhost/Ghost/pull/32148",
+    "runs": [
+      {
+        "label": "b7-red",
+        "cwd": "ghost",
+        "command": [
+          "pnpm",
+          "exec",
+          "vitest",
+          "run",
+          "test/unit/server/models/base/listeners.test.js",
+          "--maxWorkers=1",
+          "--no-file-parallelism"
+        ],
+        "exit_code": 1
+      },
+      {
+        "label": "b7-green",
+        "cwd": "ghost",
+        "command": [
+          "pnpm",
+          "exec",
+          "vitest",
+          "run",
+          "test/unit/server/models/base/listeners.test.js",
+          "--maxWorkers=1",
+          "--no-file-parallelism"
+        ],
+        "exit_code": 0
+      }
+    ]
+  },
+  "b8": {
+    "issue": "https://github.com/TryGhost/Ghost/issues/32149",
+    "pr": "https://github.com/TryGhost/Ghost/pull/32150",
+    "runs": [
+      {
+        "label": "b8-red",
+        "cwd": "apps/comments-ui",
+        "command": [
+          "pnpm",
+          "exec",
+          "vitest",
+          "run",
+          "test/unit/utils/helpers.test.ts",
+          "--pool=threads",
+          "--maxWorkers=1",
+          "--no-file-parallelism"
+        ],
+        "exit_code": 1
+      },
+      {
+        "label": "b8-green",
+        "cwd": "apps/comments-ui",
+        "command": [
+          "pnpm",
+          "exec",
+          "vitest",
+          "run",
+          "test/unit/utils/helpers.test.ts",
+          "--maxWorkers=1",
+          "--no-file-parallelism"
+        ],
+        "exit_code": 0
+      }
+    ]
+  },
+  "c1": {
+    "issue": "https://github.com/TryGhost/Ghost/issues/32140",
+    "pr": "https://github.com/TryGhost/Ghost/pull/32151",
+    "runs": [
+      {
+        "label": "c1-red",
+        "cwd": "ghost",
+        "command": [
+          "pnpm",
+          "exec",
+          "vitest",
+          "run",
+          "--config",
+          ".c1-vitest.config.ts",
+          "--maxWorkers=1",
+          "--no-file-parallelism"
+        ],
+        "exit_code": 1
+      },
+      {
+        "label": "c1-linted-green",
+        "cwd": "ghost",
+        "command": [
+          "pnpm",
+          "exec",
+          "vitest",
+          "run",
+          "--config",
+          ".c1-vitest.config.ts",
+          "--maxWorkers=1",
+          "--no-file-parallelism"
+        ],
+        "exit_code": 0
+      }
+    ]
+  },
+  "c2": {
+    "issue": "https://github.com/TryGhost/Ghost/issues/32143",
+    "pr": "https://github.com/TryGhost/Ghost/pull/32144",
+    "runs": [
+      {
+        "label": "b6-c2-c3-red",
+        "cwd": "ghost",
+        "command": [
+          "pnpm",
+          "exec",
+          "vitest",
+          "run",
+          "test/unit/server/services/media-inliner/test/external-media-inliner.test.js",
+          "test/unit/frontend/src/url-attribution.test.ts",
+          "test/unit/frontend/src/member-attribution.test.js",
+          "--maxWorkers=1",
+          "--no-file-parallelism"
+        ],
+        "exit_code": 1
+      },
+      {
+        "label": "c2-green",
+        "cwd": "ghost",
+        "command": [
+          "pnpm",
+          "exec",
+          "vitest",
+          "run",
+          "test/unit/frontend/src/url-attribution.test.ts",
+          "--maxWorkers=1",
+          "--no-file-parallelism"
+        ],
+        "exit_code": 0
+      }
+    ]
+  },
+  "c3": {
+    "issue": "https://github.com/TryGhost/Ghost/issues/32145",
+    "pr": "https://github.com/TryGhost/Ghost/pull/32146",
+    "runs": [
+      {
+        "label": "b6-c2-c3-red",
+        "cwd": "ghost",
+        "command": [
+          "pnpm",
+          "exec",
+          "vitest",
+          "run",
+          "test/unit/server/services/media-inliner/test/external-media-inliner.test.js",
+          "test/unit/frontend/src/url-attribution.test.ts",
+          "test/unit/frontend/src/member-attribution.test.js",
+          "--maxWorkers=1",
+          "--no-file-parallelism"
+        ],
+        "exit_code": 1
+      },
+      {
+        "label": "c3-green",
+        "cwd": "ghost",
+        "command": [
+          "pnpm",
+          "exec",
+          "vitest",
+          "run",
+          "test/unit/frontend/src/member-attribution.test.js",
+          "test/unit/server/services/member-attribution/referrer-translator.test.ts",
+          "--maxWorkers=1",
+          "--no-file-parallelism"
+        ],
+        "exit_code": 0
+      }
+    ]
+  }
+}

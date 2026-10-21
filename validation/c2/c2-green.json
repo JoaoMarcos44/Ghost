@@ -1,0 +1,14 @@
+{
+  "label": "c2-green",
+  "cwd": "ghost",
+  "command": [
+    "pnpm",
+    "exec",
+    "vitest",
+    "run",
+    "test/unit/frontend/src/url-attribution.test.ts",
+    "--maxWorkers=1",
+    "--no-file-parallelism"
+  ],
+  "exit_code": 0
+}

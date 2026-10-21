@@ -1,0 +1,9 @@
+
+ RUN  v4.1.11 C:/Users/Nitro/Ghost/.tmp-sandbox-workspace/apps/admin
+
+
+ Test Files  2 passed (2)
+      Tests  3 passed (3)
+   Start at  18:50:11
+   Duration  38.49s (transform 209ms, setup 3.82s, import 541ms, tests 21ms, environment 33.65s)
+

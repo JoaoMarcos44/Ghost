@@ -2,6 +2,14 @@
 
 ![B6 infographic](infographic.png)
 
+## Current validation
+
+- Focused media-inliner tests: **58 passed**. From `ghost/`: `pnpm exec vitest run test/unit/server/services/media-inliner/test/external-media-inliner.test.js --maxWorkers=1 --no-file-parallelism`.
+- PR: [#32142](https://github.com/TryGhost/Ghost/pull/32142).
+- Full `pnpm check`: attempted, exited 130 after formatting/Oxlint passed; Nx lint/build tasks failed on this Windows environment. The full test stage was not reached. See the PR and the validation archive for details. Product CI and migration staging review remain unverified.
+
+> **Historical generation record:** The content below records the image-generation context and status at that time. Any test-status statement below is superseded by Current validation above; the generation prompts are preserved unchanged.
+
 This native imagegen edit is a conceptual diagram, not a UI screenshot. The proposed fix is not merged.
 
 The importer downloads a remote media URL and saves the returned file locally. Applying encodeURI to a URL that already contains a percent escape can turn %20 into %2520, causing the request to miss the expected path and return 404. The proposed URL serialization encodes raw spaces while preserving existing valid escapes.
