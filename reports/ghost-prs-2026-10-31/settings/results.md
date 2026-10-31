@@ -89,3 +89,8 @@ O comando foi executado em diretório temporário contendo as cópias. A
 configuração desse pacote usa reactAppConfig sem projectService; ela não é o
 lint type-aware do Admin. A causa da espera não foi determinada e uma nova
 tentativa não foi iniciada por orientação do orquestrador.
+## Commit e publicação
+
+Commit `2a62cbb7447c2c52e6b2be4029803f6ee64002d9`, PR https://github.com/TryGhost/Ghost/pull/32433 (draft).
+
+Os hooks de commit passaram: formatação, ESLint de admin-x-framework e Admin, limites de dependências, inspeção de arquivos staged e changesets. O teste usa `Wrapper` com inicial maiúscula para respeitar as regras de hooks React. Os três erros de tipo em código existente eram causados pela ausência das declarações Shade; elas foram geradas com os comandos oficiais em sandbox, sem alterar regras ou criar stubs. O lint anterior com timeout permanece como histórico de tentativa; o resultado final de lint dos arquivos alterados é aprovado.

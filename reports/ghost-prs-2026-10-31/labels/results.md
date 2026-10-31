@@ -73,3 +73,9 @@ iniciada uma limpeza alternativa em Python antes da orientação do orquestrador
 para não contornar a rejeição; a chamada foi interrompida, mas a inspeção
 confirmou que o sandbox e suas quatro junções já haviam sido removidos. Esse
 contorno não deve ser repetido para qualquer bloqueio automático.
+
+## Commit e publicação
+
+Commit `779635571ba48999068a61ae56ec1ae98678509e`, PR https://github.com/TryGhost/Ghost/pull/32434 (draft).
+
+Os hooks passaram com exit 0: formatação final, ESLint de Admin Framework/Admin/Core, limites de dependências, inspeção dos arquivos staged e changesets. Duas expectativas do teste de aceitação foram ajustadas para evitar atribuir um matcher sem tipo a uma propriedade, mantendo as verificações da ação, IDs, quantidade de labels e uma requisição. A suíte de aceitação continua não executada pelas limitações já registradas; aprovação de lint não é apresentada como aprovação desse teste.

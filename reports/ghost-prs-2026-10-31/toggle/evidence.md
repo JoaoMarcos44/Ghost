@@ -154,3 +154,9 @@ if phase == 'red':
 raise SystemExit(0 if all(code == 0 and collected for _, code, collected in results) else 1)
 ```
 <!-- END RUNNER -->
+
+## Commit e publicação
+
+Commit `af654561e2f883f086fd694abede433abfffff6b`, PR https://github.com/TryGhost/Ghost/pull/32432 (draft).
+
+Os hooks de commit passaram: formatação, ESLint dos dois pacotes, inspeção de arquivos staged e validação do changeset. O formatter ajustou somente o teste do conversor e a apresentação do changeset; o parser mantém a alteração de dois campos. O teste do conversor apontado pelo check focado foi formatado pelo hook. O check global continuou pendente após interromper na formatação de milhares de arquivos fora da mudança; não há alegação de suíte completa aprovada.
