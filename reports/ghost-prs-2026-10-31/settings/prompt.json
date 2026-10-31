@@ -1,0 +1,10 @@
+{
+  "title": "Keep newer settings edits after a pending save",
+  "summary": "A form sends version A while the user types version B. Finishing A must not claim that B was saved. Track edits across the request, keep newer changes editable, and close the group only when the saved version still matches.",
+  "validation_docs": "Issue #32421. Documentation and final test results belong to settings/validation.md. Depict behavior and architecture, not test counts.",
+  "theme": {
+    "name": "Engineering blueprint",
+    "direction": "Dark navy drafting paper, cyan and white linework, amber for pending edits. Precise timeline and layered form-state cards; clean technical typography."
+  },
+  "prompt": "Create a polished landscape infographic for a GitHub pull request. Explain the architecture, problem, and corrected behavior in simple conceptual language. Use three clearly connected areas: Flow, Problem, Fix. Keep text brief and legible. Title: Keep newer settings edits after a pending save. Summary: A form sends version A while the user types version B. Finishing A must not claim that B was saved. Track edits across the request, keep newer changes editable, and close the group only when the saved version still matches.. Theme: Engineering blueprint. Dark navy drafting paper, cyan and white linework, amber for pending edits. Precise timeline and layered form-state cards; clean technical typography. Use English captions for upstream reviewers. Do not invent benchmark numbers, test counts, or claims of complete validation. No credentials, brand logos, signatures, or watermarks. Documentation context: Issue #32421. Documentation and final test results belong to settings/validation.md. Depict behavior and architecture, not test counts.."
+}

@@ -1,0 +1,10 @@
+{
+  "title": "Preserve rich content when importing toggle cards",
+  "summary": "The renderer produces HTML with links, emphasis and paragraphs. Reading only text discards that structure. Preserve inner HTML in the heading and content so the HTML to Lexical to HTML roundtrip keeps those elements.",
+  "validation_docs": "Issue #32428. Document parser and converter regression tests, plain-text control and package changeset. Do not include invented counts.",
+  "theme": {
+    "name": "Editorial print",
+    "direction": "Ivory newsprint, charcoal typography and vermilion accents. Book pages and rich-text blocks move through an HTML-to-Lexical conversion, with readable paragraph and link symbols."
+  },
+  "prompt": "Create a polished landscape infographic for a GitHub pull request. Explain the architecture, problem, and corrected behavior in simple conceptual language. Use three clearly connected areas: Flow, Problem, Fix. Keep text brief and legible. Title: Preserve rich content when importing toggle cards. Summary: The renderer produces HTML with links, emphasis and paragraphs. Reading only text discards that structure. Preserve inner HTML in the heading and content so the HTML to Lexical to HTML roundtrip keeps those elements.. Theme: Editorial print. Ivory newsprint, charcoal typography and vermilion accents. Book pages and rich-text blocks move through an HTML-to-Lexical conversion, with readable paragraph and link symbols. Use English captions for upstream reviewers. Do not invent benchmark numbers, test counts, or claims of complete validation. No credentials, brand logos, signatures, or watermarks. Documentation context: Issue #32428. Document parser and converter regression tests, plain-text control and package changeset. Do not include invented counts.."
+}

@@ -1,0 +1,2 @@
+Native image-generation prompt used the inputs in prompt.json, augmented with:
+1536x1024 conceptual engineering blueprint. Navy, cyan and amber. Title: Keep newer edits safe. Subtitle: Ghost settings - Pending save. Three panels FLOW / PROBLEM / FIX. Show A being sent while B is edited; an incorrect Saved stamp contrasted with a version checkpoint and Unsaved state. Captions: Save A / Edit B / Keep B editable. No invented test counts or validation claims.
