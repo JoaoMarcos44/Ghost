@@ -1,0 +1,7 @@
+{
+  "title": "Keep product buttons separate from description links",
+  "summary": "A product card can contain a guide link in its description and a separate Buy button. Import should identify the actual product button and preserve its destination. A card without a button must remain without one.",
+  "validation_docs": "Issue #32429. Guide goes to /guide, Buy goes to /buy. Do not imply the description link is deleted.",
+  "theme": "Bauhaus product poster: cream, red, yellow and black; separate description link and purchase button.",
+  "prompt": "Create a polished landscape infographic explaining a Ghost pull request. Use simple English and three clearly connected panels: Flow, Problem, Fix. Title: Keep product buttons separate from description links. Summary: A product card can contain a guide link in its description and a separate Buy button. Import should identify the actual product button and preserve its destination. A card without a button must remain without one.. Theme: Bauhaus product poster: cream, red, yellow and black; separate description link and purchase button. Keep labels brief and legible. Explain the architecture conceptually. No invented test counts, performance numbers, screenshots, logos or validation badges. Documentation context: Issue #32429. Guide goes to /guide, Buy goes to /buy. Do not imply the description link is deleted.."
+}

@@ -1,0 +1,7 @@
+{
+  "title": "Preserve pagination when excluding a post",
+  "summary": "The theme helper changes the requested limit before the API calculates page offsets. Preserve the original filter and limit so each page and its metadata describe the same collection.",
+  "validation_docs": "Issue #32427. Show posts 1 through 9 across three pages, with no gaps. The excluded post 10 is outside the result.",
+  "theme": "Transit map: off-white, cobalt, orange; consecutive numbered stops grouped into pages.",
+  "prompt": "Create a polished landscape infographic explaining a Ghost pull request. Use simple English and three clearly connected panels: Flow, Problem, Fix. Title: Preserve pagination when excluding a post. Summary: The theme helper changes the requested limit before the API calculates page offsets. Preserve the original filter and limit so each page and its metadata describe the same collection.. Theme: Transit map: off-white, cobalt, orange; consecutive numbered stops grouped into pages. Keep labels brief and legible. Explain the architecture conceptually. No invented test counts, performance numbers, screenshots, logos or validation badges. Documentation context: Issue #32427. Show posts 1 through 9 across three pages, with no gaps. The excluded post 10 is outside the result.."
+}

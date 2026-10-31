@@ -1,0 +1,7 @@
+{
+  "title": "Keep historical subscriber counts anchored to their date",
+  "summary": "A historical daily series starts from the current subscriber total. Undo changes after the requested end as well as changes inside the interval to reconstruct the old values, while keeping the separate current total unchanged.",
+  "validation_docs": "Issue #32420. Clearly distinguish the historical window from later subscriptions and cancellations. Do not claim browser or MySQL validation.",
+  "theme": "Observatory timeline: midnight blue, violet and silver; a clear historical window and later events.",
+  "prompt": "Create a polished landscape infographic explaining a Ghost pull request. Use simple English and three clearly connected panels: Flow, Problem, Fix. Title: Keep historical subscriber counts anchored to their date. Summary: A historical daily series starts from the current subscriber total. Undo changes after the requested end as well as changes inside the interval to reconstruct the old values, while keeping the separate current total unchanged.. Theme: Observatory timeline: midnight blue, violet and silver; a clear historical window and later events. Keep labels brief and legible. Explain the architecture conceptually. No invented test counts, performance numbers, screenshots, logos or validation badges. Documentation context: Issue #32420. Clearly distinguish the historical window from later subscriptions and cancellations. Do not claim browser or MySQL validation.."
+}
