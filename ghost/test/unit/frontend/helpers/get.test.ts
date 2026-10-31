@@ -47,83 +47,185 @@ describe('{{#get}} helper', function () {
     await configUtils.restore();
   });
 
-  describe('cacheability optimisation', function () {
-    it('Ignores non posts', function () {
-      const apiOptions = {
-        filter: 'id:-abcdef1234567890abcdef12',
-      };
-      const { options, parseResult } = get.optimiseFilterCacheability('not-posts', apiOptions);
-      assert.equal(options.filter, 'id:-abcdef1234567890abcdef12');
-      assert.deepEqual(parseResult({ not: 'modified' }), { not: 'modified' });
-    });
-    it('Changes the filter for simple id negations', function () {
-      const apiOptions = {
-        filter: 'id:-abcdef1234567890abcdef12',
-        limit: 1,
-      };
-      const { options, parseResult } = get.optimiseFilterCacheability('posts', apiOptions);
-      assert.equal(options.filter, 'id:-null');
-      assert.deepEqual(
-        parseResult({
-          posts: [
-            {
-              id: 'abcdef1234567890abcdef12',
-            },
-            {
-              id: '1234567890abcdef12345678',
-            },
-          ],
-        }),
-        {
-          posts: [
-            {
-              id: '1234567890abcdef12345678',
-            },
-          ],
-          meta: {
-            cacheabilityOptimisation: true,
+  describe('pagination with excluded post IDs', function () {
+    const postId = (index: number) => 'a'.repeat(23) + index.toString(16);
+    const posts = Array.from({ length: 10 }, (_, index) => ({
+      id: postId(index + 1),
+      slug: `post${index + 1}`,
+      title: `Post ${index + 1}`,
+      url: `/post${index + 1}/`,
+      visibility: index < 9 ? 'public' : 'members',
+    }));
+    let browseStub: SinonStub;
+
+    beforeEach(function () {
+      browseStub = sinon
+        .stub()
+        .callsFake(
+          async (options: {
+            filter?: string;
+            fields?: string;
+            limit?: string | number;
+            page?: string | number;
+          }) => {
+            const filter = String(options.filter || '');
+            const excludedId = /(?:^|\+)id:-([a-f0-9]{24}|null)/i.exec(filter)?.[1];
+            const selected = posts.filter(
+              (post) =>
+                post.id !== excludedId &&
+                (!filter.includes('visibility:public') || post.visibility === 'public'),
+            );
+            const page = Number(options.page || 1);
+            const limit = Number(options.limit || 15);
+            const pages = Math.ceil(selected.length / limit) || 1;
+            const paged = selected.slice((page - 1) * limit, page * limit);
+            const fields = options.fields?.split(',');
+            const result = fields
+              ? paged.map((post) =>
+                  Object.fromEntries(
+                    fields.map((field) => [field, post[field as keyof typeof post]]),
+                  ),
+                )
+              : paged;
+
+            return {
+              posts: result,
+              meta: {
+                pagination: {
+                  page,
+                  limit,
+                  pages,
+                  total: selected.length,
+                  next: page < pages ? page + 1 : null,
+                  prev: page > 1 ? page - 1 : null,
+                },
+              },
+            };
           },
-        },
-      );
+        );
+      sinon.stub(api, 'postsPublic').get(() => ({ browse: browseStub }));
     });
-    it('Changes the filter for SafeString id negations', function () {
-      const apiOptions = {
-        filter: new SafeString('id:-abcdef1234567890abcdef12+tag:news'),
-        limit: 1,
-      };
-      const { options, parseResult } = get.optimiseFilterCacheability('posts', apiOptions);
-      assert.equal(options.filter, 'id:-null+tag:news');
-      assert.equal(options.limit, 2);
+
+    for (const { page, expectedSlugs } of [
+      { page: undefined, expectedSlugs: ['post1', 'post2', 'post3'] },
+      { page: 1, expectedSlugs: ['post1', 'post2', 'post3'] },
+      { page: 2, expectedSlugs: ['post4', 'post5', 'post6'] },
+      { page: 3, expectedSlugs: ['post7', 'post8', 'post9'] },
+    ]) {
+      it(`returns the filtered posts and pagination for page ${page ?? 'default'}`, async function () {
+        await get.call({}, 'posts', {
+          hash: { filter: `id:-${postId(10)}`, limit: 3, ...(page ? { page } : {}) },
+          data: locals,
+          fn,
+          inverse,
+        });
+
+        sinon.assert.notCalled(inverse);
+        const response = fn.firstCall.args[0];
+        assert.deepEqual(
+          response.posts.map((post: { slug: string }) => post.slug),
+          expectedSlugs,
+        );
+        assert.deepEqual(response.meta.pagination, {
+          page: page || 1,
+          limit: 3,
+          pages: 3,
+          total: 9,
+          next: (page || 1) < 3 ? (page || 1) + 1 : null,
+          prev: (page || 1) > 1 ? (page || 1) - 1 : null,
+        });
+        assert.deepEqual(fn.firstCall.args[1].blockParams[1], response.meta.pagination);
+      });
+    }
+
+    it('reports the page count for the filtered total and requested limit', async function () {
+      await get.call({}, 'posts', {
+        hash: { filter: `id:-${postId(10)}`, limit: 2 },
+        data: locals,
+        fn,
+        inverse,
+      });
+
+      assert.equal(fn.firstCall.args[0].meta.pagination.total, 9);
+      assert.equal(fn.firstCall.args[0].meta.pagination.pages, 5);
+      assert.equal(fn.firstCall.args[0].meta.pagination.limit, 2);
+    });
+
+    it('does not subtract an excluded ID outside the rest of the filter', async function () {
+      await get.call({}, 'posts', {
+        hash: { filter: `id:-${postId(10)}+visibility:public`, limit: 3, page: 2 },
+        data: locals,
+        fn,
+        inverse,
+      });
+
+      const response = fn.firstCall.args[0];
       assert.deepEqual(
-        parseResult({
-          posts: [
-            {
-              id: 'abcdef1234567890abcdef12',
-            },
-            {
-              id: '1234567890abcdef12345678',
-            },
-          ],
-        }),
-        {
-          posts: [
-            {
-              id: '1234567890abcdef12345678',
-            },
-          ],
-          meta: {
-            cacheabilityOptimisation: true,
-          },
-        },
+        response.posts.map((post: { slug: string }) => post.slug),
+        ['post4', 'post5', 'post6'],
       );
-      sinon.assert.notCalled(logging.warn);
+      assert.equal(response.meta.pagination.total, 9);
+      assert.equal(response.meta.pagination.pages, 3);
     });
-    it('Leaves non-string filters without id negations untouched', function () {
-      for (const filter of [new SafeString('tag:news'), 123, true, ['tag:news'], { tag: 'news' }]) {
-        const { options } = get.optimiseFilterCacheability('posts', { filter });
-        assert.equal(options.filter, filter);
+
+    it('excludes the post even when the requested fields omit its ID', async function () {
+      await get.call({}, 'posts', {
+        hash: { filter: `id:-${postId(1)}`, fields: 'title,slug', limit: 3 },
+        data: locals,
+        fn,
+        inverse,
+      });
+
+      const response = fn.firstCall.args[0];
+      assert.deepEqual(
+        response.posts.map((post: { slug: string }) => post.slug),
+        ['post2', 'post3', 'post4'],
+      );
+      assert(response.posts.every((post: { id?: string }) => post.id === undefined));
+      assert.equal(response.meta.pagination.total, 9);
+    });
+
+    it('accepts a SafeString filter containing an excluded ID', async function () {
+      const filter = `id:-${postId(5)}`;
+      await get.call({}, 'posts', {
+        hash: { filter: new SafeString(filter), limit: 3, page: 2 },
+        data: locals,
+        fn,
+        inverse,
+      });
+
+      assert.equal(browseStub.firstCall.args[0].filter, filter);
+      assert.deepEqual(
+        fn.firstCall.args[0].posts.map((post: { slug: string }) => post.slug),
+        ['post4', 'post6', 'post7'],
+      );
+      assert.equal(fn.firstCall.args[0].meta.pagination.total, 9);
+    });
+
+    it('deduplicates identical queries without mixing different pages or exclusions', async function () {
+      locals = { root: {}, _queryCache: new Map() };
+      for (const hash of [
+        { filter: `id:-${postId(10)}`, limit: 3, page: 1 },
+        { filter: `id:-${postId(10)}`, limit: 3, page: 1 },
+        { filter: `id:-${postId(10)}`, limit: 3, page: 2 },
+        { filter: `id:-${postId(1)}`, limit: 3, page: 1 },
+      ]) {
+        await get.call({}, 'posts', { hash, data: locals, fn, inverse });
       }
-      sinon.assert.notCalled(logging.warn);
+
+      assert.equal(browseStub.callCount, 3);
+      assert.deepEqual(
+        fn.getCall(1).args[0].posts.map((post: { slug: string }) => post.slug),
+        ['post1', 'post2', 'post3'],
+      );
+      assert.deepEqual(
+        fn.getCall(2).args[0].posts.map((post: { slug: string }) => post.slug),
+        ['post4', 'post5', 'post6'],
+      );
+      assert.deepEqual(
+        fn.getCall(3).args[0].posts.map((post: { slug: string }) => post.slug),
+        ['post2', 'post3', 'post4'],
+      );
     });
   });
 

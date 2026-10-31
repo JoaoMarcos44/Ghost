@@ -10,7 +10,6 @@ const errors = require('@tryghost/errors');
 const tpl = require('@tryghost/tpl');
 
 const _ = require('lodash');
-const nqlLang = require('@tryghost/nql-lang');
 
 const messages = {
   mustBeCalledAsBlock:
@@ -196,6 +195,10 @@ function resolvePaths(globals, data, value) {
  * @returns {GetHelperAPIOptions}
  */
 function parseOptions(globals, data, options) {
+  if (options.filter instanceof SafeString) {
+    options.filter = options.filter.toString();
+  }
+
   if (_.isString(options.filter)) {
     options.filter = resolvePaths(globals, data, options.filter);
   }
@@ -206,88 +209,6 @@ function parseOptions(globals, data, options) {
   }
 
   return options;
-}
-
-function optimiseFilterCacheability(resource, options) {
-  const noOptimisation = {
-    options,
-    parseResult(result) {
-      return result;
-    },
-  };
-  if (resource !== 'posts') {
-    return noOptimisation;
-  }
-
-  if (!options.filter) {
-    return noOptimisation;
-  }
-
-  // Themes can pass a SafeString here, e.g. `filter=(concat "id:-" id)`
-  const originalFilter = String(options.filter);
-
-  try {
-    if (originalFilter.split('id:-').length !== 2) {
-      return noOptimisation;
-    }
-
-    const parsedFilter = nqlLang.parse(originalFilter);
-    // Support either `id:blah` or `id:blah+other:stuff`
-    if (!parsedFilter.$and && !parsedFilter.id) {
-      return noOptimisation;
-    }
-    const queries = parsedFilter.$and || [parsedFilter];
-    const query = queries.find((q) => {
-      return q?.id?.$ne;
-    });
-
-    if (!query) {
-      return noOptimisation;
-    }
-
-    const idToFilter = query.id.$ne;
-
-    let limit = options.limit;
-    if (options.limit !== 'all') {
-      limit = options.limit ? 1 + parseInt(options.limit, 10) : 16;
-    }
-
-    // We replace with id:-null so we don't have to deal with leading/trailing AND operators
-    const filter = originalFilter.replace(/id:-[a-f0-9A-F]{24}/, 'id:-null');
-
-    const parseResult = function parseResult(result) {
-      const filteredPosts =
-        result?.posts?.filter((post) => {
-          return post.id !== idToFilter;
-        }) || [];
-
-      const modifiedResult = {
-        ...result,
-        posts: limit === 'all' ? filteredPosts : filteredPosts.slice(0, limit - 1),
-      };
-
-      modifiedResult.meta = modifiedResult.meta || {};
-      modifiedResult.meta.cacheabilityOptimisation = true;
-
-      if (typeof modifiedResult?.meta?.pagination?.limit === 'number') {
-        modifiedResult.meta.pagination.limit = modifiedResult.meta.pagination.limit - 1;
-      }
-
-      return modifiedResult;
-    };
-
-    return {
-      options: {
-        ...options,
-        limit,
-        filter,
-      },
-      parseResult,
-    };
-  } catch (err) {
-    logging.warn(err);
-    return noOptimisation;
-  }
 }
 
 /**
@@ -302,8 +223,6 @@ async function makeAPICall(resource, controllerName, action, apiOptions) {
   const controller = api[controllerName];
   const makeRequest = (options) => controller[action](options);
 
-  const { options, parseResult } = optimiseFilterCacheability(resource, apiOptions);
-
   let timer;
 
   try {
@@ -313,7 +232,7 @@ async function makeAPICall(resource, controllerName, action, apiOptions) {
       const logLevel = config.get('optimization:getHelper:timeout:level') || 'error';
       const threshold = config.get('optimization:getHelper:timeout:threshold');
 
-      const apiResponse = makeRequest(options).then(parseResult);
+      const apiResponse = makeRequest(apiOptions);
       // consume rejections that happen after the timeout has already won
       // the race — they'd otherwise crash the process as unhandled
       apiResponse.catch(() => {});
@@ -338,7 +257,7 @@ async function makeAPICall(resource, controllerName, action, apiOptions) {
       response = await Promise.race([apiResponse, timeout]);
       clearTimeout(timer);
     } else {
-      response = await makeRequest(options).then(parseResult);
+      response = await makeRequest(apiOptions);
     }
 
     return response;
@@ -514,7 +433,5 @@ module.exports = async function get(resource, options) {
 };
 
 module.exports.async = true;
-
-module.exports.optimiseFilterCacheability = optimiseFilterCacheability;
 
 module.exports.querySimplePath = querySimplePath;

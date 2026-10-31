@@ -100,45 +100,88 @@ describe('e2e {{#get}} helper', function () {
     locals = { root: { _locals: {} } };
   });
 
-  describe('Filter optimisation', function () {
-    it('Does not do filter optimisation on OR queries', async function () {
+  describe('Post filters', function () {
+    it('Returns posts matching an OR filter', async function () {
       await get.call({}, 'posts', {
         hash: {
           filter: `tag:-hash-hidden,id:-${publicPost.id}`,
-          limit: '5',
+          limit: 'all',
         },
         data: {},
         locals,
         fn,
         inverse,
       });
-      assert.notEqual(fn.firstCall.args[0].meta.cacheabilityOptimisation, true);
+      assert(fn.firstCall.args[0].posts.some((post) => post.id === publicPost.id));
     });
-    it('Does not do filter optimisation on nested id queries', async function () {
+    it('Returns posts matching a nested ID filter', async function () {
       await get.call({}, 'posts', {
         hash: {
           filter: `tag:-hash-hidden+(id:-${publicPost.id},id:-${membersPost.id})`,
-          limit: '5',
+          limit: 'all',
         },
         data: {},
         locals,
         fn,
         inverse,
       });
-      assert.notEqual(fn.firstCall.args[0].meta.cacheabilityOptimisation, true);
+      const posts = fn.firstCall.args[0].posts;
+      assert(posts.some((post) => post.id === publicPost.id));
+      assert(posts.some((post) => post.id === membersPost.id));
     });
-    it('Does not do filter optimisation on multiple negated id queries', async function () {
+    it('Excludes each ID in a filter with multiple negated IDs', async function () {
       await get.call({}, 'posts', {
         hash: {
           filter: `id:-${publicPost.id}+id:-${membersPost.id}`,
-          limit: '5',
+          limit: 'all',
         },
         data: {},
         locals,
         fn,
         inverse,
       });
-      assert.notEqual(fn.firstCall.args[0].meta.cacheabilityOptimisation, true);
+      const posts = fn.firstCall.args[0].posts;
+      assert(!posts.some((post) => post.id === publicPost.id || post.id === membersPost.id));
+      assert(posts.some((post) => post.id === paidPost.id));
+    });
+    it('Paginates filtered posts and returns metadata for the filtered collection', async function () {
+      const order = 'published_at asc, id asc';
+      await get.call({}, 'posts', {
+        hash: { limit: 'all', order },
+        data: {},
+        locals,
+        fn,
+        inverse,
+      });
+
+      const allPosts = fn.firstCall.args[0].posts;
+      assert(allPosts.length >= 10);
+      const excludedId = allPosts[allPosts.length - 1].id;
+      const expectedPosts = allPosts.filter((post) => post.id !== excludedId);
+      const pages = Math.ceil(expectedPosts.length / 3);
+      for (let page = 1; page <= 3; page++) {
+        await get.call({}, 'posts', {
+          hash: { filter: `id:-${excludedId}`, limit: 3, order, page },
+          data: {},
+          locals,
+          fn,
+          inverse,
+        });
+
+        const response = fn.getCall(page).args[0];
+        assert.deepEqual(
+          response.posts.map((post) => post.id),
+          expectedPosts.slice((page - 1) * 3, page * 3).map((post) => post.id),
+        );
+        assert.deepEqual(response.meta.pagination, {
+          page,
+          limit: 3,
+          pages,
+          total: expectedPosts.length,
+          next: page < pages ? page + 1 : null,
+          prev: page > 1 ? page - 1 : null,
+        });
+      }
     });
     it('Returns the correct posts with limit as a string', async function () {
       await get.call({}, 'posts', {
@@ -163,7 +206,6 @@ describe('e2e {{#get}} helper', function () {
         fn,
         inverse,
       });
-      assert.equal(fn.secondCall.args[0].meta.cacheabilityOptimisation, true);
       const foundFilteredPost = fn.secondCall.args[0].posts.find(
         (post) => post.id === firstPostUsually.id,
       );
@@ -189,7 +231,6 @@ describe('e2e {{#get}} helper', function () {
         inverse,
       });
       assert.equal(fn.secondCall.args[0].meta.pagination.limit, defaultLimit);
-      assert.equal(fn.secondCall.args[0].meta.cacheabilityOptimisation, true);
       const foundFilteredPost = fn.secondCall.args[0].posts.find(
         (post) => post.id === firstPostUsually.id,
       );
@@ -220,7 +261,6 @@ describe('e2e {{#get}} helper', function () {
       assert.equal(fn.secondCall.args[0].posts.length, initialCount - 1);
       // 'all' is capped to 100 since 6.x
       assert.equal(fn.secondCall.args[0].meta.pagination.limit, 100);
-      assert.equal(fn.secondCall.args[0].meta.cacheabilityOptimisation, true);
       const foundFilteredPost = fn.secondCall.args[0].posts.find(
         (post) => post.id === firstPostUsually.id,
       );
@@ -249,7 +289,6 @@ describe('e2e {{#get}} helper', function () {
       });
       assert.equal(fn.secondCall.args[0].posts.length, 5);
       assert.equal(fn.secondCall.args[0].meta.pagination.limit, 5);
-      assert.equal(fn.secondCall.args[0].meta.cacheabilityOptimisation, true);
       const foundFilteredPost = fn.secondCall.args[0].posts.find(
         (post) => post.id === firstPostUsually.id,
       );
@@ -279,7 +318,6 @@ describe('e2e {{#get}} helper', function () {
       });
       assert.equal(fn.secondCall.args[0].posts.length, 5);
       assert.equal(fn.secondCall.args[0].meta.pagination.limit, 5);
-      assert.equal(fn.secondCall.args[0].meta.cacheabilityOptimisation, true);
       const foundFilteredPost = fn.secondCall.args[0].posts.find(
         (post) => post.id === firstPostUsually.id,
       );
@@ -309,7 +347,6 @@ describe('e2e {{#get}} helper', function () {
       });
       assert.equal(fn.secondCall.args[0].posts.length, 5);
       assert.equal(fn.secondCall.args[0].meta.pagination.limit, 5);
-      assert.equal(fn.secondCall.args[0].meta.cacheabilityOptimisation, true);
       const foundFilteredPost = fn.secondCall.args[0].posts.find(
         (post) => post.id === firstPostUsually.id,
       );
@@ -339,7 +376,6 @@ describe('e2e {{#get}} helper', function () {
       });
       assert.equal(fn.secondCall.args[0].posts.length, 5);
       assert.equal(fn.secondCall.args[0].meta.pagination.limit, 5);
-      assert.equal(fn.secondCall.args[0].meta.cacheabilityOptimisation, true);
       const foundFilteredPost = fn.secondCall.args[0].posts.find(
         (post) => post.id === firstPostUsually.id,
       );
