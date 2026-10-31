@@ -1067,8 +1067,8 @@ class PostsStatsService {
       const timezone = options.timezone || 'UTC';
       const { dateFrom, dateTo } = getDateBoundaries(options);
 
-      // Run both queries in parallel for better performance
-      const [totalResult, rawDeltas] = await Promise.all([
+      // Run queries in parallel for better performance
+      const [totalResult, rawDeltas, laterResult] = await Promise.all([
         // Get total subscriber count (optimized query - avoid JOIN)
         this.knex('members_newsletters as mn')
           .countDistinct('mn.member_id as total')
@@ -1082,6 +1082,24 @@ class PostsStatsService {
 
         // Get daily deltas (optimized query)
         this._getNewsletterSubscriberDeltas(newsletterId, options),
+
+        // Account for changes after the requested range when anchoring to the current total
+        dateTo
+          ? this.knex('members_subscribe_events as mse')
+              .first(
+                this.knex.raw(
+                  'COALESCE(SUM(CASE WHEN mse.subscribed = 1 THEN 1 ELSE -1 END), 0) as value',
+                ),
+              )
+              .where('mse.newsletter_id', newsletterId)
+              .where('mse.created_at', '>', dateTo)
+              .whereNotExists(function () {
+                this.select('*')
+                  .from('members as m')
+                  .whereRaw('m.id = mse.member_id')
+                  .where('m.email_disabled', 1);
+              })
+          : null,
       ]);
 
       const totalValue = totalResult[0] ? totalResult[0].total : 0;
@@ -1106,7 +1124,8 @@ class PostsStatsService {
 
       // Calculate the starting point by working backwards from the current total
       const totalChange = dailyChanges.reduce((sum, item) => sum + item.change, 0);
-      cumulativeTotal = total - totalChange;
+      const laterChange = parseInt(String(laterResult?.value || 0), 10);
+      cumulativeTotal = total - totalChange - laterChange;
       const startingTotal = cumulativeTotal;
 
       // Second pass: build cumulative values from daily changes
