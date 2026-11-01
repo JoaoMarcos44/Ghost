@@ -1,0 +1,13 @@
+{
+  "main": "3b395b6b082bb995bc8dc8d7b648fea7732fe839",
+  "heads": {
+    "fix/toggle-html-roundtrip-20261031": "4f9fd69ae03ea64c7da1daca4aaa4840e38d28ef",
+    "fix/settings-pending-save-20261031": "1958aa6821284e1caba9c6cf88c222753d6aacf8",
+    "fix/member-label-removal-20261031": "1cdac3b534035e02d995160c0b37d330e47b5ea5"
+  },
+  "integration_tree": "b9e69e2a3fb484830f4c869dba287e9b56567408",
+  "dependency_note": "Reused installed dependency versions from the source worktree; no new install of main lockfile.",
+  "pnpm_check_exit": 1,
+  "framework_types_exit": 1,
+  "cleanup_pending": false
+}

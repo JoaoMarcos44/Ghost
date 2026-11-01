@@ -1,0 +1,127 @@
+{
+  "main": "3b395b6b082bb995bc8dc8d7b648fea7732fe839",
+  "heads": {
+    "fix/toggle-html-roundtrip-20261031": "4f9fd69ae03ea64c7da1daca4aaa4840e38d28ef",
+    "fix/settings-pending-save-20261031": "1958aa6821284e1caba9c6cf88c222753d6aacf8",
+    "fix/member-label-removal-20261031": "1cdac3b534035e02d995160c0b37d330e47b5ea5"
+  },
+  "integration_tree": "b9e69e2a3fb484830f4c869dba287e9b56567408",
+  "dependency_note": "Reused installed dependency versions from the source worktree; no new install of main lockfile.",
+  "symlink_errors": [
+    {
+      "path": ".agents/skills/shade-imports",
+      "error": "[WinError 1314] O cliente n\u00e3o tem o privil\u00e9gio necess\u00e1rio: '../../apps/shade/skills/shade-imports' -> 'C:\\\\Users\\\\Nitro\\\\Ghost\\\\.tmp-sandbox-validation-integrated-au_cfma0\\\\repo\\\\.agents\\\\skills\\\\shade-imports'"
+    },
+    {
+      "path": ".agents/skills/shade-no-dark-variants",
+      "error": "[WinError 1314] O cliente n\u00e3o tem o privil\u00e9gio necess\u00e1rio: '../../apps/shade/skills/shade-no-dark-variants' -> 'C:\\\\Users\\\\Nitro\\\\Ghost\\\\.tmp-sandbox-validation-integrated-au_cfma0\\\\repo\\\\.agents\\\\skills\\\\shade-no-dark-variants'"
+    },
+    {
+      "path": ".agents/skills/shade-page-header",
+      "error": "[WinError 1314] O cliente n\u00e3o tem o privil\u00e9gio necess\u00e1rio: '../../apps/shade/skills/shade-page-header' -> 'C:\\\\Users\\\\Nitro\\\\Ghost\\\\.tmp-sandbox-validation-integrated-au_cfma0\\\\repo\\\\.agents\\\\skills\\\\shade-page-header'"
+    },
+    {
+      "path": ".agents/skills/shade-page-templates",
+      "error": "[WinError 1314] O cliente n\u00e3o tem o privil\u00e9gio necess\u00e1rio: '../../apps/shade/skills/shade-page-templates' -> 'C:\\\\Users\\\\Nitro\\\\Ghost\\\\.tmp-sandbox-validation-integrated-au_cfma0\\\\repo\\\\.agents\\\\skills\\\\shade-page-templates'"
+    },
+    {
+      "path": ".agents/skills/shade-tokens-not-hex",
+      "error": "[WinError 1314] O cliente n\u00e3o tem o privil\u00e9gio necess\u00e1rio: '../../apps/shade/skills/shade-tokens-not-hex' -> 'C:\\\\Users\\\\Nitro\\\\Ghost\\\\.tmp-sandbox-validation-integrated-au_cfma0\\\\repo\\\\.agents\\\\skills\\\\shade-tokens-not-hex'"
+    },
+    {
+      "path": ".agents/skills/shade-use-primitives",
+      "error": "[WinError 1314] O cliente n\u00e3o tem o privil\u00e9gio necess\u00e1rio: '../../apps/shade/skills/shade-use-primitives' -> 'C:\\\\Users\\\\Nitro\\\\Ghost\\\\.tmp-sandbox-validation-integrated-au_cfma0\\\\repo\\\\.agents\\\\skills\\\\shade-use-primitives'"
+    },
+    {
+      "path": ".claude/skills/add-admin-api-endpoint",
+      "error": "[WinError 1314] O cliente n\u00e3o tem o privil\u00e9gio necess\u00e1rio: '../../.agents/skills/add-admin-api-endpoint' -> 'C:\\\\Users\\\\Nitro\\\\Ghost\\\\.tmp-sandbox-validation-integrated-au_cfma0\\\\repo\\\\.claude\\\\skills\\\\add-admin-api-endpoint'"
+    },
+    {
+      "path": ".claude/skills/add-private-feature-flag",
+      "error": "[WinError 1314] O cliente n\u00e3o tem o privil\u00e9gio necess\u00e1rio: '../../.agents/skills/add-private-feature-flag' -> 'C:\\\\Users\\\\Nitro\\\\Ghost\\\\.tmp-sandbox-validation-integrated-au_cfma0\\\\repo\\\\.claude\\\\skills\\\\add-private-feature-flag'"
+    },
+    {
+      "path": ".claude/skills/admin7-feature-flags",
+      "error": "[WinError 1314] O cliente n\u00e3o tem o privil\u00e9gio necess\u00e1rio: '../../.agents/skills/admin7-feature-flags' -> 'C:\\\\Users\\\\Nitro\\\\Ghost\\\\.tmp-sandbox-validation-integrated-au_cfma0\\\\repo\\\\.claude\\\\skills\\\\admin7-feature-flags'"
+    },
+    {
+      "path": ".claude/skills/commit",
+      "error": "[WinError 1314] O cliente n\u00e3o tem o privil\u00e9gio necess\u00e1rio: '../../.agents/skills/commit' -> 'C:\\\\Users\\\\Nitro\\\\Ghost\\\\.tmp-sandbox-validation-integrated-au_cfma0\\\\repo\\\\.claude\\\\skills\\\\commit'"
+    },
+    {
+      "path": ".claude/skills/convert-internal-package-to-typescript",
+      "error": "[WinError 1314] O cliente n\u00e3o tem o privil\u00e9gio necess\u00e1rio: '../../.agents/skills/convert-internal-package-to-typescript' -> 'C:\\\\Users\\\\Nitro\\\\Ghost\\\\.tmp-sandbox-validation-integrated-au_cfma0\\\\repo\\\\.claude\\\\skills\\\\convert-internal-package-to-typescript'"
+    },
+    {
+      "path": ".claude/skills/create-database-migration",
+      "error": "[WinError 1314] O cliente n\u00e3o tem o privil\u00e9gio necess\u00e1rio: '../../.agents/skills/create-database-migration' -> 'C:\\\\Users\\\\Nitro\\\\Ghost\\\\.tmp-sandbox-validation-integrated-au_cfma0\\\\repo\\\\.claude\\\\skills\\\\create-database-migration'"
+    },
+    {
+      "path": ".claude/skills/format-number",
+      "error": "[WinError 1314] O cliente n\u00e3o tem o privil\u00e9gio necess\u00e1rio: '../../.agents/skills/format-number' -> 'C:\\\\Users\\\\Nitro\\\\Ghost\\\\.tmp-sandbox-validation-integrated-au_cfma0\\\\repo\\\\.claude\\\\skills\\\\format-number'"
+    },
+    {
+      "path": ".claude/skills/migrate-internal-package",
+      "error": "[WinError 1314] O cliente n\u00e3o tem o privil\u00e9gio necess\u00e1rio: '../../.agents/skills/migrate-internal-package' -> 'C:\\\\Users\\\\Nitro\\\\Ghost\\\\.tmp-sandbox-validation-integrated-au_cfma0\\\\repo\\\\.claude\\\\skills\\\\migrate-internal-package'"
+    },
+    {
+      "path": ".claude/skills/migrate-service",
+      "error": "[WinError 1314] O cliente n\u00e3o tem o privil\u00e9gio necess\u00e1rio: '../../.agents/skills/migrate-service' -> 'C:\\\\Users\\\\Nitro\\\\Ghost\\\\.tmp-sandbox-validation-integrated-au_cfma0\\\\repo\\\\.claude\\\\skills\\\\migrate-service'"
+    },
+    {
+      "path": ".claude/skills/shade-component-decision",
+      "error": "[WinError 1314] O cliente n\u00e3o tem o privil\u00e9gio necess\u00e1rio: '../../.agents/skills/shade-component-decision' -> 'C:\\\\Users\\\\Nitro\\\\Ghost\\\\.tmp-sandbox-validation-integrated-au_cfma0\\\\repo\\\\.claude\\\\skills\\\\shade-component-decision'"
+    },
+    {
+      "path": ".claude/skills/shade-dropdown-surface-contract",
+      "error": "[WinError 1314] O cliente n\u00e3o tem o privil\u00e9gio necess\u00e1rio: '../../.agents/skills/shade-dropdown-surface-contract' -> 'C:\\\\Users\\\\Nitro\\\\Ghost\\\\.tmp-sandbox-validation-integrated-au_cfma0\\\\repo\\\\.claude\\\\skills\\\\shade-dropdown-surface-contract'"
+    },
+    {
+      "path": ".claude/skills/shade-imports",
+      "error": "[WinError 1314] O cliente n\u00e3o tem o privil\u00e9gio necess\u00e1rio: '../../.agents/skills/shade-imports' -> 'C:\\\\Users\\\\Nitro\\\\Ghost\\\\.tmp-sandbox-validation-integrated-au_cfma0\\\\repo\\\\.claude\\\\skills\\\\shade-imports'"
+    },
+    {
+      "path": ".claude/skills/shade-input-surface-recipe",
+      "error": "[WinError 1314] O cliente n\u00e3o tem o privil\u00e9gio necess\u00e1rio: '../../.agents/skills/shade-input-surface-recipe' -> 'C:\\\\Users\\\\Nitro\\\\Ghost\\\\.tmp-sandbox-validation-integrated-au_cfma0\\\\repo\\\\.claude\\\\skills\\\\shade-input-surface-recipe'"
+    },
+    {
+      "path": ".claude/skills/shade-new-component",
+      "error": "[WinError 1314] O cliente n\u00e3o tem o privil\u00e9gio necess\u00e1rio: '../../.agents/skills/shade-new-component' -> 'C:\\\\Users\\\\Nitro\\\\Ghost\\\\.tmp-sandbox-validation-integrated-au_cfma0\\\\repo\\\\.claude\\\\skills\\\\shade-new-component'"
+    },
+    {
+      "path": ".claude/skills/shade-no-dark-variants",
+      "error": "[WinError 1314] O cliente n\u00e3o tem o privil\u00e9gio necess\u00e1rio: '../../.agents/skills/shade-no-dark-variants' -> 'C:\\\\Users\\\\Nitro\\\\Ghost\\\\.tmp-sandbox-validation-integrated-au_cfma0\\\\repo\\\\.claude\\\\skills\\\\shade-no-dark-variants'"
+    },
+    {
+      "path": ".claude/skills/shade-page-header",
+      "error": "[WinError 1314] O cliente n\u00e3o tem o privil\u00e9gio necess\u00e1rio: '../../.agents/skills/shade-page-header' -> 'C:\\\\Users\\\\Nitro\\\\Ghost\\\\.tmp-sandbox-validation-integrated-au_cfma0\\\\repo\\\\.claude\\\\skills\\\\shade-page-header'"
+    },
+    {
+      "path": ".claude/skills/shade-page-templates",
+      "error": "[WinError 1314] O cliente n\u00e3o tem o privil\u00e9gio necess\u00e1rio: '../../.agents/skills/shade-page-templates' -> 'C:\\\\Users\\\\Nitro\\\\Ghost\\\\.tmp-sandbox-validation-integrated-au_cfma0\\\\repo\\\\.claude\\\\skills\\\\shade-page-templates'"
+    },
+    {
+      "path": ".claude/skills/shade-shadcn-install",
+      "error": "[WinError 1314] O cliente n\u00e3o tem o privil\u00e9gio necess\u00e1rio: '../../.agents/skills/shade-shadcn-install' -> 'C:\\\\Users\\\\Nitro\\\\Ghost\\\\.tmp-sandbox-validation-integrated-au_cfma0\\\\repo\\\\.claude\\\\skills\\\\shade-shadcn-install'"
+    },
+    {
+      "path": ".claude/skills/shade-tokens-not-hex",
+      "error": "[WinError 1314] O cliente n\u00e3o tem o privil\u00e9gio necess\u00e1rio: '../../.agents/skills/shade-tokens-not-hex' -> 'C:\\\\Users\\\\Nitro\\\\Ghost\\\\.tmp-sandbox-validation-integrated-au_cfma0\\\\repo\\\\.claude\\\\skills\\\\shade-tokens-not-hex'"
+    },
+    {
+      "path": ".claude/skills/shade-use-primitives",
+      "error": "[WinError 1314] O cliente n\u00e3o tem o privil\u00e9gio necess\u00e1rio: '../../.agents/skills/shade-use-primitives' -> 'C:\\\\Users\\\\Nitro\\\\Ghost\\\\.tmp-sandbox-validation-integrated-au_cfma0\\\\repo\\\\.claude\\\\skills\\\\shade-use-primitives'"
+    },
+    {
+      "path": ".claude/skills/tinybird",
+      "error": "[WinError 1314] O cliente n\u00e3o tem o privil\u00e9gio necess\u00e1rio: '../../.agents/skills/tinybird' -> 'C:\\\\Users\\\\Nitro\\\\Ghost\\\\.tmp-sandbox-validation-integrated-au_cfma0\\\\repo\\\\.claude\\\\skills\\\\tinybird'"
+    },
+    {
+      "path": ".claude/skills/tinybird-cli-guidelines",
+      "error": "[WinError 1314] O cliente n\u00e3o tem o privil\u00e9gio necess\u00e1rio: '../../.agents/skills/tinybird-cli-guidelines' -> 'C:\\\\Users\\\\Nitro\\\\Ghost\\\\.tmp-sandbox-validation-integrated-au_cfma0\\\\repo\\\\.claude\\\\skills\\\\tinybird-cli-guidelines'"
+    }
+  ],
+  "pnpm_check_exit": 1,
+  "framework_types_note": "Validated separately after real workspace declaration builds; see framework-types.md.",
+  "cleanup_pending": false
+}

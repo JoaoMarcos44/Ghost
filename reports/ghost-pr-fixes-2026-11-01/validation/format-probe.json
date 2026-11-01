@@ -1,0 +1,38 @@
+{
+  "default_archive": {
+    "tools/scripts/lib/pnpm.ts": {
+      "crlf": 246,
+      "matches_blob": false
+    },
+    "packages/testing/test-data/src/selectors/billing.ts": {
+      "crlf": 10,
+      "matches_blob": false
+    }
+  },
+  "lf_archive": {
+    "tools/scripts/lib/pnpm.ts": {
+      "crlf": 0,
+      "matches_blob": true
+    },
+    "packages/testing/test-data/src/selectors/billing.ts": {
+      "crlf": 0,
+      "matches_blob": true
+    }
+  },
+  "pnpm_probe": {
+    "exit": 0,
+    "output": "Checking formatting...\n\nAll matched files use the correct format.\nFinished in 41ms on 2 files using 1 threads.\n"
+  },
+  "tools/scripts/lib/pnpm.ts": {
+    "changed": false,
+    "before_crlf": 0,
+    "after_crlf": 0,
+    "diff": ""
+  },
+  "packages/testing/test-data/src/selectors/billing.ts": {
+    "changed": false,
+    "before_crlf": 0,
+    "after_crlf": 0,
+    "diff": ""
+  }
+}
