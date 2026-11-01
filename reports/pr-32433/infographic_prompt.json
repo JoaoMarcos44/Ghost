@@ -1,0 +1,10 @@
+{
+  "title": "PR 32433 - Keep newer settings edits",
+  "summary": "Flow: editor state to save request to response. Save A; user types B; response A arrives. Protect B in tested consumers, retain a saved baseline for cancel, and keep editor open when save returns false. Block overlapping save feedback. A stale save can save A on the server while returning false for the current form.",
+  "validation_docs": "47 focused tests in 8 files passed with mocked APIs and context. Only tested consumers covered. Live query scheduling, browser, backend and user slug/404 path not established. Individual PR only.",
+  "theme": {
+    "name": "Engineering blueprint",
+    "direction": "Dark navy drafting paper, cyan and white linework, amber for pending edits. Precise timeline and layered form-state cards; clean technical typography."
+  },
+  "prompt": "Create a polished landscape infographic for a GitHub pull request. Explain the architecture, problem, and corrected behavior in simple conceptual language. Use three clearly connected areas: Flow, Problem, Fix. Keep text brief and legible. Title: PR 32433 - Keep newer settings edits. Summary: Flow: editor state to save request to response. Save A; user types B; response A arrives. Protect B in tested consumers, retain a saved baseline for cancel, and keep editor open when save returns false. Block overlapping save feedback. A stale save can save A on the server while returning false for the current form.. Theme: Engineering blueprint. Dark navy drafting paper, cyan and white linework, amber for pending edits. Precise timeline and layered form-state cards; clean technical typography. Use English captions for upstream reviewers. Do not invent benchmark numbers, test counts, or claims of complete validation. No credentials, brand logos, signatures, or watermarks. Documentation context: 47 focused tests in 8 files passed with mocked APIs and context. Only tested consumers covered. Live query scheduling, browser, backend and user slug/404 path not established. Individual PR only.."
+}
