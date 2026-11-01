@@ -1,5 +1,7 @@
 # PR 32432: preserve rich content in imported toggles
 
+[Latest implementation simplicity review](implementation-review.md).
+
 Fixes [TryGhost/Ghost#32428](https://github.com/TryGhost/Ghost/issues/32428).
 
 Importing a toggle card previously read its heading and body as plain text, so links, emphasis and paragraph boundaries were lost. The parser now preserves the fields' inner HTML for supported rich content.
