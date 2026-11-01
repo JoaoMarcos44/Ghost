@@ -2,7 +2,7 @@
 
 ## Scope
 
-The final implementation is [`1cdac3b534035e02d995160c0b37d330e47b5ea5`](https://github.com/JoaoMarcos44/Ghost/commit/1cdac3b534035e02d995160c0b37d330e47b5ea5), following the [regression-test commit](https://github.com/JoaoMarcos44/Ghost/commit/0671fbd30c6bfb31e59c00777bdd20757ba2e32a). The earlier review examined [`779635571ba48999068a61ae56ec1ae98678509e`](https://github.com/JoaoMarcos44/Ghost/commit/779635571ba48999068a61ae56ec1ae98678509e). The fetched main revision used for the individual merge check was `3b395b6b082bb995bc8dc8d7b648fea7732fe839`.
+The latest source commit is [`fcb5149b11d4b94433fbb682a37be7d116ef5c33`](https://github.com/JoaoMarcos44/Ghost/commit/fcb5149b11d4b94433fbb682a37be7d116ef5c33), simplifying the member-ID query. The query-limit and response-validation fixes remain in [`1cdac3b534035e02d995160c0b37d330e47b5ea5`](https://github.com/JoaoMarcos44/Ghost/commit/1cdac3b534035e02d995160c0b37d330e47b5ea5), following the [regression-test commit](https://github.com/JoaoMarcos44/Ghost/commit/0671fbd30c6bfb31e59c00777bdd20757ba2e32a). The earlier review examined [`779635571ba48999068a61ae56ec1ae98678509e`](https://github.com/JoaoMarcos44/Ghost/commit/779635571ba48999068a61ae56ec1ae98678509e). The first individual merge check used main `3b395b6b082bb995bc8dc8d7b648fea7732fe839`; the latest check below uses the newly fetched main.
 
 The implementation bounds the [Core relation lookup](https://github.com/JoaoMarcos44/Ghost/blob/1cdac3b534035e02d995160c0b37d330e47b5ea5/ghost/core/server/services/members/members-api/repositories/member-repository.js) and validates the [Admin framework response](https://github.com/JoaoMarcos44/Ghost/blob/1cdac3b534035e02d995160c0b37d330e47b5ea5/apps/admin-x-framework/src/api/members.ts). The related regression tests are in [Core](https://github.com/JoaoMarcos44/Ghost/blob/1cdac3b534035e02d995160c0b37d330e47b5ea5/ghost/test/unit/server/services/members/members-api/repositories/member-repository.test.js) and the [Admin framework](https://github.com/JoaoMarcos44/Ghost/blob/1cdac3b534035e02d995160c0b37d330e47b5ea5/apps/admin-x-framework/test/unit/api/members.test.tsx).
 
@@ -32,6 +32,31 @@ Separately, an in-memory SQLite behavior probe used the actual repository, relat
 
 Focused ESLint and formatting checks exited 0, and the final regression and implementation commit hooks passed. The first implementation-hook attempt timed out at the wrapper's 180-second limit; the subsequent unchanged hook passed after the stale local main was fast-forwarded to the already fetched revision. Its sandbox and process tree were cleaned.
 
+## Second simplicity evaluation
+
+The new `removeLabels` branch now obtains distinct member IDs using `.distinct().pluck('members.id')`. It replaces `.select('members.id').distinct()` followed by `memberRows.map(row => row.id)`. Only that query and two test mocks changed; the transaction, batching and legacy action remain unchanged.
+
+The Core command above was rerun against this change and exited 0 with **71 tests passed**. The framework was unchanged; its earlier 43-test pass was not repeated. From the copied `ghost/` directory, the following checks also exited 0:
+
+```text
+node.exe <sandbox>/repo/node_modules/eslint/bin/eslint.js --no-cache core/server/services/members/members-api/repositories/member-repository.js test/unit/server/services/members/members-api/repositories/member-repository.test.js
+node.exe <sandbox>/repo/node_modules/oxfmt/bin/oxfmt --threads=1 --check core/server/services/members/members-api/repositories/member-repository.js test/unit/server/services/members/members-api/repositories/member-repository.test.js
+```
+
+An additional sandbox-only Knex comparison compiled the old and new queries with SQLite and MySQL clients: SQL and bindings were identical. Real SQLite execution returned the same member IDs for a join producing duplicate rows, an empty selection, and rows visible within the active transaction. This does not establish MySQL runtime behavior or Ghost's full NQL filter behavior.
+
+The existing in-memory SQLite repository probe was rerun against the copied changed source. It exited 0, confirming one selection, four intended removals, invalid and empty cases, and rollback of all **102 relations** after an injected failure during a later deletion. Its SQL selection stand-in remains a coverage limitation.
+
+The rerun used one worker, `NODE_OPTIONS=--conditions=source --max-old-space-size=2048` and `UV_THREADPOOL_SIZE=1`. Temporary scripts and outputs stayed inside the sandbox; the sandbox was removed and no matching processes remained. `git diff --check` exited 0. No benchmark was run, so this simplification makes no latency or memory improvement claim.
+
+Commit `fcb5149b11d4b94433fbb682a37be7d116ef5c33` passed the unchanged repository commit hooks. Its hook sandbox was removed. A new individual merge check exited 0 with tree `6ae2fe7efd238045414f9c5b42431272ab8bdb4e`:
+
+```text
+git merge-tree --write-tree 36d678dadd294555a9688f29b6a5ff86077dd8b6 fcb5149b11d4b94433fbb682a37be7d116ef5c33
+```
+
+This establishes a conflict-free source merge at those revisions; it does not establish runtime validation on the merged tree.
+
 ## Typecheck and coverage limits
 
 Two typecheck attempts in the isolated framework copy failed:
@@ -55,3 +80,5 @@ git merge-tree --write-tree 3b395b6b082bb995bc8dc8d7b648fea7732fe839 1cdac3b5340
 ```
 
 At the recorded snapshot, [CI](https://github.com/TryGhost/Ghost/actions/runs/41330452605) and [Tinybird](https://github.com/TryGhost/Ghost/actions/runs/41330452553) were `action_required` and required maintainer authorization. That status does not establish passing checks.
+
+After publishing the simplification, both the source branch and PR head reported `fcb5149b11d4b94433fbb682a37be7d116ef5c33`. Its new [CI run](https://github.com/TryGhost/Ghost/actions/runs/41343106718) and [Tinybird run](https://github.com/TryGhost/Ghost/actions/runs/41343106731) also reported `action_required`. Local results do not replace authorization and execution of those workflows.
