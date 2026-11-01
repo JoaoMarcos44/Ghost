@@ -1,0 +1,10 @@
+{
+  "title": "PR 32432 - Toggle formatting and email spacing",
+  "summary": "Flow: HTML toggle to parser to editor, then web or email. Original textContent import lost links, emphasis and paragraph structure. innerHTML preserves rich fields. Email template normalization then joined inline words. Fix: compact only static template fragments; keep heading and body HTML outside normalization.",
+  "validation_docs": "56 focused tests passed; converter-to-email regression also passed in Core as a repeat. Not browser or real email delivery. Individual PR only. No full CI approval claim.",
+  "theme": {
+    "name": "Editorial print",
+    "direction": "Ivory newsprint, charcoal typography and vermilion accents. Book pages and rich-text blocks move through an HTML-to-Lexical conversion, with readable paragraph and link symbols."
+  },
+  "prompt": "Create a polished landscape infographic for a GitHub pull request. Explain the architecture, problem, and corrected behavior in simple conceptual language. Use three clearly connected areas: Flow, Problem, Fix. Keep text brief and legible. Title: PR 32432 - Toggle formatting and email spacing. Summary: Flow: HTML toggle to parser to editor, then web or email. Original textContent import lost links, emphasis and paragraph structure. innerHTML preserves rich fields. Email template normalization then joined inline words. Fix: compact only static template fragments; keep heading and body HTML outside normalization.. Theme: Editorial print. Ivory newsprint, charcoal typography and vermilion accents. Book pages and rich-text blocks move through an HTML-to-Lexical conversion, with readable paragraph and link symbols. Use English captions for upstream reviewers. Do not invent benchmark numbers, test counts, or claims of complete validation. No credentials, brand logos, signatures, or watermarks. Documentation context: 56 focused tests passed; converter-to-email regression also passed in Core as a repeat. Not browser or real email delivery. Individual PR only. No full CI approval claim.."
+}
