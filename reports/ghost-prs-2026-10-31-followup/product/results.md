@@ -17,4 +17,4 @@ All four sandboxes reported `SANDBOX_REMOVED=True`; subprocesses completed. The 
 
 ## Commit verification
 
-The unmodified commit hooks passed formatting, both package ESLint checks, staged-file inspection and release-intent validation. The final formatted change was pushed to the contributor fork. The repository-wide check is documented separately once it completes.
+The unmodified commit hooks passed formatting, both package ESLint checks, staged-file inspection and release-intent validation. The final formatted change was pushed to the contributor fork. The [repository-wide check](../validation/results.md) timed out in formatting after 180 seconds (exit 124), before lint and the full test stage.
