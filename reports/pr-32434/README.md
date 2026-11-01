@@ -1,5 +1,7 @@
 # PR #32434: remove labels from one stable member selection
 
+[Latest implementation simplicity review](implementation-review.md).
+
 [Pull request](https://github.com/TryGhost/Ghost/pull/32434) · [Final source commit](https://github.com/JoaoMarcos44/Ghost/commit/1cdac3b534035e02d995160c0b37d330e47b5ea5) · [Evidence](evidence.md) · [Visual explanation](infographic_report.md)
 
 When members are filtered by label A, removing A and B in separate requests reuses the A filter. The first request removes A; the second then misses those members, leaving B behind. The new `removeLabels` action selects the matching member IDs once when the request runs and removes the requested relations in one transaction. Admin offers multiple-label removal only when Core advertises `config.capabilities.membersBulkRemoveLabels`; older servers retain the single-label flow.
