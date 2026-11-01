@@ -4,7 +4,8 @@
 
 - Audited PR head: `2a62cbb7447c2c52e6b2be4029803f6ee64002d9`.
 - Regression commit: `dcb5bec1c377a22b517b314d31056e1085be611e`.
-- Final implementation commit: `1958aa6821284e1caba9c6cf88c222753d6aacf8`.
+- Functional follow-up commit: `1958aa6821284e1caba9c6cf88c222753d6aacf8`.
+- Latest simplification commit: `5b90b7b188a5a3263ad3bb055cb83cf8b077b33f`; see the [implementation review](implementation-review.md) for the repeated 47-test result and unchanged behavior.
 - Main used for the individual merge-tree check: `3b395b6b082bb995bc8dc8d7b648fea7732fe839`.
 
 The audit found that a form version check alone did not protect every consumer. A dirty group could receive a context refresh, and a response setter could replace an edit made during a save. Some overwrite paths also existed before the audited PR. The follow-up covers the reproduced paths in the selected consumers, rather than every `useForm` caller.
@@ -38,13 +39,13 @@ This result establishes a conflict-free tree for those two commits. It does not 
 Use Windows PowerShell from a Ghost checkout containing this report. Set `$worktree` to a separate checkout at the final implementation commit with the project dependencies installed. A fresh checkout requires `pnpm bootstrap`, as described in Ghost's development setup. The recorded run used Node v22.23.4 and Vitest v4.1.12; the scripts invoke the checkout's `node_modules/.bin/node.exe` and `apps/admin/node_modules/vitest/vitest.mjs` directly.
 
 ```powershell
-$worktree = 'C:\path\to\Ghost-at-1958aa'
+$worktree = 'C:\path\to\Ghost-at-5b90b7'
 git -C $worktree rev-parse HEAD
 powershell -NoProfile -File .\reports\pr-32433\run-unit.ps1 -Worktree $worktree
 powershell -NoProfile -File .\reports\pr-32433\run-checks.ps1 -Worktree $worktree
 ```
 
-Confirm that `git rev-parse HEAD` prints `1958aa6821284e1caba9c6cf88c222753d6aacf8`. Each runner creates a fresh temporary directory under the checkout's `apps/admin`, directs temporary files and caches there, and removes that directory in `finally`. The first command runs the eight test files. The second checks formatting and Oxlint on the 15 listed files. Successful commands exit 0. The runners use the checkout's installed dependencies and do not reproduce the repository commit hooks.
+Confirm that `git rev-parse HEAD` prints `5b90b7b188a5a3263ad3bb055cb83cf8b077b33f`. Each runner creates a fresh temporary directory under the checkout's `apps/admin`, directs temporary files and caches there, and removes that directory in `finally`. The first command runs the eight test files. The second checks formatting and Oxlint on the 15 listed files. Successful commands exit 0. The runners use the checkout's installed dependencies and do not reproduce the repository commit hooks.
 
 ## Limits and cleanup
 

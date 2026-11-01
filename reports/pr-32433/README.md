@@ -1,5 +1,7 @@
 # PR 32433: preserve edits during a pending save
 
+[Latest implementation simplicity review](implementation-review.md).
+
 [PR 32433](https://github.com/TryGhost/Ghost/pull/32433) addresses a settings editor race. A user can save value A and enter value B before the request for A finishes. An older response or settings refresh could replace B, or an overlapping save could close a modal without saving B.
 
 The follow-up at `1958aa6821284e1caba9c6cf88c222753d6aacf8` protects the tested dirty settings group and Design states from refreshes. It guards response setters in Design, Portal, and User Detail, and lets Navigation and Stripe Direct close only after a successful save. It also prevents overlapping save-button feedback and clears the saving state when an error is thrown. The settings group forwards save options and keeps the latest saved response as the baseline for cancel and unchanged saves.
