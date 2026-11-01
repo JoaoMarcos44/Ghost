@@ -1,0 +1,10 @@
+﻿{
+  "title": "PR 32432 - Preserve toggle rich content",
+  "summary": "Flow: HTML card to parser to Lexical to rendered page. Problem: textContent drops links, emphasis and paragraphs. Fix: preserve heading and body with innerHTML. Review focus: keep escaped text safe and distinguish format preservation from sanitization.",
+  "validation_docs": "Audit at exact source af654561e2f883f086fd694abede433abfffff6b. Original focused tests reported 53 passing; do not depict full CI approval. Compare base and head behavior; review limitations remain explicit.",
+  "theme": {
+    "name": "Editorial print",
+    "direction": "Ivory newsprint, charcoal typography and vermilion accents. Book pages and rich-text blocks move through an HTML-to-Lexical conversion, with readable paragraph and link symbols."
+  },
+  "prompt": "Create a polished landscape infographic for a GitHub pull request. Explain the architecture, problem, and corrected behavior in simple conceptual language. Use three clearly connected areas: Flow, Problem, Fix. Keep text brief and legible. Title: PR 32432 - Preserve toggle rich content. Summary: Flow: HTML card to parser to Lexical to rendered page. Problem: textContent drops links, emphasis and paragraphs. Fix: preserve heading and body with innerHTML. Review focus: keep escaped text safe and distinguish format preservation from sanitization.. Theme: Editorial print. Ivory newsprint, charcoal typography and vermilion accents. Book pages and rich-text blocks move through an HTML-to-Lexical conversion, with readable paragraph and link symbols. Use English captions for upstream reviewers. Do not invent benchmark numbers, test counts, or claims of complete validation. No credentials, brand logos, signatures, or watermarks. Documentation context: Audit at exact source af654561e2f883f086fd694abede433abfffff6b. Original focused tests reported 53 passing; do not depict full CI approval. Compare base and head behavior; review limitations remain explicit.."
+}

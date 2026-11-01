@@ -1,0 +1,10 @@
+﻿{
+  "title": "PR 32433 - Protect settings edits during Save",
+  "summary": "Flow: user edits A, saves A, then types B while A is pending. Problem: the older response can close the editor and overwrite B. Fix direction: track form versions and preserve unsaved edits. Review focus: every caller must honor false and every dirty editor must resist stale context refresh.",
+  "validation_docs": "Audit at exact source 2a62cbb7447c2c52e6b2be4029803f6ee64002d9. Navigation integration requires review. Show intended behavior and remaining checks separately. No approval badge or invented test result.",
+  "theme": {
+    "name": "Engineering blueprint",
+    "direction": "Dark navy drafting paper, cyan and white linework, amber for pending edits. Precise timeline and layered form-state cards; clean technical typography."
+  },
+  "prompt": "Create a polished landscape infographic for a GitHub pull request. Explain the architecture, problem, and corrected behavior in simple conceptual language. Use three clearly connected areas: Flow, Problem, Fix. Keep text brief and legible. Title: PR 32433 - Protect settings edits during Save. Summary: Flow: user edits A, saves A, then types B while A is pending. Problem: the older response can close the editor and overwrite B. Fix direction: track form versions and preserve unsaved edits. Review focus: every caller must honor false and every dirty editor must resist stale context refresh.. Theme: Engineering blueprint. Dark navy drafting paper, cyan and white linework, amber for pending edits. Precise timeline and layered form-state cards; clean technical typography. Use English captions for upstream reviewers. Do not invent benchmark numbers, test counts, or claims of complete validation. No credentials, brand logos, signatures, or watermarks. Documentation context: Audit at exact source 2a62cbb7447c2c52e6b2be4029803f6ee64002d9. Navigation integration requires review. Show intended behavior and remaining checks separately. No approval badge or invented test result.."
+}
