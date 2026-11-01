@@ -1,0 +1,10 @@
+{
+  "title": "PR 32434 - Remove labels from one stable selection",
+  "summary": "Flow: Admin capability check to one selected-member snapshot to transactional relation removal. Repeated removals changed a label-based selection. Fix: select once, remove requested relations together. Batch 400 member IDs and 400 label IDs per lookup, keeping parameters bounded. Validate response counters; action may be absent.",
+  "validation_docs": "71 Core and 43 framework tests passed; 5 response cases repeated. Real SQLite rollback verified for 102 relations, with controlled selection. Browser, HTTP and MySQL not run; no production benchmark. Individual PR only.",
+  "theme": {
+    "name": "Paper-cut workshop",
+    "direction": "Warm ivory, terracotta, moss green and muted mustard. Tactile paper-cut member cards and detachable label tabs, with a single clearly bounded batch tray."
+  },
+  "prompt": "Create a polished landscape infographic for a GitHub pull request. Explain the architecture, problem, and corrected behavior in simple conceptual language. Use three clearly connected areas: Flow, Problem, Fix. Keep text brief and legible. Title: PR 32434 - Remove labels from one stable selection. Summary: Flow: Admin capability check to one selected-member snapshot to transactional relation removal. Repeated removals changed a label-based selection. Fix: select once, remove requested relations together. Batch 400 member IDs and 400 label IDs per lookup, keeping parameters bounded. Validate response counters; action may be absent.. Theme: Paper-cut workshop. Warm ivory, terracotta, moss green and muted mustard. Tactile paper-cut member cards and detachable label tabs, with a single clearly bounded batch tray. Use English captions for upstream reviewers. Do not invent benchmark numbers, test counts, or claims of complete validation. No credentials, brand logos, signatures, or watermarks. Documentation context: 71 Core and 43 framework tests passed; 5 response cases repeated. Real SQLite rollback verified for 102 relations, with controlled selection. Browser, HTTP and MySQL not run; no production benchmark. Individual PR only.."
+}
