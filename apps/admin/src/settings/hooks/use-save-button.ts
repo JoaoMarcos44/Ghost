@@ -15,19 +15,17 @@ export const useSaveButton = (handleSave: SaveHandler, fakeWhenUnchanged?: boole
     setSavingTitle('Saving');
 
     // Execute the save operation
-    let saved: boolean;
+    let saved = false;
     try {
       saved = await handleSave({ fakeWhenUnchanged });
-    } catch (error) {
-      pendingSave.current = false;
-      setSavingTitle('Save');
-      setIsSaving(false);
-      throw error;
+    } finally {
+      if (!saved) {
+        pendingSave.current = false;
+        setSavingTitle('Save');
+        setIsSaving(false);
+      }
     }
     if (!saved) {
-      pendingSave.current = false;
-      setSavingTitle('Save');
-      setIsSaving(false);
       return;
     }
 
