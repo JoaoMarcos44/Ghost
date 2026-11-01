@@ -4,6 +4,8 @@
 
 The final source head is [`4f9fd69ae03ea64c7da1daca4aaa4840e38d28ef`](https://github.com/TryGhost/Ghost/commit/4f9fd69ae03ea64c7da1daca4aaa4840e38d28ef). Its individual merge with main at `3b395b6b082bb995bc8dc8d7b648fea7732fe839` completed without conflicts. This establishes mergeability, not test coverage for the merged tree.
 
+During the second simplicity evaluation, main was fetched again at `36d678dadd294555a9688f29b6a5ff86077dd8b6`. `git merge-tree --write-tree origin/main 4f9fd69ae03ea64c7da1daca4aaa4840e38d28ef` exited 0 with tree `6fbfb1afd2218e53fea2ad85ab211212102dbff9`. No merged-tree runtime validation is claimed.
+
 The earlier audit compared PR head `af654561e2f883f086fd694abede433abfffff6b` with the supplied base `80b4c5d8f8a7cb90a93caa072140c54d4cb5b69b`. For the same imported HTML, the base flattened formatting but rendered the text `Hello world` in email. At the audited head, the parser retained `<strong>Hello</strong> <em>world</em>`, but the email template's existing whitespace helper joined it to `Helloworld`; formatted heading words were also joined. The earlier audit's eight behavior scenarios passed on each revision, including assertions that deliberately recorded this defect. Those passes did not establish correct email output.
 
 After adding the regressions but before changing the email renderer, a focused run failed three of 19 tests: expected `Heading words` but obtained `Headingwords`, expected `Hello world` but obtained `Helloworld`, and the import-to-email test likewise observed the joined heading. After the renderer correction, the same 19 tests passed.
@@ -20,6 +22,18 @@ An optional comparison against the renderer at `af654561e2f883f086fd694abede433a
 - Corrected: `<td class="kg-toggle-content">Content</td>`
 
 The focused tests passed for visible text and spacing between formatted words. They do not establish byte-for-byte equality of the email HTML.
+
+### Second simplicity evaluation: plaintext differs
+
+A later sandbox-only experiment compared the retained renderer at `4f9fd69ae03ea64c7da1daca4aaa4840e38d28ef` with a candidate using one ordinary, indented template literal. This is separate from the earlier comparison against `af654561e2f883f086fd694abede433abfffff6b` above. The candidate was applied only to copied source in the sandbox.
+
+The experiment imported HTML with `htmlToLexical`, rendered both versions with `LexicalHTMLRenderer`, and passed the results through Cheerio, the real `inlineCss` function and `@tryghost/html-to-plaintext.email`. Six cases covered plain and formatted text, empty fields, entities and links, intentional spaces, and newlines with `<pre>`. In all six, heading and content `innerHTML` matched, as did the table's structure and attributes after excluding whitespace-only nodes introduced by the static template; this remained true after CSS inlining. The serialized candidate HTML contained 191 additional indentation characters per case.
+
+All six exploratory cases failed the plaintext equality assertion. For example, the retained implementation produced `Before toggle\n\nHeading\n\nContent\n\nAfter toggle`, while the candidate produced `Before toggle\n\n\n\n\n\n\n\nHeading\n\n\n\n\n\nContent\n\n\n\n\nAfter toggle`. The newsletter plaintext converter uses `preserveNewlines: true`, so the added static newlines survive the downstream conversion. The candidate was therefore rejected.
+
+The experiment was one run, using `python -X utf8 -` to adapt the existing focused sandbox runner in memory. Its generated sandbox-only test was executed with Vitest's `--no-coverage --pool=threads --maxWorkers=1 --no-file-parallelism --reporter=verbose` options; Vitest exited 1 with six failed comparisons, and the sandbox was removed. These are not failures of the previously passing 56-test suite, which was not rerun for this experiment. No source or test files were changed, and the worktree remained clean.
+
+The CSS used for this comparison was representative; the experiment did not render the full newsletter template, test email clients, or establish actual delivery behavior.
 
 ## Reproduction outline
 
